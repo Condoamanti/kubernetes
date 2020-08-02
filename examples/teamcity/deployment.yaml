@@ -1,0 +1,221 @@
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-teamcity-postgres-data
+  namespace: teamcity
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+# ConfigMap Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: teamcity-postgres
+  namespace: teamcity
+  labels:
+    app: postgres
+data:
+  PGDATA: /var/lib/postgresql/data/pgdata
+  POSTGRES_DB: "teamcity"
+  POSTGRES_USER: "teamcity"
+  POSTGRES_PASSWORD: "temp1234!@"
+---
+# Deployment Configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teamcity-postgres
+  namespace: teamcity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teamcity-postgres
+  template:
+    metadata:
+      labels:
+        app: teamcity-postgres
+    spec:
+      volumes:
+      - name: postgresdb
+        persistentVolumeClaim:
+          claimName: pvc-teamcity-postgres-data
+      containers:
+      - name: teamcity-postgres
+        image: postgres
+        volumeMounts:
+          - name: postgresdb
+            mountPath: /var/lib/postgresql/data
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        envFrom:
+          - configMapRef:
+              name: teamcity-postgres
+        ports:
+        - containerPort: 5432
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-teamcity-server-data
+  namespace: teamcity
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-teamcity-server-jdbc
+  namespace: teamcity
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 256Mi
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-teamcity-server-logs
+  namespace: teamcity
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+# ConfigMap Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: teamcity-server
+  namespace: teamcity
+  labels:
+    app: teamcity
+data:
+  TEAMCITY_SERVER_MEM_OPTS: "-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m"
+---
+# Deployment Configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teamcity-server
+  namespace: teamcity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teamcity
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: teamcity
+    spec:
+      volumes:
+      - name: server-jdbc-driver
+        persistentVolumeClaim:
+          claimName: pvc-teamcity-server-jdbc
+      - name: server-data
+        persistentVolumeClaim:
+          claimName: pvc-teamcity-server-data
+      - name: server-logs
+        persistentVolumeClaim:
+          claimName: pvc-teamcity-server-logs
+      containers:
+      - name: teamcity-server-jdbc
+        image: jetbrains/teamcity-server
+        volumeMounts:
+          - name: server-jdbc-driver
+            mountPath: /data/teamcity_server/datadir/lib/jdbc
+          - name: server-data
+            mountPath: /data/teamcity_server/datadir
+          - name: server-logs
+            mountPath: /opt/teamcity/logs
+        resources:
+          requests:
+            memory: "1024Mi"
+            cpu: "1000m"
+          limits:
+            memory: "2048Mi"
+            cpu: "2000m"
+        envFrom:
+          - configMapRef:
+              name: teamcity-server
+        ports:
+        - containerPort: 8111
+---
+# Service Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: teamcity-postgres
+  namespace: teamcity
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 5432
+    protocol: TCP
+    targetPort: 5432
+    nodePort: 32081
+  selector:
+    app: teamcity-postgres
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+---
+# Service Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: teamcity-server
+  namespace: teamcity
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8111
+    nodePort: 32080
+  selector:
+    app: teamcity
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+---

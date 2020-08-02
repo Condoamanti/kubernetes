@@ -1,0 +1,98 @@
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-jenkins-server-jenkins-home
+  namespace: jenkins
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+# ConfigMap Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jenkins-server
+  namespace: jenkins
+  labels:
+    app: jenkins-server
+data:
+  JAVA_OPTS: "-Djava.util.logging.config.file=/var/jenkins_home/log.properties"
+  JENKINS_HOME: "/var/jenkins_home/"
+---
+# Service Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-server
+  namespace: jenkins
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 8080
+    name: test1
+    protocol: TCP
+    targetPort: 8080
+    nodePort: 32180
+  - port: 50000
+    name: test2
+    protocol: TCP
+    targetPort: 50000
+    nodePort: 32181
+  selector:
+    app: jenkins-server
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+---
+# Deployment Configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-server
+  namespace: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-server
+  template:
+    metadata:
+      labels:
+        app: jenkins-server
+    spec:
+      volumes:
+      - name: jenkins-server-jenkins-home
+        persistentVolumeClaim:
+          claimName: pvc-jenkins-server-jenkins-home
+      containers:
+      - name: jenkins-server
+        image: jenkins/jenkins:lts
+        volumeMounts:
+          - name: jenkins-server-jenkins-home
+            mountPath: /var/jenkins_home
+        resources:
+          requests:
+            memory: "1024Mi"
+            cpu: "1000m"
+          limits:
+            memory: "4096Mi"
+            cpu: "2000m"
+        envFrom:
+          - configMapRef:
+              name: jenkins-server
+        ports:
+        - containerPort: 8080
+          name: test1
+        - containerPort: 50000
+          name: test2
+---
