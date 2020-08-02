@@ -4,7 +4,7 @@
 
 ### Requirements:
 1. nfs-provisioner:
-    - https://github.com/Condoamanti/kubernetes/tree/master/examples/nfs-provisioner
+    - https://github.com/Condoamanti/kubernetes/tree/master/examples/nfs-client-provisioner
 ### Configuration Steps:
 1. ElasticSearch
     1. Install custom resource definitions
