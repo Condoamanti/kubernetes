@@ -21,6 +21,5 @@
     - nfs-client/nfs
 
 ### Configuration Validation
-1. Create a test Persistent Volume Claim (PVC) using the test-claim.yaml
-2. Create a test pod using the test-pod.yaml
-3. Validate that the new folder is created under your nfs share
+1. Create a test Persistent Volume Claim (PVC) and pod using the test-pod.yaml
+    - `kubectl apply -f test-pod.yaml`
