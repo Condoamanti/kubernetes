@@ -302,7 +302,7 @@ spec:
     - metadata:
         name: data
       spec:
-        storageClassName: rook-ceph-block
+        storageClassName: standard
         accessModes:
           - ReadWriteOnce
         resources:
