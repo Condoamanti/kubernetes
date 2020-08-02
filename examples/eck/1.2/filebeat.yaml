@@ -35,7 +35,7 @@ data:
       - add_host_metadata:
       - add_docker_metadata:
     
-        output.elasticsearch:
+    output.elasticsearch:
       hosts: ['${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
       username: ${ELASTICSEARCH_USERNAME}
       password: ${ELASTICSEARCH_PASSWORD}
