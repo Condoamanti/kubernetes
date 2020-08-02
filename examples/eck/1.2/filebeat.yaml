@@ -101,8 +101,8 @@ spec:
         - name: data
           mountPath: /usr/share/filebeat/data
 ########################
-        - name: nfs-logs
-          mountPath: /usr/share/filebeat/nfs-logs
+        - name: nfslogs
+          mountPath: /usr/share/filebeat/nfslogs
 ########################
         - name: varlibdockercontainers
           mountPath: /var/lib/docker/containers
