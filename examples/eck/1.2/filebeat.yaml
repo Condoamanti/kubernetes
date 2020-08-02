@@ -12,15 +12,14 @@ data:
       #reload.enabled: true
     - type: container
       paths:
-        #- /var/log/containers/*.log
-        - /mnt/pool2/kubernetes-data/dynamic/**/*.log
+        - /var/log/containers/*.log
       processors:
         - add_kubernetes_metadata:
             host: ${NODE_NAME}
             matchers:
             - logs_path:
-                #logs_path: "/var/log/containers/"
-                logs_path: "/mnt/pool2/kubernetes-data/dynamic/**/*.log"
+                logs_path: "/var/log/containers/"
+
     # To enable hints based autodiscover, remove `filebeat.inputs` configuration and uncomment this:
     #filebeat.autodiscover:
     #  providers:
@@ -31,10 +30,12 @@ data:
     #        type: container
     #        paths:
     #          - /var/log/containers/*${data.kubernetes.container.id}.log
+    
     processors:
       - add_host_metadata:
       - add_docker_metadata:
-    output.elasticsearch:
+    
+        output.elasticsearch:
       hosts: ['${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
       username: ${ELASTICSEARCH_USERNAME}
       password: ${ELASTICSEARCH_PASSWORD}
@@ -99,6 +100,10 @@ spec:
           subPath: filebeat.yml
         - name: data
           mountPath: /usr/share/filebeat/data
+########################
+        - name: nfs-logs
+          mountPath: /usr/share/filebeat/nfs-logs
+########################
         - name: varlibdockercontainers
           mountPath: /var/lib/docker/containers
           readOnly: true
@@ -113,6 +118,11 @@ spec:
       - name: varlibdockercontainers
         hostPath:
           path: /var/lib/docker/containers
+########################
+      - name: nfs-logs
+        hostPath:
+          path: /mnt/pool2/kubernetes-data/dynamic
+########################
       - name: varlog
         hostPath:
           path: /var/log
