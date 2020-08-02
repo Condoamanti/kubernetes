@@ -119,7 +119,7 @@ spec:
         hostPath:
           path: /var/lib/docker/containers
 ########################
-      - name: nfs-logs
+      - name: nfslogs
         hostPath:
           path: /mnt/pool2/kubernetes-data/dynamic
 ########################
