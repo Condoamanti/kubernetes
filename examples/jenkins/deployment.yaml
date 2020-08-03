@@ -70,6 +70,7 @@ spec:
       labels:
         app: jenkins-server
     spec:
+      serviceAccountName: jenkins
       volumes:
       - name: jenkins-server-jenkins-home
         persistentVolumeClaim:
@@ -95,4 +96,41 @@ spec:
           name: test1
         - containerPort: 50000
           name: test2
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: jenkins
+subjects:
+- kind: ServiceAccount
+  name: jenkins
+  namespace: eck
+roleRef:
+  kind: ClusterRole
+  name: jenkins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: jenkins
+  labels:
+    k8s-app: jenkins
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources:
+  - namespaces
+  - pods
+  verbs:
+  - get
+  - watch
+  - list
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jenkins
+  namespace: eck
+  labels:
+    k8s-app: jenkins
 ---
