@@ -104,7 +104,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: jenkins
-  namespace: eck
+  namespace: jenkins
 roleRef:
   kind: ClusterRole
   name: jenkins
@@ -130,7 +130,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: jenkins
-  namespace: eck
+  namespace: jenkins
   labels:
     k8s-app: jenkins
 ---
