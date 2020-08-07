@@ -9,7 +9,7 @@ metadata:
 data:
   filebeat.yml: |-
     filebeat.inputs:
-      - type: container
+    - type: container
       paths:
         - /var/lib/docker/containers/*/*.log
       processors:
