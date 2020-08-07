@@ -9,7 +9,6 @@ metadata:
 data:
   filebeat.yml: |-
     filebeat.inputs:
-      reload.enabled: true
       - type: container
       paths:
         - /var/lib/docker/containers/*/*.log
