@@ -57,8 +57,8 @@ spec:
             mountPath: /var/lib/postgresql/data
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: "512i"
+            cpu: "100m"
         envFrom:
           - configMapRef:
               name: proget-mssql
