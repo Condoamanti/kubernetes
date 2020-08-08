@@ -57,7 +57,7 @@ spec:
             mountPath: /var/lib/postgresql/data
         resources:
           limits:
-            memory: "512i"
+            memory: "512Mi"
             cpu: "100m"
         envFrom:
           - configMapRef:
