@@ -38,12 +38,12 @@ spec:
   externalTrafficPolicy: Cluster
   ports:
   - port: 8080
-    name: test1
+    name: webui
     protocol: TCP
     targetPort: 8080
     nodePort: 32180
   - port: 50000
-    name: test2
+    name: tunnel
     protocol: TCP
     targetPort: 50000
     nodePort: 32181
@@ -93,9 +93,9 @@ spec:
               name: jenkins-server
         ports:
         - containerPort: 8080
-          name: test1
+          name: webui
         - containerPort: 50000
-          name: test2
+          name: tunnel
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
