@@ -52,20 +52,6 @@ spec:
       containers:
       - name: proget-mssql
         image: mcr.microsoft.com/mssql/server:2019-latest
-        lifecycle:
-          postStart:
-            exec:
-              command: [
-                "/opt/mssql-tools/bin/sqlcmd",
-                "-S",
-                "localhost",
-                "-U",
-                "SA",
-                "-P",
-                "\"temp1234!@\"",
-                "-Q",
-                "\"CREATE DATABASE [ProGet] COLLATE SQL_Latin1_General_CP1_CI_AS\""
-              ]
         resources:
           requests:
             memory: "2048Mi"
@@ -115,6 +101,6 @@ metadata:
   name: proget-mssql-sa-password
   namespace: proget
 type: Opaque
-data:
-  password: dGVtcDEyMzQhQA==
+stringData:
+  password: "temp1234!@"
 ---
