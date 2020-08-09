@@ -79,8 +79,10 @@ spec:
     app: artifactory
   ports:
     - port: 80
+      name: port1
       targetPort: 8082
     - port: 8081
+      name: port2
       targetPort: 8081
   sessionAffinity: None
   type: ClusterIP
