@@ -56,16 +56,15 @@ spec:
           postStart:
             exec:
               command: [
-                "sh",
                 "/opt/mssql-tools/bin/sqlcmd",
                 "-S",
                 "localhost",
                 "-U",
                 "SA",
                 "-P",
-                "'temp1234!@'",
+                "\"temp1234!@\"",
                 "-Q",
-                "'CREATE DATABASE [ProGet] COLLATE SQL_Latin1_General_CP1_CI_AS'"
+                "\"CREATE DATABASE [ProGet] COLLATE SQL_Latin1_General_CP1_CI_AS\""
               ]
         resources:
           requests:
