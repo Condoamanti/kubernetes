@@ -51,7 +51,7 @@ spec:
           claimName: pvc-artifactory-data
       containers:
       - name: artifactory
-        image: docker.bintray.io/jfrog/artifactory-pro:latest
+        image: docker.bintray.io/jfrog/artifactory-pro:latest # Image can be artifactory-oss, or artifactory-pro (requires license)
         volumeMounts:
           - name: artifactory-data
             mountPath: /var/opt/jfrog/artifactory
@@ -90,16 +90,4 @@ spec:
   type: NodePort
 status:
   loadBalancer: {}
-#  externalTrafficPolicy: Cluster
-#  ports:
-#  - port: 8081
-#    protocol: TCP
-#    targetPort: 8081
-#    nodePort: 32380
-#  selector:
-#    app: artifactory
-#  sessionAffinity: None
-#  type: NodePort
-#status:
-#  loadBalancer: {}
 ---
