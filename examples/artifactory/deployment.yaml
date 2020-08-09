@@ -24,6 +24,8 @@ metadata:
   namespace: artifactory
   labels:
     app: artifactory
+data:
+  EXTRA_JAVA_OPTIONS: "-Xms512m -Xmx2g -Xss256k -XX:+UseG1GC"
 ---
 # Deployment Configuration
 apiVersion: apps/v1
