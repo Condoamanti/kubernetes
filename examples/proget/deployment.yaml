@@ -60,21 +60,24 @@ spec:
                 "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '${MSSQL_SA_PASSWORD}' -Q 'CREATE DATABASE [${DATABASE_NAME}] COLLATE SQL_Latin1_General_CP1_CI_AS'"
               ]
         resources:
+          requests:
+            memory: "2048Mi"
+            cpu: "1000m"
           limits:
             memory: "2048Mi"
             cpu: "1000m"
         env:
-          - name: "ACCEPT_EULA"
-            value: "Y"
-          - name: "MSSQL_PID"
-            value: "Express"
-          - name: "DATABASE_NAME"
-            value: "ProGet"
-          - name: "MSSQL_SA_PASSWORD"
-            valueFrom:
-              secretKeyRef:
-                name: proget-mssql-sa-password
-                key: password
+        - name: "ACCEPT_EULA"
+          value: "Y"
+        - name: "MSSQL_PID"
+          value: "Express"
+        - name: "DATABASE_NAME"
+          value: "ProGet"
+        - name: "MSSQL_SA_PASSWORD"
+          valueFrom:
+            secretKeyRef:
+              name: proget-mssql-sa-password
+              key: password
         ports:
         - containerPort: 1433
 ---
