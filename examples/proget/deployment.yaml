@@ -52,13 +52,13 @@ spec:
       containers:
       - name: proget-mssql
         image: mcr.microsoft.com/mssql/server:2019-latest
-#        lifecycle:
-#          postStart:
-#            exec:
-#              command: [
-#                "sh", "-c",
-#                "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '${MSSQL_SA_PASSWORD}' -Q 'CREATE DATABASE [${DATABASE_NAME}] COLLATE SQL_Latin1_General_CP1_CI_AS'"
-#              ]
+        lifecycle:
+          postStart:
+            exec:
+              command: [
+                "sh", "-c",
+                "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '${MSSQL_SA_PASSWORD}' -Q 'CREATE DATABASE [${DATABASE_NAME}] COLLATE SQL_Latin1_General_CP1_CI_AS'"
+              ]
         resources:
           requests:
             memory: "2048Mi"
