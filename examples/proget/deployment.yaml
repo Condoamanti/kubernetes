@@ -110,7 +110,7 @@ stringData:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-proget-server-data
+  name: pvc-proget-server-packages
   namespace: proget
   labels:
     type: nfs
@@ -153,9 +153,9 @@ spec:
         app: proget-server
     spec:
       volumes:
-      - name: server-data
+      - name: proget-server-packages
         persistentVolumeClaim:
-          claimName: pvc-proget-server-data
+          claimName: pvc-proget-server-packages
       containers:
       - name: proget-server
         image: inedo/proget:latest
