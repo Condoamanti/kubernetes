@@ -88,7 +88,7 @@ spec:
   - port: 1433
     protocol: TCP
     targetPort: 1433
-    nodePort: 32300
+    nodePort: 32400
   selector:
     app: proget-mssql
   sessionAffinity: None
