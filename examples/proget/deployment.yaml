@@ -104,6 +104,6 @@ kind: Secret
 metadata:
   name: proget-mssql-sa-password
 type: Opaque
-data:
+stringData:
   password: temp1234!@
 ---
