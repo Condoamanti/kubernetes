@@ -132,7 +132,7 @@ metadata:
   labels:
     app: proget-server
 data:
-  SQL_CONNECTION_STRING: "Data Source=localhost:1433; Initial Catalog=ProGet; User ID=sa; Password=temp1234!@"
+  SQL_CONNECTION_STRING: "Data Source=proget-mssql:1433; Initial Catalog=ProGet; User ID=sa; Password=temp1234!@"
 ---
 # Deployment Configuration
 apiVersion: apps/v1
@@ -194,7 +194,7 @@ spec:
     targetPort: 80
     nodePort: 32480
   selector:
-    app: proget-mssql
+    app: proget-server
   sessionAffinity: None
   type: NodePort
 status:
