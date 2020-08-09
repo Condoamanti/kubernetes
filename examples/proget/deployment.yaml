@@ -187,16 +187,26 @@ metadata:
   name: proget-server
   namespace: proget
 spec:
-  externalTrafficPolicy: Cluster
+  selector: 
+    app: proget-server
   ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
-    nodePort: 32380
-  selector:
-    app: proget-mssql
+    - port: 80
+      targetPort: 8082
+    - port: 8081
+      targetPort: 8081
   sessionAffinity: None
-  type: NodePort
-status:
-  loadBalancer: {}
+  type: ClusterIP
+
+#  externalTrafficPolicy: Cluster
+#  ports:
+#  - port: 80
+#    protocol: TCP
+#    targetPort: 80
+#    nodePort: 32380
+#  selector:
+#    app: proget-mssql
+#  sessionAffinity: None
+#  type: NodePort
+#status:
+#  loadBalancer: {}
 --- 
