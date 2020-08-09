@@ -65,7 +65,7 @@ spec:
                 "-P",
                 "'temp1234!@'",
                 "-Q",
-                "CREATE DATABASE [ProGet] COLLATE SQL_Latin1_General_CP1_CI_AS'"
+                "'CREATE DATABASE [ProGet] COLLATE SQL_Latin1_General_CP1_CI_AS'"
               ]
         resources:
           requests:
