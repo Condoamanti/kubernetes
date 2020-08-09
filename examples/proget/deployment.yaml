@@ -158,7 +158,7 @@ spec:
           claimName: pvc-proget-server-packages
       containers:
       - name: proget-server
-        image: inedo/proget:latest
+        image: inedo/proget:5.2.31
         volumeMounts:
           - name: proget-server-packages
             mountPath: /var/proget/packages
