@@ -132,7 +132,7 @@ metadata:
   labels:
     app: proget-server
 data:
-  SQL_CONNECTION_STRING: "Data Source=proget-mssql; Initial Catalog=ProGet; User ID=sa; Password=temp1234!@"
+  SQL_CONNECTION_STRING: "Data Source=proget-mssql\\SQLEXPRESS; Initial Catalog=ProGet;User ID=sa;Password=temp1234!@"
 ---
 # Deployment Configuration
 apiVersion: apps/v1
@@ -177,7 +177,6 @@ spec:
             secretKeyRef:
               name: proget-mssql-sa-password
               key: password
-        restartPolicy: Never
         ports:
         - containerPort: 80
 ---
