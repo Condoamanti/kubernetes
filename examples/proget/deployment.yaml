@@ -158,7 +158,7 @@ spec:
           claimName: pvc-proget-server-data
       containers:
       - name: proget-server
-        image: proget.inedo.com/productimages/inedo/proget:latest
+        image: inedo/proget:latest
         resources:
           requests:
             memory: "256Mi"
