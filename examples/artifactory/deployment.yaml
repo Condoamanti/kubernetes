@@ -1,0 +1,88 @@
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-artifactory-data
+  namespace: artifactory
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+# ConfigMap Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: artifactory
+  namespace: artifactory
+  labels:
+    app: artifactory
+---
+# Deployment Configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: artifactory
+  namespace: artifactory
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: artifactory
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: artifactory
+    spec:
+      volumes:
+      - name: artifactory-data
+        persistentVolumeClaim:
+          claimName: pvc-artifactory-data
+      containers:
+      - name: artifactory
+        image: docker pull docker.bintray.io/jfrog/artifactory-oss:latest
+        volumeMounts:
+          - name: artifactory-data
+            mountPath: /var/opt/jfrog/artifactory
+        resources:
+          requests:
+            memory: "1024Mi"
+            cpu: "1000m"
+          limits:
+            memory: "2048Mi"
+            cpu: "2000m"
+        envFrom:
+          - configMapRef:
+              name: artifactory
+        ports:
+        - containerPort: 8081
+---
+# Service Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: artifactory
+  namespace: artifactory
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 8081
+    protocol: TCP
+    targetPort: 8081
+    nodePort: 32380
+  selector:
+    app: artifactory
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+---
