@@ -25,9 +25,9 @@ metadata:
   labels:
     app: proget-mssql
 data:
-  ACCEPT_EULA: "Y"
-  MSSQL_SA_PASSWORD: "temp1234!@"
-  MSSQL_PID: "Express"
+  ACCEPT_EULA: ${ACCEPT_EULA}
+  MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+  MSSQL_PID: ${MSSQL_PID}
 ---
 # Deployment Configuration
 apiVersion: apps/v1
@@ -52,16 +52,29 @@ spec:
       containers:
       - name: proget-mssql
         image: mcr.microsoft.com/mssql/server:2019-latest
-        volumeMounts:
-          - name: mssqldb
-            mountPath: /var/lib/postgresql/data
+        lifecycle:
+          postStart:
+            exec:
+              command: [
+                "sh", "-c",
+                "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '${MSSQL_SA_PASSWORD}' -Q 'CREATE DATABASE [${DATABASE_NAME}] COLLATE SQL_Latin1_General_CP1_CI_AS'"
+              ]
         resources:
           limits:
             memory: "2048Mi"
             cpu: "1000m"
-        envFrom:
-          - configMapRef:
-              name: proget-mssql
+        env:
+          - name: "ACCEPT_EULA"
+            value: "Y"
+          - name: "MSSQL_PID"
+            value: "Express"
+          - name: "DATABASE_NAME"
+            value: "ProGet"
+          - name: "MSSQL_SA_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: proget-mssql-sa-password
+                key: password
         ports:
         - containerPort: 1433
 ---
@@ -84,4 +97,13 @@ spec:
   type: NodePort
 status:
   loadBalancer: {}
+---
+# Secret Configuration
+apiVersion: v1
+kind: Secret
+metadata:
+  name: proget-mssql-sa-password
+type: Opaque
+data:
+  password: temp1234!@
 ---
