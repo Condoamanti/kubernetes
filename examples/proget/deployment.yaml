@@ -106,6 +106,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: proget-mssql-sa-password
+  namespace: proget
 type: Opaque
 stringData:
   password: temp1234!@
