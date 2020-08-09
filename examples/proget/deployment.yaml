@@ -177,6 +177,7 @@ spec:
             secretKeyRef:
               name: proget-mssql-sa-password
               key: password
+      restartPolicy: "Never"
         ports:
         - containerPort: 80
 ---
