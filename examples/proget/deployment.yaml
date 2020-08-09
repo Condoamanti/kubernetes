@@ -56,11 +56,10 @@ spec:
           postStart:
             exec:
               command: [
-                "/opt/mssql-tools/bin/sqlcmd",
-                "-S", "proget-mssql",
-                "-U", "SA",
-                "-P", "'${MSSQL_SA_PASSWORD}'",
-                "-Q", "'CREATE DATABASE [${DATABASE_NAME}] COLLATE SQL_Latin1_General_CP1_CI_AS'"
+                - "sh", "-c"
+                - >
+                  sleep 15;
+                  /opt/mssql-tools/bin/sqlcmd -S proget-mssql -U SA -P "${MSSQL_SA_PASSWORD}" -Q "CREATE DATABASE [${DATABASE_NAME}] COLLATE SQL_Latin1_General_CP1_CI_AS";
               ]
         resources:
           requests:
