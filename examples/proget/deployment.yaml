@@ -181,7 +181,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: proget-mssql
+  name: proget-server
   namespace: proget
 spec:
   externalTrafficPolicy: Cluster
