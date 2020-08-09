@@ -132,7 +132,7 @@ metadata:
   labels:
     app: proget-server
 data:
-  SQL_CONNECTION_STRING: "Data Source=proget-mssql; Initial Catalog=${DATABASE_NAME}; User ID=SA; Password=${MSSQL_SA_PASSWORD}"
+  SQL_CONNECTION_STRING: "Data Source=proget-mssql; Initial Catalog=${DATABASE_NAME}; User ID=sa; Password=${MSSQL_SA_PASSWORD}"
 ---
 # Deployment Configuration
 apiVersion: apps/v1
