@@ -81,11 +81,13 @@ spec:
     - port: 80
       name: port1
       targetPort: 8082
+      nodePort: 32382
     - port: 8081
       name: port2
       targetPort: 8081
+      nodePort: 32381
   sessionAffinity: None
-  type: ClusterIP
+  type: NodePort
 status:
   loadBalancer: {}
 #  externalTrafficPolicy: Cluster
