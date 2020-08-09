@@ -49,7 +49,7 @@ spec:
           claimName: pvc-artifactory-data
       containers:
       - name: artifactory
-        image: docker pull docker.bintray.io/jfrog/artifactory-oss:latest
+        image: docker.bintray.io/jfrog/artifactory-oss:latest
         volumeMounts:
           - name: artifactory-data
             mountPath: /var/opt/jfrog/artifactory
