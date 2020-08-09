@@ -159,6 +159,9 @@ spec:
       containers:
       - name: proget-server
         image: inedo/proget:latest
+        volumeMounts:
+          - name: proget-server-packages
+            mountPath: /var/proget/packages
         resources:
           requests:
             memory: "256Mi"
