@@ -85,6 +85,7 @@ spec:
     - port: 8081
       name: port2
       targetPort: 8081
+      nodePort: 32381
   sessionAffinity: None
   type: NodePort
 status:
