@@ -7,6 +7,15 @@ metadata:
   labels: 
     app: whoami
 spec:
+  affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+              - k8snode2dc1.jittersolutions.com
   replicas: 1
   selector:
     matchLabels:
@@ -22,8 +31,6 @@ spec:
         ports: 
           - name: web
             containerPort: 80
-      nodeSelector:
-        hostname: k8snode2dc1.jittersolutions.com
 ---
 kind: Service
 apiVersion: v1
