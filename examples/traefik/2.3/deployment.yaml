@@ -50,7 +50,7 @@ spec:
         image: traefik:v2.3
         volumeMounts:
           - name: traefik-config
-            mountPath: /etc/traefik/traefik.yml
+            mountPath: /etc/traefik/
         resources:
           limits:
             memory: "128Mi"
