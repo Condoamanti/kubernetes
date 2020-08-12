@@ -8,14 +8,14 @@ metadata:
     app: whoami
 spec:
   affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-              - k8snode2dc1.jittersolutions.com
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - k8snode2dc1.jittersolutions.com
   replicas: 1
   selector:
     matchLabels:
