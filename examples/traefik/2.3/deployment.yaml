@@ -16,6 +16,15 @@ spec:
     requests:
       storage: 1Gi
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik-configmap
+  namespace: traefik
+  labels:
+    app: traefik
+data:
+---
 # Deployment Configuration
 apiVersion: apps/v1
 kind: Deployment
