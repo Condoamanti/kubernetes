@@ -46,7 +46,7 @@ spec:
   entryPoints: 
     - web
   routes:
-  - match: "Host(`k8snode2dc1.jittersolutions.com`)" 
+  - match: "Host(`k8snode2dc1.jittersolutions.com`) || Host(`k8snode3dc1.jittersolutions.com`) || Host(`k8snode4dc1.jittersolutions.com`)" 
     kind: Rule
     services:
     - name: whoami
