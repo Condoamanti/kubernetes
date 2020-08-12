@@ -59,5 +59,25 @@ spec:
           - configMapRef:
               name: traefik-configmap
         ports:
-        - containerPort: 5432
+        - containerPort: 8080
+---
+# Service Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik
+  namespace: traefik
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+    nodePort: 35080
+  selector:
+    app: traefik
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
 ---
