@@ -73,7 +73,7 @@ spec:
   - port: 8080
     protocol: TCP
     targetPort: 8080
-    nodePort: 35080
+    nodePort: 32280
   selector:
     app: traefik
   sessionAffinity: None
