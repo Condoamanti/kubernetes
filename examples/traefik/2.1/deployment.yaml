@@ -28,7 +28,7 @@ spec:
         - --entryPoints.web.address=:80
         - --entryPoints.websecure.address=:443
         - --entryPoints.teamcity.address=:8111
-        - --certificatesresolvers.default.acme.tlschallenge
+        #- --certificatesresolvers.default.acme.tlschallenge
         # Please note that this is the staging Let's Encrypt server configuration.
         # Once you get things working, you should remove that following line.
         #- --certificatesresolvers.default.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
@@ -151,7 +151,6 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: ingressroutes.traefik.containo.us
-
 spec:
   group: traefik.containo.us
   version: v1alpha1
