@@ -207,7 +207,7 @@ metadata:
   name: teamcity-server
   namespace: teamcity
 spec:
-  externalTrafficPolicy: Cluster
+  #externalTrafficPolicy: Cluster
   ports:
   - port: 80
     name: teamcity-server
