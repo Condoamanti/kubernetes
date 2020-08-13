@@ -177,7 +177,8 @@ spec:
           - configMapRef:
               name: teamcity-server
         ports:
-        - containerPort: 8111
+          - name: teamcity-server
+            containerPort: 8111
 ---
 # Service Configuration
 apiVersion: v1

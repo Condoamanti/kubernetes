@@ -1,0 +1,17 @@
+---
+kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: teamcity-server
+  namespace: teamcity
+spec:
+  entryPoints: 
+    - teamcity-server
+  routes:
+  #(k8snode)[1-3](dc1).jittersolutions.com
+  - match: "HostRegexp(`{subdomain:(k8snode[1-4]dc1)+}.jittersolutions.com/teamcity`)" 
+    kind: Rule
+    services:
+    - name: teamcity-server
+      port: 80
+---
