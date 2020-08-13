@@ -12,7 +12,7 @@ spec:
     match: "Path(`/teamcity`)" 
     priority: 10
     middlewares:
-    - name: teamcity-server-stripprefix
+    - name: teamcity-server-redirectregex
       namespace: teamcity
     services:
     - name: teamcity-server
@@ -29,3 +29,12 @@ spec:
     prefixes:
       - /teamcity
 ---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: teamcity-server-redirectregex
+  namespace: teamcity
+spec:
+  redirectRegex:
+    regex: "^(.*)/teamcity$"
+    replacement: http://k8snode1dc1.jittersolutions.com/${1}
