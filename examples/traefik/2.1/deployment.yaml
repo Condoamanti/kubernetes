@@ -133,7 +133,7 @@ spec:
     protocol: TCP
     targetPort: 443
   - name: teamcity
-    nodePort: 32080
+    nodePort: 31910
     port: 8111
     protocol: TCP
     targetPort: 8111
