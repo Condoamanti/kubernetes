@@ -13,13 +13,16 @@ spec:
     services:
     - name: teamcity-server
       port: 8111
+    middlewares:
+    - name: teamcity-stripprefix
 ---
-kind: Middleware
 apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
 metadata:
-  name: teamcity-server
+  name: teamcity-stripprefix
   namespace: teamcity
 spec:
-  replacePathRegex:
-    regex: ^(.*)/teamcity
-    replacement: $1
+  stripPrefix:
+    prefixes:
+      - "/teamcity"
+    forceSlash: false
