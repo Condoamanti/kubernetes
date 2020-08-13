@@ -209,7 +209,7 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - port: 8111
+  - port: 80
     name: teamcity-server
     protocol: TCP
     targetPort: 8111
