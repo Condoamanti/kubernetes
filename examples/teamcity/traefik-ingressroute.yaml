@@ -37,4 +37,4 @@ metadata:
 spec:
   redirectRegex:
     regex: "^(.*)/teamcity$"
-    replacement: http://k8snode1dc1.jittersolutions.com/${1}
+    replacement: ${1}
