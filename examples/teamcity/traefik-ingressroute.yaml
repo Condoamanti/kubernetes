@@ -9,11 +9,10 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: "(Host(`k8snode2dc1.jittersolutions.com`) && Path(`/teamcity`))" 
+    match: "Path(`/teamcity`)" 
     priority: 10
     services:
     - name: teamcity-server
       namespace: teamcity
       port: 8111
-      path: "/"
 ---
