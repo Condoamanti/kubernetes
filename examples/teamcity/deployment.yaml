@@ -207,17 +207,17 @@ metadata:
   name: teamcity-server
   namespace: teamcity
 spec:
-  #externalTrafficPolicy: Cluster
+  externalTrafficPolicy: Cluster
   ports:
   - port: 8111
     name: teamcity-server
     protocol: TCP
-    #targetPort: 8111
-    #nodePort: 32080
+    targetPort: 8111
+    nodePort: 32080
   selector:
     app: teamcity
-  #sessionAffinity: None
-  #type: NodePort
+  sessionAffinity: None
+  type: NodePort
 status:
   loadBalancer: {}
 ---
