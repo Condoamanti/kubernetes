@@ -212,7 +212,7 @@ spec:
   - port: 8111
     name: teamcity-server
     protocol: TCP
-    targetPort: 8111
+    #targetPort: 8111
     #nodePort: 32080
   selector:
     app: teamcity
