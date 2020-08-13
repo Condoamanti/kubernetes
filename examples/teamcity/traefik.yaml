@@ -8,7 +8,7 @@ spec:
   entryPoints: 
     - web
   routes:
-  - match: "HostRegexp(`k8snode1dc1.jittersolutions.com/teamcity`)" 
+  - match: "(Host(`k8snode1dc1.jittersolutions.com`) && Path(`/teamcity`))" 
     kind: Rule
     services:
     - name: teamcity-server
