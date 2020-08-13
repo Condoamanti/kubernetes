@@ -13,8 +13,6 @@ spec:
     services:
     - name: teamcity-server
       port: 8111
-    middlewares:
-    - name: teamcity-replacepath
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
