@@ -6,7 +6,7 @@ metadata:
   namespace: teamcity
 spec:
   entryPoints: 
-    - web
+    - teamcity
   routes:
   - match: "(Host(`k8snode1dc1.jittersolutions.com`) && Path(`/teamcity`))" 
     kind: Rule
