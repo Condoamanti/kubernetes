@@ -216,7 +216,7 @@ spec:
     #nodePort: 32080
   selector:
     app: teamcity
-  sessionAffinity: None
+  #sessionAffinity: None
   #type: NodePort
 status:
   loadBalancer: {}
