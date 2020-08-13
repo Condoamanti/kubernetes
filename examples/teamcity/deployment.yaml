@@ -124,7 +124,7 @@ metadata:
   name: teamcity-server
   namespace: teamcity
   labels:
-    app: teamcity
+    app: teamcity-server
 data:
   TEAMCITY_SERVER_MEM_OPTS: "-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m"
 ---
@@ -138,13 +138,13 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: teamcity
+      app: teamcity-server
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: teamcity
+        app: teamcity-server
     spec:
       volumes:
       - name: server-jdbc-driver
@@ -215,7 +215,7 @@ spec:
     targetPort: 8111
     nodePort: 32080
   selector:
-    app: teamcity
+    app: teamcity-server
   sessionAffinity: None
   type: NodePort
 status:
