@@ -60,6 +60,9 @@ spec:
         - containerPort: 443
           name: websecure
           protocol: TCP
+        - containerPort: 8111
+          name: teamcity
+          protocol: TCP
         readinessProbe:
           failureThreshold: 1
           httpGet:
@@ -128,6 +131,11 @@ spec:
     port: 443
     protocol: TCP
     targetPort: 443
+  - name: websecure
+    nodePort: 32080
+    port: 80
+    protocol: TCP
+    targetPort: 8111
   selector:
     app: traefik
     release: traefik
