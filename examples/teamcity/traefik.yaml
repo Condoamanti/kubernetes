@@ -12,5 +12,5 @@ spec:
     kind: Rule
     services:
     - name: teamcity-server
-      port: 8111
+      port: 80
 ---
