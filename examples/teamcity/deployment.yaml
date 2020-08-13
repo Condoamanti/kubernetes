@@ -213,11 +213,11 @@ spec:
     name: teamcity-server
     protocol: TCP
     targetPort: 8111
-    nodePort: 32080
+    #nodePort: 32080
   selector:
     app: teamcity
   sessionAffinity: None
-  type: NodePort
+  #type: NodePort
 status:
   loadBalancer: {}
 ---
