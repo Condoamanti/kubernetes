@@ -25,6 +25,7 @@ spec:
         - --accesslog
         - --global.checknewversion=true
         - --entryPoints.traefik.address=:8100
+        - --entryPoints.teamcity.address=:8111
         - --entryPoints.web.address=:80
         - --entryPoints.websecure.address=:443
         - --certificatesresolvers.default.acme.tlschallenge
@@ -59,6 +60,9 @@ spec:
           protocol: TCP
         - containerPort: 443
           name: websecure
+          protocol: TCP
+        - containerPort: 8111
+          name: teamcity
           protocol: TCP
         readinessProbe:
           failureThreshold: 1
@@ -113,6 +117,11 @@ spec:
   - 192.168.110.184
   externalTrafficPolicy: Cluster
   ports:
+  - name: admin
+    nodePort: 32316
+    port: 8100
+    protocol: TCP
+    targetPort: 8100
   - name: web
     nodePort: 31909
     port: 80
@@ -123,11 +132,11 @@ spec:
     port: 443
     protocol: TCP
     targetPort: 443
-  - name: admin
-    nodePort: 32316
-    port: 8100
+  - name: teamcity
+    nodePort: 31910
+    port: 8111
     protocol: TCP
-    targetPort: 8100
+    targetPort: 8111
   selector:
     app: traefik
     release: traefik
