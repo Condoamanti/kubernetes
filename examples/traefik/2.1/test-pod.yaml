@@ -16,15 +16,6 @@ spec:
       labels:
         app: whoami
     spec:
-      affinity:
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-              - matchExpressions:
-                - key: kubernetes.io/hostname
-                  operator: In
-                  values:
-                  - k8snode2dc1.jittersolutions.com
       containers:
       - name: whoami-container
         image: containous/whoami
