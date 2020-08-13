@@ -1,0 +1,11 @@
+---
+kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: teamcity-server-ingress
+  namespace: teamcity
+spec:
+  backend:
+    serviceName: teamcity-server
+    servicePort: 8111
+---

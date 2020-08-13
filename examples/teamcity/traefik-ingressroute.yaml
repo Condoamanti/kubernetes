@@ -1,0 +1,16 @@
+---
+kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: teamcity-server-ingressroute
+  namespace: teamcity
+spec:
+  entryPoints: 
+    - web
+  routes:
+  - match: "(Host(`k8snode2dc1.jittersolutions.com`) && Path(`/teamcity`))" 
+    kind: Rule
+    services:
+    - name: teamcity-server
+      port: 8111
+---
