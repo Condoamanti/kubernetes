@@ -14,7 +14,7 @@ spec:
     - name: teamcity-server
       port: 8111
     middlewares:
-    - name: teamcity-stripprefix
+    - name: teamcity-replacepath
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
@@ -30,9 +30,8 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: teamcity-redirectRegex
-  namespace: teamcity
+  name: teamcity-replacepath
 spec:
-  redirectRegex:
-    regex: ^(.*)/teamcity
-    replacement: ${1}
+  replacePath:
+    path: /
+---
