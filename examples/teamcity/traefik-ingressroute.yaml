@@ -11,7 +11,7 @@ spec:
   - kind: Rule
     match: "Path(`/teamcity`)" 
     priority: 10
-    middleware:
+    middlewares:
     - name: teamcity-server-stripprefix
       namespace: teamcity
     services:
