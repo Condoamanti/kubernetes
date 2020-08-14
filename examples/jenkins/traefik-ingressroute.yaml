@@ -28,7 +28,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: "Path(`/login?from=/jenkins`)"
+    match: "Path(`/login`)"
     priority: 10
     services:
     - name: jenkins-server
