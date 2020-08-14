@@ -11,10 +11,6 @@ spec:
   - kind: Rule
     match: "Path(`/jenkins`)" 
     priority: 10
-    services:
-    - name: jenkins-server
-      namespace: jenkins
-      port: 8080
   services:
     jenkins:
       loadBalancer:
