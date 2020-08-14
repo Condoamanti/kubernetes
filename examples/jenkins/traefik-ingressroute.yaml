@@ -9,7 +9,8 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: "Host(`k8snode1dc1.jittersolutions.com`)"
+    #match: "Host(`k8snode1dc1.jittersolutions.com`)"
+    match: "Path(`/jenkins`)"
     priority: 10
     services:
     - name: jenkins-server
