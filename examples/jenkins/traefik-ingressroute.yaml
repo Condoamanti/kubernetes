@@ -36,4 +36,17 @@ spec:
       passHostHeader: true
       responseForwarding:
         flushInterval: 100ms
+    middlewares:
+      - jenkins-server-redirectregex
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: jenkins-server-redirectregex
+  namespace: jenkins
+spec:
+  redirectRegex:
+    regex: "^(.*)/login?from=%2Fjenkins$"
+    replacement: ${1}/login?from=%2Fjenkins
 ---

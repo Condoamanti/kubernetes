@@ -37,3 +37,4 @@ spec:
   redirectRegex:
     regex: "^(.*)/jenkins$"
     replacement: ${1}
+---
