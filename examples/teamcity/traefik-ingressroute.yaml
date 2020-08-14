@@ -9,11 +9,8 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: "Path(`/teamcity`)" 
+    match: "Path(`/`)" 
     priority: 10
-    middlewares:
-    - name: teamcity-server-stripprefix
-      namespace: teamcity
     services:
     - name: teamcity-server
       namespace: teamcity
