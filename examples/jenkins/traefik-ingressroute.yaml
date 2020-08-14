@@ -1,20 +1,16 @@
 ---
-kind: IngressRoute
+kind: Ingress
 apiVersion: traefik.containo.us/v1alpha1
 metadata:
   name: jenkins-server-ingressroute
   namespace: jenkins
 spec:
-  entryPoints: 
-    - web
-  routes:
-  - kind: Rule
-    match: "Host(`k8snod1dc1.jittersolutions.com`) && Path(`/jenkins`)"
-    priority: 10
-    service: jenkins
-  services:
-    jenkins:
-      loadBalancer:
-        servers:
-          - url: "https://www.google.com"
+  rules:
+  - host: "k8snod1dc1.jittersolutions.com"
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: jenkins-server
+          servicePort: 8080
 ---
