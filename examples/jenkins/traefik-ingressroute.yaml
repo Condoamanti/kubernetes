@@ -17,16 +17,34 @@ spec:
       passHostHeader: true
       responseForwarding:
         flushInterval: 100ms
+---
+kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: jenkins-server-ingressroute
+  namespace: jenkins
+spec:
+  entryPoints: 
+    - web
+  routes:
+  - kind: Rule
+    match: "Path(`/jenkins`)"
+    priority: 10
+    services:
+    - name: jenkins-server
+      port: 8080
+      passHostHeader: true
+      responseForwarding:
+        flushInterval: 100ms
     middlewares:
     - name: jenkins-server-addprefix
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: jenkins-server-addprefix
-  namespace: jenkins
+  name: test-replacepathregex
 spec:
-  addPrefix:
-    prefixes:
-      - /jenkins
+  replacePathRegex:
+    regex: ^/login(.*)
+    replacement: /jenkins/$1
 ---
