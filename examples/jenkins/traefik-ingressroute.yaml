@@ -17,4 +17,16 @@ spec:
       passHostHeader: true
       responseForwarding:
         flushInterval: 100ms
+    middlewares:
+    - name: jenkins-server-addprefix
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: jenkins-server-addprefix
+  namespace: jenkins
+spec:
+  addPrefix:
+    prefixes:
+      - /jenkins
 ---
