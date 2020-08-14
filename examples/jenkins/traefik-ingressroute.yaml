@@ -13,6 +13,10 @@ spec:
     priority: 10
     services:
     - name: jenkins-server
+      namespace: jenkins
+      port: 8080
+  services:
+    jenkins:
       loadBalancer:
         servers:
           - url: "http://k8snode1dc1.jittersolutions.com:32180"
