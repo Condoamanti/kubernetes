@@ -19,7 +19,7 @@ spec:
     jenkins:
       loadBalancer:
         servers:
-          - url: "http://k8snode1dc1.jittersolutions.com:32180"
+          - url: "http://k8snode1dc1.jittersolutions.com:32180/"
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
