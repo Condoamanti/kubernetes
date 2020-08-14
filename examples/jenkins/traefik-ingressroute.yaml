@@ -37,7 +37,7 @@ spec:
       responseForwarding:
         flushInterval: 100ms
     middlewares:
-    - name: jenkins-server-addprefix
+    - name: test-replacepathregex
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
