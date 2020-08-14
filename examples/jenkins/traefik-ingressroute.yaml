@@ -9,7 +9,8 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: "Path(`/jenkins`)" 
+    match: "Path(`/jenkins`)"
+    service: jenkins
     priority: 10
   services:
     jenkins:
@@ -36,3 +37,14 @@ spec:
   redirectRegex:
     regex: "^(.*)/jenkins$"
     replacement: ${1}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: jenkins-server-redirectregex
+  namespace: jenkins
+spec:
+  redirectRegex:
+    regex: "^(.*)/jenkins$"
+    replacement: ${1}
+---
