@@ -13,9 +13,10 @@ spec:
     priority: 10
     services:
     - name: jenkins-server
-      loadBalancer:
-        servers:
-          - url: "http://k8snode1dc1.jittersolutions.com:32180"
+      namespace: jenkins
+      port: 8080
+    middlewares:
+      - name: jenkins-server-stripprefix
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
