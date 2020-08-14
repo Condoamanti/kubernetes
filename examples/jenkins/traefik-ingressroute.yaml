@@ -55,4 +55,14 @@ spec:
       passHostHeader: true
       responseForwarding:
         flushInterval: 100ms
+      middlewares:
+        - name: test-replacepath
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: test-replacepath
+spec:
+  replacePath:
+    path: /jenkins
 ---
