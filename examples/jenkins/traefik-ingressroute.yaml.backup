@@ -17,6 +17,7 @@ spec:
       port: 8080
     middlewares:
       - name: jenkins-server-stripprefix
+      - name: jenkins-server-addprefix
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
@@ -37,4 +38,14 @@ spec:
   redirectRegex:
     regex: "^(.*)/jenkins$"
     replacement: ${1}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: jenkins-server-addprefix
+  namespace: jenkins
+spec:
+  addPrefix:
+    prefixes:
+      - /jenkins
 ---
