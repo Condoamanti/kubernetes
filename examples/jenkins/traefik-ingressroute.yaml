@@ -17,8 +17,6 @@ spec:
       passHostHeader: true
       responseForwarding:
         flushInterval: 100ms
-      middlewares:
-        - name: test-replacepath
 ---
 kind: IngressRoute
 apiVersion: traefik.containo.us/v1alpha1
@@ -58,13 +56,14 @@ spec:
       responseForwarding:
         flushInterval: 100ms
       middlewares:
-        - name: test-replacepath
+        - name: test-stripprefix
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: test-replacepath
+  name: test-stripprefix
 spec:
-  replacePath:
-    path: /
+  stripPrefix:
+    prefixes:
+      - /jenkins
 ---
