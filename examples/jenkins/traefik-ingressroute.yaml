@@ -18,22 +18,3 @@ spec:
       responseForwarding:
         flushInterval: 100ms
 ---
-kind: IngressRoute
-apiVersion: traefik.containo.us/v1alpha1
-metadata:
-  name: jenkins-server-frontend-ingressroute
-  namespace: jenkins
-spec:
-  entryPoints: 
-    - web
-  routes:
-  - kind: Rule
-    match: "Path(`/login`)"
-    priority: 10
-    services:
-    - name: jenkins-server
-      port: 8080
-      passHostHeader: true
-      responseForwarding:
-        flushInterval: 100ms
----
