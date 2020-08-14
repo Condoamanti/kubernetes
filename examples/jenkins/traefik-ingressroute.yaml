@@ -10,41 +10,10 @@ spec:
   routes:
   - kind: Rule
     match: "Path(`/jenkins`)"
-    service: jenkins
     priority: 10
   services:
     jenkins:
       loadBalancer:
         servers:
-          - url: "http://k8snode1dc1.jittersolutions.com:32180/"
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: jenkins-server-stripprefix
-  namespace: jenkins
-spec:
-  stripPrefix:
-    prefixes:
-      - /jenkins
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: jenkins-server-redirectregex
-  namespace: jenkins
-spec:
-  redirectRegex:
-    regex: "^(.*)/jenkins$"
-    replacement: ${1}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: jenkins-server-redirectregex
-  namespace: jenkins
-spec:
-  redirectRegex:
-    regex: "^(.*)/jenkins$"
-    replacement: ${1}
+          - url: "https://www.google.com"
 ---
