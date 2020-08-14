@@ -1,16 +1,20 @@
 ---
-kind: Ingress
+kind: IngressRoute
 apiVersion: traefik.containo.us/v1alpha1
 metadata:
   name: jenkins-server-ingressroute
   namespace: jenkins
 spec:
-  rules:
-  - host: "k8snod1dc1.jittersolutions.com"
-    http:
-      paths:
-      - path: "/"
-        backend:
-          serviceName: jenkins
-          servicePort: 8080
+  entryPoints: 
+    - web
+  routes:
+  - kind: Rule
+    match: "Path(`/jenkins`)" 
+    priority: 10
+    services:
+    - name: jenkins-server
+      port: 8080
+      passHostHeader: true
+      responseForwarding:
+        flushInterval: 100ms
 ---
