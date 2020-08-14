@@ -4,7 +4,7 @@
 | K8SNODE1DC1.domain.local | 192.168.110.221 | master |
 | K8SNODE2DC1.domain.local | 192.168.110.222 | worker |
 | K8SNODE3DC1.domain.local | 192.168.110.223 | worker |
-| K8SNODE4DC1.domain.local | 192.168.110.223 | worker |
+| K8SNODE4DC1.domain.local | 192.168.110.224 | worker |
 
 ### Kubernetes Storage Configuration
 | ServerName | ServerIPv4 | ServerNFSShare |
