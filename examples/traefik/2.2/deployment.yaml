@@ -203,6 +203,12 @@ spec:
   type: LoadBalancer
   selector:
     app: traefik
+  externalIPs:
+  - 192.168.110.181
+  - 192.168.110.182
+  - 192.168.110.183
+  - 192.168.110.184
+  externalTrafficPolicy: Cluster
   ports:
     - protocol: TCP
       port: 80
