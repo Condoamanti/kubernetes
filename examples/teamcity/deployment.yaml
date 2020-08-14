@@ -124,7 +124,7 @@ metadata:
   name: teamcity-server
   namespace: teamcity
   labels:
-    app: teamcity-server
+    app: teamcity
 data:
   TEAMCITY_SERVER_MEM_OPTS: "-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m"
 ---
@@ -138,13 +138,13 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: teamcity-server
+      app: teamcity
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: teamcity-server
+        app: teamcity
     spec:
       volumes:
       - name: server-jdbc-driver
@@ -177,8 +177,7 @@ spec:
           - configMapRef:
               name: teamcity-server
         ports:
-          - name: teamcity-server
-            containerPort: 8111
+        - containerPort: 8111
 ---
 # Service Configuration
 apiVersion: v1
@@ -209,15 +208,64 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - port: 8111
-    name: teamcity-server
+  - port: 80
     protocol: TCP
     targetPort: 8111
     nodePort: 32080
   selector:
-    app: teamcity-server
+    app: teamcity
   sessionAffinity: None
   type: NodePort
 status:
   loadBalancer: {}
 ---
+# Deployment Configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teamcity-agent
+  namespace: teamcity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teamcity
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: teamcity
+    spec:
+      volumes:
+      - name: server-jdbc-driver
+        persistentVolumeClaim:
+          claimName: pvc-teamcity-server-jdbc
+      - name: server-data
+        persistentVolumeClaim:
+          claimName: pvc-teamcity-server-data
+      - name: server-logs
+        persistentVolumeClaim:
+          claimName: pvc-teamcity-server-logs
+      containers:
+      - name: teamcity-server-jdbc
+        image: jetbrains/teamcity-server
+        volumeMounts:
+          - name: server-jdbc-driver
+            mountPath: /data/teamcity_server/datadir/lib/jdbc
+          - name: server-data
+            mountPath: /data/teamcity_server/datadir
+          - name: server-logs
+            mountPath: /opt/teamcity/logs
+        resources:
+          requests:
+            memory: "1024Mi"
+            cpu: "1000m"
+          limits:
+            memory: "2048Mi"
+            cpu: "2000m"
+        envFrom:
+          - configMapRef:
+              name: teamcity-server
+        ports:
+        - containerPort: 8111

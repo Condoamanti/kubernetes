@@ -2,8 +2,8 @@
 kind: IngressRoute
 apiVersion: traefik.containo.us/v1alpha1
 metadata:
-  name: teamcity-server-ingressroute
-  namespace: teamcity
+  name: jenkins-server-ingressroute
+  namespace: jenkins
 spec:
   entryPoints: 
     - web
@@ -12,26 +12,28 @@ spec:
     match: "Host(`k8snode1dc1.jittersolutions.com`)" 
     priority: 10
     services:
-    - name: teamcity-server
-      namespace: teamcity
-      port: 8111
+    - name: jenkins-server
+      namespace: jenkins
+      port: 8080
+    middlewares:
+      - name: jenkins-server-stripprefix
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: teamcity-server-stripprefix
-  namespace: teamcity
+  name: jenkins-server-stripprefix
+  namespace: jenkins
 spec:
   stripPrefix:
     prefixes:
-      - /teamcity
+      - /jenkins
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: teamcity-server-redirectregex
-  namespace: teamcity
+  name: jenkins-server-redirectregex
+  namespace: jenkins
 spec:
   redirectRegex:
-    regex: "^(.*)/teamcity$"
+    regex: "^(.*)/jenkins$"
     replacement: ${1}
