@@ -48,5 +48,5 @@ metadata:
 spec:
   redirectRegex:
     regex: "^(.*)/login?from=%2Fjenkins$"
-    replacement: ${1}/login?from=%2Fjenkins
+    replacement: ${1}/z
 ---
