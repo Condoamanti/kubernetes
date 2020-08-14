@@ -9,7 +9,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: "Path(`/`)" 
+    match: "Host(`k8snode1dc1.jittersolutions.com`)" 
     priority: 10
     services:
     - name: teamcity-server
