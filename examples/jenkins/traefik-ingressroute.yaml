@@ -2,7 +2,7 @@
 kind: IngressRoute
 apiVersion: traefik.containo.us/v1alpha1
 metadata:
-  name: jenkins-server-ingressroute
+  name: jenkins-server-backend-ingressroute
   namespace: jenkins
 spec:
   entryPoints: 
@@ -21,7 +21,7 @@ spec:
 kind: IngressRoute
 apiVersion: traefik.containo.us/v1alpha1
 metadata:
-  name: jenkins-server-ingressroute
+  name: jenkins-server-frontend-ingressroute
   namespace: jenkins
 spec:
   entryPoints: 
@@ -45,6 +45,6 @@ metadata:
   name: test-replacepathregex
 spec:
   replacePathRegex:
-    regex: ^/login(.*)
+    regex: ^/login(.*)$
     replacement: /jenkins/$1
 ---
