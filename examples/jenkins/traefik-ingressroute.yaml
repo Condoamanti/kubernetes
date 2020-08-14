@@ -28,7 +28,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: "Path(`/jenkins`)"
+    match: "Path(`/login`)"
     priority: 10
     services:
     - name: jenkins-server
@@ -37,14 +37,13 @@ spec:
       responseForwarding:
         flushInterval: 100ms
     middlewares:
-    - name: test-replacepathregex
+    - name: jenkins-server-addprefix
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: test-replacepathregex
+  name: jenkins-server-addprefix
 spec:
-  replacePathRegex:
-    regex: ^/login(.*)$
-    replacement: /jenkins/$1
+  addPrefix:
+    prefix: /jenkins
 ---
