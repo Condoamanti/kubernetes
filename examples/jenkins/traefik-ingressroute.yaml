@@ -64,5 +64,5 @@ metadata:
   name: test-replacepath
 spec:
   replacePath:
-    path: /jenkins
+    path: /
 ---
