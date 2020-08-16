@@ -14,7 +14,7 @@ spec:
     services:
     - name: kubernetes-dashboard 
       port: 443
-      passHostHeader: true
+      passHostHeader: false
     middlewares:
     - name: kubernetes-dashboard-stripprefix
 ---
@@ -26,5 +26,5 @@ metadata:
 spec:
   stripPrefix:
     prefixes:
-      - /kubernetes-dashboard/
+      - /kubernetes-dashboard
 ---
