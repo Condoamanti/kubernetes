@@ -19,7 +19,7 @@ spec:
 kind: IngressRoute
 apiVersion: traefik.containo.us/v1alpha1
 metadata:
-  name: jenkins-server-frontend-ingressroute
+  name: jenkins-server-login-ingressroute
   namespace: jenkins
 spec:
   entryPoints: 
