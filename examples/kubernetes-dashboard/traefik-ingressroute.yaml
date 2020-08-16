@@ -13,6 +13,6 @@ spec:
     priority: 10
     services:
     - name: kubernetes-dashboard 
-      port: 443
+      port: 8000
       passHostHeader: true
 ---
