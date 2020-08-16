@@ -36,10 +36,11 @@ spec:
   ports:
     - port: 443
       targetPort: 8443
-      nodePort: 32443
+      #nodePort: 32443
   selector:
     k8s-app: kubernetes-dashboard
-  type: NodePort
+  #type: NodePort
+  type: ClusterIP
 ---
 apiVersion: v1
 kind: Secret
