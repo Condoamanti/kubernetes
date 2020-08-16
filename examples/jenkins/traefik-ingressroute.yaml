@@ -9,7 +9,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: "PATH(`/jenkins`)"
+    match: "PATH(`/jenkins`) || PATH(`/login`)"
     priority: 10
     services:
     - name: jenkins-server
