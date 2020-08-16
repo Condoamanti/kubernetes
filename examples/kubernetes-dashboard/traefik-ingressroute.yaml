@@ -13,7 +13,7 @@ spec:
     priority: 10
     services:
     - name: kubernetes-dashboard
-      port: 433
+      port: 8443
       passHostHeader: true
     #middlewares:
     #- name: kubernetes-dashboard-stripprefix
