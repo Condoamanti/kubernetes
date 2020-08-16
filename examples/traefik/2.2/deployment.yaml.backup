@@ -173,13 +173,6 @@ spec:
         app: traefik
     spec:
       serviceAccountName: traefik-ingress-controller
-      volumes:
-      - name: traefik-letsencrypt
-        persistentVolumeClaim:
-          claimName: pvc-traefik-letsencrypt
-      - name: traefik-configuration
-        persistentVolumeClaim:
-          claimName: pvc-traefik-configuration
       containers:
         - name: traefik
           image: traefik:v2.2
@@ -199,12 +192,6 @@ spec:
               containerPort: 443
             - name: admin
               containerPort: 8080
-          volumeMounts:
-            - name: traefik-letsencrypt
-              mountPath: /letsencrypt
-            - name: traefik-configuration
-              mountPath: /configuration
-
 ---
 apiVersion: v1
 kind: Service
