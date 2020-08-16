@@ -6,7 +6,7 @@ metadata:
   namespace: kubernetes-dashboard
 spec:
   entryPoints: 
-    - tcpep
+    - websecure
   routes:
   - kind: Rule
     match: "(Host(`k8snode1dc1.jittersolutions.com`) || Host(`192.168.110.181`)) && PATH(`/kubernetes-dashboard`)"
