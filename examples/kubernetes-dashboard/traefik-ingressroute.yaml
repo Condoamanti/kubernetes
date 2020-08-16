@@ -26,5 +26,5 @@ metadata:
 spec:
   stripPrefix:
     prefixes:
-      - /kubernetes-dashboard
+      - /kubernetes-dashboard/
 ---
