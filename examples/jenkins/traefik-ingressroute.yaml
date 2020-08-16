@@ -16,3 +16,31 @@ spec:
       port: 8080
       passHostHeader: false
 ---
+kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: jenkins-server-frontend-ingressroute
+  namespace: jenkins
+spec:
+  entryPoints: 
+    - web
+  routes:
+  - kind: Rule
+    match: "(Host(`k8snode1dc1.jittersolutions.com`) || Host(`192.168.110.181`)) && PATH(`/login`)"
+    priority: 10
+    services:
+    - name: jenkins-server
+      port: 8080
+      passHostHeader: false
+    middlewares:
+    - name: jenkins-server-addprefix
+---
+# Prefixing with /foo
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: jenkins-server-addprefix
+spec:
+  addPrefix:
+    prefix: /jenkins/{1}
+---
