@@ -13,6 +13,18 @@ spec:
     priority: 10
     services:
     - name: kubernetes-dashboard 
-      port: 32433
+      port: 443
       passHostHeader: true
+    middlewares:
+    - name: kubernetes-dashboard-stripprefix
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: kubernetes-dashboard-stripprefix
+  namespace: kubernetes-dashboard
+spec:
+  stripPrefix:
+    prefixes:
+      - /kubernetes-dashboard
 ---
