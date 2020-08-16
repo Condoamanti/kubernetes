@@ -26,5 +26,5 @@ metadata:
 spec:
   stripPrefix:
     prefixes:
-      - /jenkins
+      - /jenkins/{$1}
 ---
