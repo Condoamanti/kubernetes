@@ -39,4 +39,5 @@ spec:
   redirectRegex:
     regex: ^(http:\/\/(\[[\w:.]+\]|[\w\._-]+)(:\d+)?)\/$
     replacement: ${1}/jenkins/
+    permanent: true
 ---
