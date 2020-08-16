@@ -16,6 +16,7 @@ spec:
       port: 8080
       passHostHeader: true
     middlewares:
+    - name: redirectregex
     - name: stripprefix
 ---
 apiVersion: traefik.containo.us/v1alpha1
