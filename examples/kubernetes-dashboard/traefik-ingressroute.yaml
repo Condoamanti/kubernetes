@@ -15,8 +15,8 @@ spec:
     - name: kubernetes-dashboard
       port: 433
       passHostHeader: true
-    middlewares:
-    - name: kubernetes-dashboard-stripprefix
+    #middlewares:
+    #- name: kubernetes-dashboard-stripprefix
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
