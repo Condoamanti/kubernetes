@@ -41,3 +41,23 @@ spec:
     replacement: ${1}/jenkins/
     permanent: true
 ---
+kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: jenkins-server-login-ingressroute
+  namespace: jenkins
+spec:
+  entryPoints: 
+    - web
+  routes:
+  - kind: Rule
+    match: "PATH(`/login`)"
+    priority: 10
+    services:
+    - name: jenkins-server
+      port: 8080
+      passHostHeader: true
+    middlewares:
+    - name: redirectregex
+    - name: stripprefix
+---
