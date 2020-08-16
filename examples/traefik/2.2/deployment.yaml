@@ -172,7 +172,6 @@ spec:
     requests:
       storage: 1Mi
 ---
----
 # PersistentVolumeClaim Configuration
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -225,8 +224,12 @@ spec:
             - --entrypoints.web.address=:80
             - --entryPoints.websecure.address=:443
             - --providers.kubernetescrd
-            - --providers.file.directory=/configuration/
+            - --providers.file.directory=/configuration/dynamic.yaml
             - --providers.file.watch=true
+            # Lets Encrypt
+            - --certificateresolvers.mytlschallenge.acme.tlschallenge=true
+            - --certificateresolvers.mytlschallenge.acme.email=admin@jittersolutions.com
+            - --certificateresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json
           ports:
             - name: web
               containerPort: 80
