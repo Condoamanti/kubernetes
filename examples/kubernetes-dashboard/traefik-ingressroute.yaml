@@ -9,10 +9,10 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: "(Host(`k8snode1dc1.jittersolutions.com`) || Host(`192.168.110.181`)) && PATH(`/k8s`)"
+    match: "(Host(`k8snode1dc1.jittersolutions.com`) || Host(`192.168.110.181`)) && PATH(`/kubernetes-dashboard`)"
     priority: 10
     services:
     - name: kubernetes-dashboard 
-      port: 8000
+      port: 443
       passHostHeader: true
 ---
