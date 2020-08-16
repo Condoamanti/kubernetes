@@ -33,14 +33,14 @@ spec:
       port: 8080
       passHostHeader: false
     middlewares:
-    - name: jenkins-server-removeprefix
+    - name: add-jenkins
 ---
-# Replace the path by /foo
+# Prefixing with /foo
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: test-replacepath
+  name: add-jenkins
 spec:
-  replacePath:
-    path: /jenkins
+  addPrefix:
+    prefix: /jenkins
 ---
