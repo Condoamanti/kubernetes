@@ -1,0 +1,18 @@
+---
+kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: kubernetes-dashboard-frontend-ingressroute
+  namespace: kubernetes-dashboard
+spec:
+  entryPoints: 
+    - web
+  routes:
+  - kind: Rule
+    match: "(Host(`k8snode1dc1.jittersolutions.com`) || Host(`192.168.110.181`)) && PATH(`/k8s`)"
+    priority: 10
+    services:
+    - name: jenkins-server
+      port: 443
+      passHostHeader: true
+---
