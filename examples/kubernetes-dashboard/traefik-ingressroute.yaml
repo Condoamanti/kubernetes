@@ -12,7 +12,7 @@ spec:
     match: "(Host(`k8snode1dc1.jittersolutions.com`) || Host(`192.168.110.181`)) && PATH(`/kubernetes-dashboard`)"
     priority: 10
     services:
-    - name: kubernetes-dashboard 
+    - name: kubernetes-dashboard
       port: 433
       passHostHeader: true
     middlewares:
