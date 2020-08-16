@@ -14,7 +14,7 @@ spec:
     services:
     - name: jenkins-server
       port: 8080
-      passHostHeader: false
+      passHostHeader: true
     middlewares:
     - name: stripprefix
 ---
@@ -43,7 +43,7 @@ spec:
     services:
     - name: jenkins-server
       port: 8080
-      passHostHeader: false
+      passHostHeader: true
 ---
 kind: IngressRoute
 apiVersion: traefik.containo.us/v1alpha1
@@ -60,5 +60,5 @@ spec:
     services:
     - name: jenkins-server
       port: 8080
-      passHostHeader: false
+      passHostHeader: true
 ---
