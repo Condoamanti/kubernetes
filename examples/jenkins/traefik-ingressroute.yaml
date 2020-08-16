@@ -40,6 +40,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: add-jenkins
+  namespace: jenkins
 spec:
   addPrefix:
     prefix: /jenkins
