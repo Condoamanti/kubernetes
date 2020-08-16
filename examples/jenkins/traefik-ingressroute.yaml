@@ -45,3 +45,20 @@ spec:
       port: 8080
       passHostHeader: false
 ---
+kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: jenkins-server-z-ingressroute
+  namespace: jenkins
+spec:
+  entryPoints: 
+    - web
+  routes:
+  - kind: Rule
+    match: "(Host(`k8snode1dc1.jittersolutions.com`) || Host(`192.168.110.181`)) && PATH(`/j_acegi_security_check`)"
+    priority: 10
+    services:
+    - name: jenkins-server
+      port: 8080
+      passHostHeader: false
+---
