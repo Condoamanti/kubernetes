@@ -184,8 +184,8 @@ spec:
             - --entrypoints.tcpep.address=:8000
             - --entrypoints.udpep.address=:9000/udp
             - --providers.kubernetescrd
-            - --providers.file.directory=/configuration/
-            - --providers.file.watch=true
+            #- --providers.file.directory=/configuration/
+            #- --providers.file.watch=true
           ports:
             - name: web
               containerPort: 80
