@@ -90,8 +90,10 @@ spec:
               name: sabnzbd-server
         ports:
         - containerPort: 8080
+          name: HTTP
           protocol: TCP
         - containerPort: 9090
+          name: HTTPS
           protocol: TCP
         securityContext:
           runAsUser: 1000
