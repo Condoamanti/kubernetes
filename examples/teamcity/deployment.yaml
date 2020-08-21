@@ -273,7 +273,7 @@ spec:
           claimName: pvc-teamcity-agent-data
       containers:
       - name: teamcity-agent
-        image: jetbrains/teamcity-agent:sha256:8ac6c2be312527d0f559de80c193210732466ecf618b9211155500c700848a2f
+        image: jetbrains/teamcity-agent@sa256:8ac6c2be312527d0f559de80c193210732466ecf618b9211155500c700848a2f
         volumeMounts:
           - name: teamcity-agent-data
             mountPath: /opt/buildagent
