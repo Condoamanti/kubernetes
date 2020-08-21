@@ -268,35 +268,15 @@ spec:
         app: teamcity-agent
     spec:
       volumes:
-      - name: teamcity-agent-data-work
-        persistentVolumeClaim:
-          claimName: pvc-teamcity-agent-data
-      - name: teamcity-agent-data-temp
-        persistentVolumeClaim:
-          claimName: pvc-teamcity-agent-data
-      - name: teamcity-agent-data-tools
-        persistentVolumeClaim:
-          claimName: pvc-teamcity-agent-data
-      - name: teamcity-agent-data-plugins
-        persistentVolumeClaim:
-          claimName: pvc-teamcity-agent-data
-      - name: teamcity-agent-data-system
+      - name: teamcity-agent-data
         persistentVolumeClaim:
           claimName: pvc-teamcity-agent-data
       containers:
       - name: teamcity-agent
         image: jetbrains/teamcity-agent:sha256:8ac6c2be312527d0f559de80c193210732466ecf618b9211155500c700848a2f
         volumeMounts:
-          - name: teamcity-agent-data-work
-            mountPath: /opt/buildagent/work
-          - name: teamcity-agent-data-temp
-            mountPath: /opt/buildagent/temp
-          - name: teamcity-agent-data-tools
-            mountPath: /opt/buildagent/tools
-          - name: teamcity-agent-data-plugins
-            mountPath: /opt/buildagent/plugins
-          - name: teamcity-agent-data-system
-            mountPath: /opt/buildagent/system
+          - name: teamcity-agent-data
+            mountPath: /opt/buildagent
         resources:
           requests:
             memory: "512Mi"
