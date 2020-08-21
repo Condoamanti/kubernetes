@@ -42,6 +42,8 @@ metadata:
     app: sabnzbd
 data:
   TZ: "America/Chicago"
+  PUID: "1000"
+  PGID: "1000"
 ---
 # Deployment Configuration
 apiVersion: apps/v1
