@@ -86,7 +86,7 @@ spec:
 status:
   loadBalancer: {}
 ---
-# PersistentVolumeClaim Configuration
+# PersistentVolumeClaim Configuration (Server)
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -103,7 +103,7 @@ spec:
     requests:
       storage: 2Gi
 ---
-# PersistentVolumeClaim Configuration
+# PersistentVolumeClaim Configuration (Server)
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -120,7 +120,7 @@ spec:
     requests:
       storage: 256Mi
 ---
-# PersistentVolumeClaim Configuration
+# PersistentVolumeClaim Configuration (Server)
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -137,7 +137,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-# ConfigMap Configuration
+# ConfigMap Configuration (Server)
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -148,7 +148,7 @@ metadata:
 data:
   TEAMCITY_SERVER_MEM_OPTS: "-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m"
 ---
-# Deployment Configuration
+# Deployment Configuration (Server)
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -199,7 +199,7 @@ spec:
         ports:
         - containerPort: 8111
 ---
-# Service Configuration
+# Service Configuration (Server)
 apiVersion: v1
 kind: Service
 metadata:
@@ -228,7 +228,7 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - port: 80
+  - port: 8111
     protocol: TCP
     targetPort: 8111
     nodePort: 32080
@@ -267,7 +267,7 @@ metadata:
   labels:
     app: teamcity-agent
 data:
-  SERVER_URL: "teamcity-server:32080"
+  SERVER_URL: "teamcity-server:8111"
 ---
 # Deployment Configuration (Agent)
 apiVersion: apps/v1
