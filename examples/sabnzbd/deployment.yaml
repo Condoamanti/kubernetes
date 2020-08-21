@@ -52,7 +52,7 @@ spec:
           claimName: pvc-sabnzbd-server-config
       containers:
       - name: sabnzbd-server
-        image: linuxserver/sabnzbd:latest
+        image: linuxserver/sabnzbd:3.0.1
         volumeMounts:
           - name: server-config
             mountPath: /config

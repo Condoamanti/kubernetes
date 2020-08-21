@@ -1,5 +1,5 @@
 ---
-# PersistentVolumeClaim Configuration
+# PersistentVolumeClaim Configuration (Postgres)
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -16,21 +16,21 @@ spec:
     requests:
       storage: 2Gi
 ---
-# ConfigMap Configuration
+# ConfigMap Configuration (Postgres)
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: teamcity-postgres
   namespace: teamcity
   labels:
-    app: postgres
+    app: teamcity-postgres
 data:
   PGDATA: /var/lib/postgresql/data/pgdata
   POSTGRES_DB: "teamcity"
   POSTGRES_USER: "teamcity"
   POSTGRES_PASSWORD: "temp1234!@"
 ---
-# Deployment Configuration
+# Deployment Configuration (Postgres)
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -66,120 +66,7 @@ spec:
         ports:
         - containerPort: 5432
 ---
-# PersistentVolumeClaim Configuration
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-teamcity-server-data
-  namespace: teamcity
-  labels:
-    type: nfs
-  annotations:
-    volume.beta.kubernetes.io/storage-class: standard
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 2Gi
----
-# PersistentVolumeClaim Configuration
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-teamcity-server-jdbc
-  namespace: teamcity
-  labels:
-    type: nfs
-  annotations:
-    volume.beta.kubernetes.io/storage-class: standard
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 256Mi
----
-# PersistentVolumeClaim Configuration
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-teamcity-server-logs
-  namespace: teamcity
-  labels:
-    type: nfs
-  annotations:
-    volume.beta.kubernetes.io/storage-class: standard
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 5Gi
----
-# ConfigMap Configuration
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: teamcity-server
-  namespace: teamcity
-  labels:
-    app: teamcity
-data:
-  TEAMCITY_SERVER_MEM_OPTS: "-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m"
----
-# Deployment Configuration
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: teamcity-server
-  namespace: teamcity
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: teamcity
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: teamcity
-    spec:
-      volumes:
-      - name: server-jdbc-driver
-        persistentVolumeClaim:
-          claimName: pvc-teamcity-server-jdbc
-      - name: server-data
-        persistentVolumeClaim:
-          claimName: pvc-teamcity-server-data
-      - name: server-logs
-        persistentVolumeClaim:
-          claimName: pvc-teamcity-server-logs
-      containers:
-      - name: teamcity-server-jdbc
-        image: jetbrains/teamcity-server
-        volumeMounts:
-          - name: server-jdbc-driver
-            mountPath: /data/teamcity_server/datadir/lib/jdbc
-          - name: server-data
-            mountPath: /data/teamcity_server/datadir
-          - name: server-logs
-            mountPath: /opt/teamcity/logs
-        resources:
-          requests:
-            memory: "1024Mi"
-            cpu: "1000m"
-          limits:
-            memory: "2048Mi"
-            cpu: "2000m"
-        envFrom:
-          - configMapRef:
-              name: teamcity-server
-        ports:
-        - containerPort: 8111
----
-# Service Configuration
+# Service Configuration (Postgres)
 apiVersion: v1
 kind: Service
 metadata:
@@ -199,63 +86,105 @@ spec:
 status:
   loadBalancer: {}
 ---
-# Service Configuration
+# PersistentVolumeClaim Configuration (Server)
 apiVersion: v1
-kind: Service
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-teamcity-server-data
+  namespace: teamcity
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+---
+# PersistentVolumeClaim Configuration (Server)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-teamcity-server-jdbc
+  namespace: teamcity
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 256Mi
+---
+# PersistentVolumeClaim Configuration (Server)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-teamcity-server-logs
+  namespace: teamcity
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+# ConfigMap Configuration (Server)
+apiVersion: v1
+kind: ConfigMap
 metadata:
   name: teamcity-server
   namespace: teamcity
-spec:
-  externalTrafficPolicy: Cluster
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 8111
-    nodePort: 32080
-  selector:
-    app: teamcity
-  sessionAffinity: None
-  type: NodePort
-status:
-  loadBalancer: {}
+  labels:
+    app: teamcity-server
+data:
+  TEAMCITY_SERVER_MEM_OPTS: "-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m"
 ---
-# Deployment Configuration
+# Deployment Configuration (Server)
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: teamcity-agent
+  name: teamcity-server
   namespace: teamcity
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: teamcity
+      app: teamcity-agent
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: teamcity
+        app: teamcity-agent
     spec:
       volumes:
-      - name: server-jdbc-driver
+      - name: teamcity-server-jdbc
         persistentVolumeClaim:
           claimName: pvc-teamcity-server-jdbc
-      - name: server-data
+      - name: teamcity-server-data
         persistentVolumeClaim:
           claimName: pvc-teamcity-server-data
-      - name: server-logs
+      - name: teamcity-server-logs
         persistentVolumeClaim:
           claimName: pvc-teamcity-server-logs
       containers:
-      - name: teamcity-server-jdbc
+      - name: teamcity-server
         image: jetbrains/teamcity-server
         volumeMounts:
-          - name: server-jdbc-driver
+          - name: teamcity-server-jdbc
             mountPath: /data/teamcity_server/datadir/lib/jdbc
-          - name: server-data
+          - name: teamcity-server-data
             mountPath: /data/teamcity_server/datadir
-          - name: server-logs
+          - name: teamcity-server-logs
             mountPath: /opt/teamcity/logs
         resources:
           requests:
@@ -269,3 +198,112 @@ spec:
               name: teamcity-server
         ports:
         - containerPort: 8111
+---
+# Service Configuration (Server)
+apiVersion: v1
+kind: Service
+metadata:
+  name: teamcity-server
+  namespace: teamcity
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 8111
+    protocol: TCP
+    targetPort: 8111
+    nodePort: 32080
+  selector:
+    app: teamcity-server
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+---
+#############################################################
+---
+# PersistentVolumeClaim Configuration (Agent)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-teamcity-agent-data
+  namespace: teamcity
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+---
+# ConfigMap Configuration (Agent)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: teamcity-agent
+  namespace: teamcity
+  labels:
+    app: teamcity-agent
+data:
+  SERVER_URL: "teamcity-server:32080"
+---
+# Deployment Configuration (Agent)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teamcity-agent
+  namespace: teamcity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teamcity-agent
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: teamcity-agent
+    spec:
+      volumes:
+      - name: teamcity-agent-data-work
+        persistentVolumeClaim:
+          claimName: pvc-teamcity-agent-data
+      - name: teamcity-agent-data-temp
+        persistentVolumeClaim:
+          claimName: pvc-teamcity-agent-data
+      - name: teamcity-agent-data-tools
+        persistentVolumeClaim:
+          claimName: pvc-teamcity-agent-data
+      - name: teamcity-agent-data-plugins
+        persistentVolumeClaim:
+          claimName: pvc-teamcity-agent-data
+      - name: teamcity-agent-data-system
+        persistentVolumeClaim:
+          claimName: pvc-teamcity-agent-data
+      containers:
+      - name: teamcity-agent
+        image: jetbrains/teamcity-agent
+        volumeMounts:
+          - name: teamcity-agent-data
+            mountPath: /opt/buildagent/work
+          - name: teamcity-agent-data
+            mountPath: /opt/buildagent/temp
+          - name: teamcity-agent-data
+            mountPath: /opt/buildagent/tools
+          - name: teamcity-agent-data
+            mountPath: /opt/buildagent/plugins
+          - name: teamcity-agent-data
+            mountPath: /opt/buildagent/system
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "200m"
+          limits:
+            memory: "256Mi"
+            cpu: "400m"
+        envFrom:
+          - configMapRef:
+              name: teamcity-agent
