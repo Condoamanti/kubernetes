@@ -86,7 +86,7 @@ spec:
 status:
   loadBalancer: {}
 ---
-# PersistentVolumeClaim Configuration (Server)
+# PersistentVolumeClaim Configuration
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -103,7 +103,7 @@ spec:
     requests:
       storage: 2Gi
 ---
-# PersistentVolumeClaim Configuration (Server)
+# PersistentVolumeClaim Configuration
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -120,7 +120,7 @@ spec:
     requests:
       storage: 256Mi
 ---
-# PersistentVolumeClaim Configuration (Server)
+# PersistentVolumeClaim Configuration
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -137,18 +137,18 @@ spec:
     requests:
       storage: 5Gi
 ---
-# ConfigMap Configuration (Server)
+# ConfigMap Configuration
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: teamcity-server
   namespace: teamcity
   labels:
-    app: teamcity-server
+    app: teamcity
 data:
   TEAMCITY_SERVER_MEM_OPTS: "-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m"
 ---
-# Deployment Configuration (Server)
+# Deployment Configuration
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -158,33 +158,33 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: teamcity-agent
+      app: teamcity
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: teamcity-agent
+        app: teamcity
     spec:
       volumes:
-      - name: teamcity-server-jdbc
+      - name: server-jdbc-driver
         persistentVolumeClaim:
           claimName: pvc-teamcity-server-jdbc
-      - name: teamcity-server-data
+      - name: server-data
         persistentVolumeClaim:
           claimName: pvc-teamcity-server-data
-      - name: teamcity-server-logs
+      - name: server-logs
         persistentVolumeClaim:
           claimName: pvc-teamcity-server-logs
       containers:
-      - name: teamcity-server
+      - name: teamcity-server-jdbc
         image: jetbrains/teamcity-server
         volumeMounts:
-          - name: teamcity-server-jdbc
+          - name: server-jdbc-driver
             mountPath: /data/teamcity_server/datadir/lib/jdbc
-          - name: teamcity-server-data
+          - name: server-data
             mountPath: /data/teamcity_server/datadir
-          - name: teamcity-server-logs
+          - name: server-logs
             mountPath: /opt/teamcity/logs
         resources:
           requests:
@@ -199,6 +199,26 @@ spec:
         ports:
         - containerPort: 8111
 ---
+# Service Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: teamcity-postgres
+  namespace: teamcity
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 5432
+    protocol: TCP
+    targetPort: 5432
+    nodePort: 32081
+  selector:
+    app: teamcity-postgres
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+---
 # Service Configuration (Server)
 apiVersion: v1
 kind: Service
@@ -208,12 +228,12 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - port: 8111
+  - port: 80
     protocol: TCP
     targetPort: 8111
-    nodePort: 32111
+    nodePort: 32080
   selector:
-    app: teamcity-server
+    app: teamcity
   sessionAffinity: None
   type: NodePort
 status:
