@@ -287,4 +287,9 @@ spec:
         envFrom:
           - configMapRef:
               name: teamcity-agent
+        securityContext:
+            allowPrivilegeEscalation: true
+            readOnlyRootFilesystem: false
+            runAsUser: 0
+            runAsGroup: 0
 ---
