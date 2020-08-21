@@ -268,7 +268,7 @@ metadata:
     app: teamcity-agent
 data:
   SERVER_URL: "teamcity-server:8111"
-  AGENT_NAME: "teamcity-agent-linux-3.1.0"
+  AGENT_NAME: "teamcity-agent_linux-sudo-2020.1.3"
 ---
 # Deployment Configuration (Agent)
 apiVersion: apps/v1
