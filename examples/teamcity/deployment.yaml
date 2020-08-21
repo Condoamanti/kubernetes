@@ -287,15 +287,15 @@ spec:
       - name: teamcity-agent
         image: jetbrains/teamcity-agent
         volumeMounts:
-          - name: teamcity-agent-data
+          - name: teamcity-agent-data-work
             mountPath: /opt/buildagent/work
-          - name: teamcity-agent-data
+          - name: teamcity-agent-data-temp
             mountPath: /opt/buildagent/temp
-          - name: teamcity-agent-data
+          - name: teamcity-agent-data-tools
             mountPath: /opt/buildagent/tools
-          - name: teamcity-agent-data
+          - name: teamcity-agent-data-plugins
             mountPath: /opt/buildagent/plugins
-          - name: teamcity-agent-data
+          - name: teamcity-agent-data-system
             mountPath: /opt/buildagent/system
         resources:
           requests:
