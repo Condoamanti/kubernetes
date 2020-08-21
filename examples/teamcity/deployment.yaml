@@ -197,7 +197,7 @@ spec:
           - configMapRef:
               name: teamcity-server
         ports:
-        - containerPort: 8111
+        - containerPort: 80
 ---
 # Service Configuration (Server)
 apiVersion: v1
@@ -208,7 +208,7 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - port: 8111
+  - port: 80
     protocol: TCP
     targetPort: 8111
     nodePort: 32083
