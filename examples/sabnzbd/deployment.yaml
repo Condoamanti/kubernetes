@@ -15,23 +15,6 @@ spec:
     requests:
       storage: 512Mi
 ---
-# PersistentVolumeClaim Configuration
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-sabnzbd-server-downloads
-  namespace: sabnzbd
-  labels:
-    type: nfs
-  annotations:
-    volume.beta.kubernetes.io/storage-class: standard
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 5Gi
----
 # ConfigMap Configuration
 apiVersion: v1
 kind: ConfigMap
@@ -67,17 +50,12 @@ spec:
       - name: server-config
         persistentVolumeClaim:
           claimName: pvc-sabnzbd-server-config
-      - name: server-downloads
-        persistentVolumeClaim:
-          claimName: pvc-sabnzbd-server-downloads
       containers:
       - name: sabnzbd-server
         image: linuxserver/sabnzbd:latest
         volumeMounts:
           - name: server-config
             mountPath: /config
-          - name: server-downloads
-            mountPath: /downloads
         resources:
           requests:
             memory: "1024Mi"
