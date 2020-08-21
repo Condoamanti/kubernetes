@@ -211,7 +211,7 @@ spec:
   - port: 8111
     protocol: TCP
     targetPort: 8111
-    nodePort: 32083
+    nodePort: 32111
   selector:
     app: teamcity-server
   sessionAffinity: None
