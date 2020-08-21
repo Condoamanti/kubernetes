@@ -95,9 +95,6 @@ spec:
         - containerPort: 9090
           name: https
           protocol: TCP
-        securityContext:
-          runAsUser: 0
-          runAsGroup: 0
 ---
 # Service Configuration
 apiVersion: v1
