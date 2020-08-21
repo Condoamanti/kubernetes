@@ -42,8 +42,8 @@ metadata:
     app: sabnzbd
 data:
   TZ: "America/Chicago"
-  PUID: "1000"
-  PGID: "1000"
+  PUID: "0"
+  PGID: "0"
 ---
 # Deployment Configuration
 apiVersion: apps/v1
@@ -96,8 +96,8 @@ spec:
           name: https
           protocol: TCP
         securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
+          runAsUser: 0
+          runAsGroup: 0
 ---
 # Service Configuration
 apiVersion: v1
