@@ -91,6 +91,8 @@ spec:
         ports:
         - containerPort: 8080
           protocol: TCP
+        - containerPort: 9090
+          protocol: TCP
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000
@@ -108,6 +110,10 @@ spec:
     protocol: TCP
     targetPort: 8080
     nodePort: 32011
+  - port: 9090
+    protocol: TCP
+    targetPort: 9090
+    nodePort: 32012
   selector:
     app: sabnzbd
   sessionAffinity: None
