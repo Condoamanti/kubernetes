@@ -299,11 +299,11 @@ spec:
             mountPath: /opt/buildagent/system
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "200m"
+            memory: "512Mi"
+            cpu: "1000m"
           limits:
-            memory: "256Mi"
-            cpu: "400m"
+            memory: "1024Mi"
+            cpu: "2000m"
         envFrom:
           - configMapRef:
               name: teamcity-agent
