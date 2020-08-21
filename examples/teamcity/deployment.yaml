@@ -276,7 +276,7 @@ metadata:
   name: teamcity-agent
   namespace: teamcity
 spec:
-  replicas: 1
+  replicas: 10
   selector:
     matchLabels:
       app: teamcity-agent
@@ -299,11 +299,11 @@ spec:
             mountPath: /var/teamcity_agent/conf
         resources:
           requests:
-            memory: "512Mi"
-            cpu: "1000m"
+            memory: "128Mi"
+            cpu: "100m"
           limits:
-            memory: "1024Mi"
-            cpu: "2000m"
+            memory: "256Mi"
+            cpu: "200m"
         envFrom:
           - configMapRef:
               name: teamcity-agent
