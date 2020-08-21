@@ -73,11 +73,7 @@ spec:
         image: linuxserver/sabnzbd:latest
         volumeMounts:
           - name: server-config
-            mountPath: /config
           - name: server-downloads
-            mountPath: /downloads
-          - name: server-downloads
-            mountPath: /downloads/incomplete-downloads
         resources:
           requests:
             memory: "1024Mi"
