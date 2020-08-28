@@ -129,11 +129,11 @@ spec:
     - port: 80
       name: http
       targetPort: 80
-      nodePort: 32380
+      nodePort: 30080
     - port: 443
       name: https
       targetPort: 443
-      nodePort: 33443
+      nodePort: 30443
   sessionAffinity: None
   type: NodePort
 status:
