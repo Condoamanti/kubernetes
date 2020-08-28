@@ -33,7 +33,7 @@ data:
     ## server configuration
     server {
     
-    listen 32382 ;
+    listen 30080 ;
     
     server_name k8snode1dc1.jittersolutions.com;
     if ($http_x_forwarded_proto = '') {
@@ -65,6 +65,7 @@ data:
         }
       }
     }
+
 ---
 # Deployment Configuration
 apiVersion: apps/v1
