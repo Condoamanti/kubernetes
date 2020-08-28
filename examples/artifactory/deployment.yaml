@@ -67,6 +67,9 @@ spec:
               name: artifactory
         ports:
         - containerPort: 8081
+          name: http1
+        - containerPort: 8082
+          name: http2
 ---
 # Service Configuration
 apiVersion: v1
@@ -78,8 +81,8 @@ spec:
   selector: 
     app: artifactory
   ports:
-    - port: 80
-      name: port1
+    - port: 8082
+      name: http
       targetPort: 8082
       nodePort: 32382
   sessionAffinity: None
