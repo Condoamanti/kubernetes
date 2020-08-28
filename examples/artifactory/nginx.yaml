@@ -129,11 +129,11 @@ spec:
     app: artifactory
   ports:
     - port: 80
-      name: http
+      name: http1
       targetPort: 80
       nodePort: 30080
     - port: 8080
-      name: http
+      name: http2
       targetPort: 8080
       nodePort: 30081
     - port: 443
