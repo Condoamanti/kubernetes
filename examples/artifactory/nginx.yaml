@@ -98,7 +98,7 @@ spec:
         image: nginx:latest
         volumeMounts:
           - name: artifactory-nginx-config
-            mountPath: /etc/nginx/artifactory-nginx.conf
+            mountPath: /etc/nginx/conf.d/artifactory-nginx.conf
             readOnly: false
             subPath: artifactory-nginx.conf
         resources:
