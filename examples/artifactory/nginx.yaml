@@ -35,7 +35,7 @@ data:
         
         listen 80 ;
         
-        server_name artifactory;
+        server_name k8snode1dc1.jittersolutions.com;
         if ($http_x_forwarded_proto = '') {
             set $http_x_forwarded_proto  $scheme;
         }
@@ -65,6 +65,7 @@ data:
             }
         }
     }
+
 ---
 # Deployment Configuration
 apiVersion: apps/v1
