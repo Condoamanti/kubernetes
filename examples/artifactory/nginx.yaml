@@ -33,7 +33,7 @@ data:
     ## server configuration
     server {
         
-        listen 8080 ;
+        listen 80 ;
         
         server_name artifactory;
         if ($http_x_forwarded_proto = '') {
@@ -97,7 +97,7 @@ spec:
         image: nginx:latest
         volumeMounts:
           - name: artifactory-nginx-config
-            mountPath: /etc/nginx/conf.d/artifactory-nginx.conf
+            mountPath: /etc/nginx/conf.d/default.conf
             readOnly: false
             subPath: artifactory-nginx.conf
         resources:
@@ -109,9 +109,7 @@ spec:
             cpu: "200m"
         ports:
         - containerPort: 80
-          name: http1
-        - containerPort: 8080
-          name: http2
+          name: http
         - containerPort: 443
           name: https
         securityContext:
@@ -129,13 +127,9 @@ spec:
     app: artifactory
   ports:
     - port: 80
-      name: http1
+      name: http
       targetPort: 80
       nodePort: 30080
-    - port: 8080
-      name: http2
-      targetPort: 8080
-      nodePort: 30081
     - port: 443
       name: https
       targetPort: 443
