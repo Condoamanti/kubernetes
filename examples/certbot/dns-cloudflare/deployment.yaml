@@ -1,0 +1,100 @@
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-certbot-etc-letsencrypt
+  namespace: certbot
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 128Mi
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-certbot-var-lib-letsencrypt
+  namespace: certbot
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 128Mi
+---
+# ConfigMap Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: certbot-cloudflare-config
+  namespace: certbot
+  labels:
+    app: certbot
+data:
+  cloudlfare.ini: |-
+    dns_cloudflare_email = ${DNS_CLOUDFLARE_EMAIL}
+    dns_cloudflare_api_key ${DNS_CLOUDFLARE_API_KEY}
+---
+# Deployment Configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: certbot
+  namespace: certbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: certbot
+  template:
+    metadata:
+      labels:
+        app: certbot
+    spec:
+      serviceAccountName: jenkins
+      volumes:
+      - name: certbot-cloudflare-config
+        configMap:
+          defaultMode: 0600
+          name: certbot-cloudflare-config
+      - name: certbot-etc-letsencrypt
+        persistentVolumeClaim:
+          claimName: pvc-certbot-etc-letsencrypt
+      - name: certbot-var-lib-letsencrypt
+        persistentVolumeClaim:
+          claimName: pvc-certbot-var-lib-letsencrypt
+      containers:
+      - name: certbot
+        image: certbot/dns-cloudflare:latest
+        args: [
+          "--dns-cloudflare",
+          "--dns-cloudflare-credentials", "~/.secrets/certbot/cloudflare.ini"
+          "-d", "jittersolutions.com"
+          "--server", "https://acme-v02.api.letsencrypt.org/directory"
+        ]
+        volumeMounts:
+          - name: certbot-cloudflare-config
+            mountPath: ~/.secrets/certbot/cloudflare.ini
+          - name: certbot-etc-letsencrypt
+            mountPath: /etc/letsencrypt:/etc/letsencrypt
+          - name: certbot-var-lib-letsencrypt
+            mountPath: /var/lib/letsencrypt:/var/lib/letsencrypt
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+---
