@@ -42,7 +42,7 @@ metadata:
   labels:
     app: certbot
 data:
-  cloudlfare.ini: |-
+  cloudflare.ini: |-
     dns_cloudflare_email = ${DNS_CLOUDFLARE_EMAIL}
     dns_cloudflare_api_key ${DNS_CLOUDFLARE_API_KEY}
 ---
