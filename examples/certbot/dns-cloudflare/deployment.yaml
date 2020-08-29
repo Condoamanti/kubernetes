@@ -93,13 +93,13 @@ spec:
         - name: DNS_CLOUDFLARE_EMAIL
           valueFrom:
             secretKeyRef:
-              key: dns-cloudflare-email
               name: certbot
+              key: dns-cloudflare-email
         - name: DNS_CLOUDFLARE_API_KEY
           valueFrom:
             secretKeyRef:
-              key: dns-cloudflare-api-key
               name: certbot
+              key: dns-cloudflare-api-key
         resources:
           requests:
             memory: "128Mi"
