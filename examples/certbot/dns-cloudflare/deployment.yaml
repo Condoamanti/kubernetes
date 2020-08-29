@@ -89,7 +89,7 @@ spec:
       - name: certbot-var-log-letsencrypt
         persistentVolumeClaim:
           claimName: pvc-certbot-var-log-letsencrypt
-      - name: certbot-cloudflare-config
+      - name: cloudflare-config
         configMap:
           defaultMode: 0600
           name: certbot-cloudflare-config
@@ -109,9 +109,9 @@ spec:
             mountPath: /var/lib/letsencrypt
           - name: certbot-var-log-letsencrypt
             mountPath: /var/log/letsencrypt
-          - name: certbot-cloudflare-config
-            readOnly: true
+          - name: cloudflare-config
             mountPath: /etc/letsencrypt/cloudflare.ini
+            readOnly: true
             subPath: cloudflare.ini
         env:
         - name: DNS_CLOUDFLARE_EMAIL
