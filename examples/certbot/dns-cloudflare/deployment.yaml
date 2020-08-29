@@ -63,16 +63,16 @@ spec:
         app: certbot
     spec:
       volumes:
-      - name: certbot-cloudflare-config
-        configMap:
-          defaultMode: 0600
-          name: certbot-cloudflare-config
       - name: certbot-etc-letsencrypt
         persistentVolumeClaim:
           claimName: pvc-certbot-etc-letsencrypt
       - name: certbot-var-lib-letsencrypt
         persistentVolumeClaim:
           claimName: pvc-certbot-var-lib-letsencrypt
+      - name: certbot-cloudflare-config
+        configMap:
+          defaultMode: 0600
+          name: certbot-cloudflare-config
       containers:
       - name: certbot
         image: certbot/dns-cloudflare:latest
@@ -83,14 +83,14 @@ spec:
           "-d", "jittersolutions.com",
         ]
         volumeMounts:
-          - name: certbot-cloudflare-config
-            readOnly: true
-            mountPath: /etc/letsencrypt/cloudflare.ini
-            subPath: cloudflare.ini
           - name: certbot-etc-letsencrypt
             mountPath: /etc/letsencrypt
           - name: certbot-var-lib-letsencrypt
             mountPath: /var/lib/letsencrypt
+          - name: certbot-cloudflare-config
+            readOnly: true
+            mountPath: /etc/letsencrypt/cloudflare.ini
+            subPath: cloudflare.ini
         env:
         - name: DNS_CLOUDFLARE_EMAIL
           valueFrom:
