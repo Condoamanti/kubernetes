@@ -99,7 +99,7 @@ spec:
         args: [
           "certonly",
           "--dns-cloudflare",
-          "--dns-cloudflare-credentials", "/etc/cloudflare.ini",
+          "--dns-cloudflare-credentials", "/etc/letsencrypt/cloudflare.ini",
           "-d", "jittersolutions.com",
         ]
         volumeMounts:
@@ -111,7 +111,7 @@ spec:
             mountPath: /var/log/letsencrypt
           - name: certbot-cloudflare-config
             readOnly: true
-            mountPath: /etc/cloudflare.ini
+            mountPath: /etc/letsencrypt/cloudflare.ini
             subPath: cloudflare.ini
         env:
         - name: DNS_CLOUDFLARE_EMAIL
