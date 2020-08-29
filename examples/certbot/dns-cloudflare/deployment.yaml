@@ -78,9 +78,9 @@ spec:
         image: certbot/dns-cloudflare:latest
         args: [
           "--dns-cloudflare",
-          "--dns-cloudflare-credentials", "/etc/letsencrypt/cloudflare.ini",
-          "-d", "jittersolutions.com",
-          "-d", "*.jittersolutions.com",
+          "--dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini",
+          "-d jittersolutions.com",
+          "-d *.jittersolutions.com",
         ]
         volumeMounts:
           - name: certbot-cloudflare-config
