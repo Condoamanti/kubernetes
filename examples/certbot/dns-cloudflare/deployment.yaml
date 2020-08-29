@@ -91,7 +91,7 @@ spec:
           claimName: pvc-certbot-var-log-letsencrypt
       - name: certbot-cloudflare-config-volume
         configMap:
-          defaultMode: 0600
+          defaultMode: 0644
           name: cm-certbot-cloudflare-config
       containers:
       - name: certbot
@@ -99,7 +99,7 @@ spec:
         args: [
           "certonly",
           "--dns-cloudflare",
-          "--dns-cloudflare-credentials", "/etc/cloudflare.ini",
+          "--dns-cloudflare-credentials", "/etc/letsencrypt/cloudflare.ini",
           "-d", "jittersolutions.com",
         ]
         volumeMounts:
@@ -110,9 +110,9 @@ spec:
           - name: certbot-var-log-letsencrypt
             mountPath: /var/log/letsencrypt
           - name: certbot-cloudflare-config-volume
-            mountPath: /etc/cloudflare.ini
+            mountPath: /etc/letsencrypt/cloudflare.ini
             subPath: cloudflare.ini
-            readOnly: false
+            readOnly: true
         env:
         - name: DNS_CLOUDFLARE_EMAIL
           valueFrom:
@@ -131,6 +131,6 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "200m"
-        securityContext:
-          runAsUser: 0
+        #securityContext:
+        #  runAsUser: 0
 ---
