@@ -54,12 +54,12 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: certbot-cloudflare-config
+  name: cm-certbot-cloudflare-config
   namespace: certbot
   labels:
     app: certbot
 data:
-  cloudflare.ini: |-
+  cloudflare.ini: |
     dns_cloudflare_email = ${DNS_CLOUDFLARE_EMAIL}
     dns_cloudflare_api_key ${DNS_CLOUDFLARE_API_KEY}
 ---
@@ -89,10 +89,10 @@ spec:
       - name: certbot-var-log-letsencrypt
         persistentVolumeClaim:
           claimName: pvc-certbot-var-log-letsencrypt
-      - name: cloudflare-config
+      - name: certbot-cloudflare-config-volume
         configMap:
           defaultMode: 0600
-          name: certbot-cloudflare-config
+          name: cm-certbot-cloudflare-config
       containers:
       - name: certbot
         image: certbot/dns-cloudflare:latest
@@ -109,7 +109,7 @@ spec:
             mountPath: /var/lib/letsencrypt
           - name: certbot-var-log-letsencrypt
             mountPath: /var/log/letsencrypt
-          - name: cloudflare-config
+          - name: certbot-cloudflare-config-volume
             mountPath: /etc/letsencrypt/cloudflare.ini
             readOnly: true
             subPath: cloudflare.ini
