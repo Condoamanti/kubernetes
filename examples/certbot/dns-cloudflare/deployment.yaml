@@ -86,7 +86,7 @@ spec:
           - name: certbot-cloudflare-config
             mountPath: /etc/letsencrypt/cloudflare.ini
           - name: certbot-etc-letsencrypt
-            mountPath: /etc/letsencrypt:/etc/letsencrypt
+            mountPath: /etc/letsencrypt
           - name: certbot-var-lib-letsencrypt
             mountPath: /var/lib/letsencrypt
         env:
