@@ -91,7 +91,7 @@ spec:
           claimName: pvc-certbot-var-log-letsencrypt
       - name: certbot-cloudflare-config
         configMap:
-          defaultMode: 0600
+          defaultMode: 0777
           name: certbot-cloudflare-config
       containers:
       - name: certbot
@@ -112,7 +112,7 @@ spec:
           - name: certbot-cloudflare-config
             readOnly: true
             mountPath: /etc/letsencrypt/cloudflare.ini
-            subPath: cloudflare.ini
+            #subPath: cloudflare.ini
         env:
         - name: DNS_CLOUDFLARE_EMAIL
           valueFrom:
