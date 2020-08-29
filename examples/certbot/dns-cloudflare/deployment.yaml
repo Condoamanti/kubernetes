@@ -95,12 +95,12 @@ spec:
           valueFrom:
             secretKeyRef:
               key: certbot
-              name: dns_cloudflare_email
+              name: dns-cloudflare-email
         - name: DNS_CLOUDFLARE_API_KEY
           valueFrom:
             secretKeyRef:
               key: certbot
-              name: dns_cloudflare_api_key
+              name: dns-cloudflare-api-key
         resources:
           requests:
             memory: "128Mi"
