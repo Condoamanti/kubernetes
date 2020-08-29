@@ -31,7 +31,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 256Mi
+      storage: 128Mi
 ---
 # PersistentVolumeClaim Configuration
 apiVersion: v1
@@ -48,7 +48,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 256Mi
+      storage: 128Mi
 ---
 # ConfigMap Configuration
 apiVersion: v1
