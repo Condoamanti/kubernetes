@@ -88,7 +88,7 @@ spec:
           - name: certbot-etc-letsencrypt
             mountPath: /etc/letsencrypt:/etc/letsencrypt
           - name: certbot-var-lib-letsencrypt
-            mountPath: /var/lib/letsencrypt:/var/lib/letsencrypt
+            mountPath: /var/lib/letsencrypt
         env:
         - name: DNS_CLOUDFLARE_EMAIL
           valueFrom:
