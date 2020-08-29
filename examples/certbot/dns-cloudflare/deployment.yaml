@@ -63,18 +63,6 @@ data:
     dns_cloudflare_email = ${DNS_CLOUDFLARE_EMAIL}
     dns_cloudflare_api_key ${DNS_CLOUDFLARE_API_KEY}
 ---
-# ConfigMap Configuration
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cm-test
-  namespace: certbot
-  labels:
-    app: certbot
-data:
-  test.txt: |
-    test
----
 # Deployment Configuration
 apiVersion: apps/v1
 kind: Deployment
@@ -103,13 +91,8 @@ spec:
           claimName: pvc-certbot-var-log-letsencrypt
       - name: certbot-cloudflare-config-volume
         configMap:
-          defaultMode: 0644
+          defaultMode: 0600
           name: cm-certbot-cloudflare-config
-          ###################################
-      - name: test-volume
-        configMap:
-          name: cm-test
-          ###################################
       containers:
       - name: certbot
         image: certbot/dns-cloudflare:latest
@@ -130,10 +113,6 @@ spec:
             mountPath: /etc/letsencrypt/cloudflare.ini
             subPath: cloudflare.ini
             readOnly: true
-          - name: test-volume
-            mountPath: /etc/letsencrypt/test.txt
-            subPath: test.txt
-            readOnly: false
         env:
         - name: DNS_CLOUDFLARE_EMAIL
           valueFrom:
@@ -152,6 +131,4 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "200m"
-        securityContext:
-          runAsUser: 0
 ---
