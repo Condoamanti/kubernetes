@@ -80,7 +80,7 @@ spec:
         args: [
           "--dns-cloudflare",
           "--dns-cloudflare-credentials", "~/.secrets/certbot/cloudflare.ini",
-          "-d", "jittersolutions.com"
+          "-d", "jittersolutions.com",
           "--server", "https://acme-v02.api.letsencrypt.org/directory",
         ]
         volumeMounts:
