@@ -112,7 +112,7 @@ spec:
           - name: certbot-cloudflare-config
             readOnly: true
             mountPath: /etc/letsencrypt/cloudflare.ini
-            #subPath: cloudflare.ini
+            subPath: cloudflare.ini
         env:
         - name: DNS_CLOUDFLARE_EMAIL
           valueFrom:
