@@ -77,8 +77,7 @@ spec:
       - name: certbot
         image: certbot/dns-cloudflare:latest
         args: [
-          "certbot certonly",
-          "--dns-cloudflare",
+          "certbot certonly --dns-cloudflare",
           "--dns-cloudflare-credentials", "/etc/letsencrypt/cloudflare.ini",
           "-d", "jittersolutions.com",
         ]
