@@ -31,7 +31,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 128Mi
+      storage: 256Mi
 ---
 # PersistentVolumeClaim Configuration
 apiVersion: v1
@@ -48,7 +48,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 128Mi
+      storage: 256Mi
 ---
 # ConfigMap Configuration
 apiVersion: v1
@@ -111,8 +111,8 @@ spec:
             mountPath: /var/log/letsencrypt
           - name: certbot-cloudflare-config-volume
             mountPath: /etc/letsencrypt/cloudflare.ini
-            readOnly: true
             subPath: cloudflare.ini
+            readOnly: true
         env:
         - name: DNS_CLOUDFLARE_EMAIL
           valueFrom:
