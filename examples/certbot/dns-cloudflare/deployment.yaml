@@ -78,13 +78,13 @@ spec:
         image: certbot/dns-cloudflare:latest
         args: [
           "--dns-cloudflare",
-          "--dns-cloudflare-credentials", "~/.secrets/certbot/cloudflare.ini",
+          "--dns-cloudflare-credentials", "/etc/letsencrypt/cloudflare.ini",
           "-d", "jittersolutions.com",
           "-d", "*.jittersolutions.com",
         ]
         volumeMounts:
           - name: certbot-cloudflare-config
-            mountPath: ~/.secrets/certbot/cloudflare.ini
+            mountPath: /etc/letsencrypt/cloudflare.ini
           - name: certbot-etc-letsencrypt
             mountPath: /etc/letsencrypt:/etc/letsencrypt
           - name: certbot-var-lib-letsencrypt
