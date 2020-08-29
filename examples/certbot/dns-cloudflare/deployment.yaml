@@ -33,6 +33,23 @@ spec:
     requests:
       storage: 128Mi
 ---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-certbot-var-log-letsencrypt
+  namespace: certbot
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 128Mi
+---
 # ConfigMap Configuration
 apiVersion: v1
 kind: ConfigMap
@@ -69,6 +86,9 @@ spec:
       - name: certbot-var-lib-letsencrypt
         persistentVolumeClaim:
           claimName: pvc-certbot-var-lib-letsencrypt
+      - name: certbot-var-log-letsencrypt
+        persistentVolumeClaim:
+          claimName: pvc-certbot-var-log-letsencrypt
       - name: certbot-cloudflare-config
         configMap:
           defaultMode: 0600
@@ -87,6 +107,8 @@ spec:
             mountPath: /etc/letsencrypt
           - name: certbot-var-lib-letsencrypt
             mountPath: /var/lib/letsencrypt
+          - name: certbot-var-log-letsencrypt
+            mountPath: /var/log/letsencrypt
           - name: certbot-cloudflare-config
             readOnly: true
             mountPath: /etc/letsencrypt/cloudflare.ini
