@@ -12,11 +12,11 @@ rules:
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: standard                  # Name of storage class to use
-provisioner: nfs-client/nfs      # or choose another name, must match deployment's env PROVISIONER_NAME'
+  name: standard              # Name of storage class to use or choose another name, must match deployment's env PROVISIONER_NAME'
+provisioner: nfs-client/nfs
 parameters:
-  archiveOnDelete: "false"       # When set to "false" your PVs will not be archived
-                                 # by the provisioner upon deletion of the PVC
+  archiveOnDelete: "false"    # When set to "false" your PVs will not be archived by the provisioner upon deletion of the PVC
+allowVolumeExpandsion: true
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
