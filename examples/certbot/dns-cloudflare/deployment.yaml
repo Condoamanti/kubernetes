@@ -90,6 +90,17 @@ spec:
             mountPath: /etc/letsencrypt:/etc/letsencrypt
           - name: certbot-var-lib-letsencrypt
             mountPath: /var/lib/letsencrypt:/var/lib/letsencrypt
+        env:
+        - name: DNS_CLOUDFLARE_EMAIL
+          valueFrom:
+            secretKeyRef:
+              key: certbot
+              name: dns_cloudflare_email
+        - name: DNS_CLOUDFLARE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: certbot
+              name: dns_cloudflare_api_key
         resources:
           requests:
             memory: "128Mi"
