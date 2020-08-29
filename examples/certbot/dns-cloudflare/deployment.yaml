@@ -133,5 +133,4 @@ spec:
             cpu: "200m"
         securityContext:
           runAsUser: 0
-      restartPolicy: Never
 ---
