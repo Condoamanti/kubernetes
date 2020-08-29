@@ -62,7 +62,6 @@ spec:
       labels:
         app: certbot
     spec:
-      serviceAccountName: jenkins
       volumes:
       - name: certbot-cloudflare-config
         configMap:
