@@ -61,7 +61,7 @@ metadata:
 data:
   cloudflare.ini: |
     dns_cloudflare_email = ${DNS_CLOUDFLARE_EMAIL}
-    dns_cloudflare_api_key ${DNS_CLOUDFLARE_API_KEY}
+    dns_cloudflare_api_key = ${DNS_CLOUDFLARE_API_KEY}
 ---
 # Deployment Configuration
 apiVersion: apps/v1
