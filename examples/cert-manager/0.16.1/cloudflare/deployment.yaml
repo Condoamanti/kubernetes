@@ -4,7 +4,7 @@ apiVersion: cert-manager.io/v1alpha2
 kind: Issuer
 metadata:
   name: cloudflare-issuer
-  namespace: cert-manager
+  namespace: cert-manager-cloudflare
 spec:
   acme:
     # You must replace this email address with your own.
@@ -32,7 +32,7 @@ apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
   name: letsencrypt-cert
-  namespace: cert-manager
+  namespace: cert-manager-cloudflare
 spec:
   dnsNames:
     - jittersolutions.com

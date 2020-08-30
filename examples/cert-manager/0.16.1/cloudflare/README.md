@@ -7,14 +7,15 @@
 
 ### Deploy Order:
 1. `kubectl apply -f namespace.yaml`
-2. `kubectl apply -f secret.yaml`
-3. `kubectl apply -f certificate.yaml`
+2. `Replace data within secret.yaml <APIKEY>`
+3. `kubectl apply -f secret.yaml`
+4. `kubectl apply -f deployment.yaml`
 
 ### Monitor Process:
-- `kubectl get events -n cert-manager-test --sort-by='.metadata.creationTimestamp'`
+- `kubectl get events -n cert-manager-cloudflare --sort-by='.metadata.creationTimestamp'`
 
 ### Retrieve Certificate Information From Secrets:
 1. Obtain certificate information
-    - `kubectl get secret/letsencrypt-cert-tls -n cert-manager-test -o json | jq -r '.data."tls.crt"' | base64 --decode`
+    - `kubectl get secret/letsencrypt-cert-tls -n cert-manager-cloudflare -o json | jq -r '.data."tls.crt"' | base64 --decode`
 2. Obtain certificate key information
-    - `kubectl get secret/letsencrypt-cert-tls -n cert-manager-test -o json | jq -r '.data."tls.key"' | base64 --decode`
+    - `kubectl get secret/letsencrypt-cert-tls -n cert-manager-cloudflare -o json | jq -r '.data."tls.key"' | base64 --decode`
