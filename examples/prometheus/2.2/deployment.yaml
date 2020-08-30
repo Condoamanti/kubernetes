@@ -20,7 +20,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cm-prometheus-server
+  name: cm-prometheus-server-config
   namespace: prometheus
   labels:
     app: prometheus-server
@@ -69,12 +69,20 @@ spec:
       - name: prometheus-server-data
         persistentVolumeClaim:
           claimName: pvc-prometheus-server-data
+      - name: prometheus-server-config
+        configMap:
+          defaultMode: 0600
+          name: cm-prometheus-server-config
       containers:
       - name: prometheus-server
         image: prom/prometheus:latest
         volumeMounts:
           - name: prometheus-server-data
             mountPath: /etc/prometheus
+          - name: prometheus-server-config
+            mountPath: /etc/prometheus/prometheus.yaml
+            subPath: prometheus.yaml
+            readOnly: true
         resources:
           requests:
             memory: "1024Mi"
