@@ -1,9 +1,11 @@
 ---
+# Namespace Configuration
 apiVersion: v1
 kind: Namespace
 metadata:
   name: cert-manager-test
 ---
+# Issuer Configuration
 apiVersion: cert-manager.io/v1alpha2
 kind: Issuer
 metadata:
@@ -12,6 +14,7 @@ metadata:
 spec:
   selfSigned: {}
 ---
+# Certificate Configuration
 apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
