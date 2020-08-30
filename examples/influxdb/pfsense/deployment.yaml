@@ -39,12 +39,6 @@ metadata:
     app: influxdb-pfsense
 data:
   influxdb.conf: |-
-    [admin]
-    enabled = true
-    bind–address = ":8083"
-    https–enabled = false
-    #https–certificate = "/etc/ssl/influxdb.pem"
-
     [meta]
     dir = "/var/lib/influxdb/meta"
 
