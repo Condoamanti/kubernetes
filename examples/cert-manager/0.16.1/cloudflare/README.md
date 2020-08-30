@@ -1,9 +1,10 @@
 # cert-manager/0.16.1/cloudflare
 ### Documentation:
-- https://cert-manager.io/docs/configuration/acme/dns01/cloudflare/
+1. https://cert-manager.io/docs/configuration/acme/dns01/cloudflare/
 
 ### Configuration Requirement:
 - Update <APIKEY> within secret.yaml to the cloudflare API key you wish to utilize (recommend create specific API key referenced on documentation above)
+
 ### Deploy Order:
 1. `kubectl apply -f namespace.yaml`
 2. `kubectl apply -f secret.yaml`
@@ -13,5 +14,7 @@
 - `kubectl get events -n cert-manager-test --sort-by='.metadata.creationTimestamp'`
 
 ### Retrieve Certificate Information From Secrets:
-- `kubectl get secret/letsencrypt-cert-tls -n cert-manager-test -o json | jq -r '.data."tls.crt"' | base64 --decode`
-- `kubectl get secret/letsencrypt-cert-tls -n cert-manager-test -o json | jq -r '.data."tls.key"' | base64 --decode`
+1. Obtain certificate information
+    - `kubectl get secret/letsencrypt-cert-tls -n cert-manager-test -o json | jq -r '.data."tls.crt"' | base64 --decode`
+2. Obtain certificate key information
+    - `kubectl get secret/letsencrypt-cert-tls -n cert-manager-test -o json | jq -r '.data."tls.key"' | base64 --decode`

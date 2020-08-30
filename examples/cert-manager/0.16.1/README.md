@@ -1,6 +1,6 @@
 # cert-manager/0.16.1
 ### Documentation:
-- https://cert-manager.io/docs/installation/kubernetes/
+1. https://cert-manager.io/docs/installation/kubernetes/
 
 ### Configuration Validation
 1. Create a test Persistent Volume Claim (PVC) and pod using the test-pod.yaml

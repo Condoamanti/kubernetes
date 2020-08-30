@@ -1,2 +1,2 @@
-# plex
+# sabnzbd
 ### non-functional
