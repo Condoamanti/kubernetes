@@ -1,0 +1,136 @@
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-grafana-etc-grafana
+  namespace: grafana
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-grafana-var-lib-grafana
+  namespace: grafana
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-grafana-var-log-grafana
+  namespace: grafana
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+# ConfigMap Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-prometheus-server-config
+  namespace: grafana
+  labels:
+    app: grafana-server
+data:
+  grafana.yml: |-
+    # grafana.yml
+---
+# Service Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-server
+  namespace: grafana
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 3000
+    name: http
+    protocol: TCP
+    targetPort: 3000
+    nodePort: 30020
+  selector:
+    app: grafana-server
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+---
+# Deployment Configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-server
+  namespace: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana-server
+  template:
+    metadata:
+      labels:
+        app: grafana-server
+    spec:
+      volumes:
+      - name: grafana-etc-grafana
+        persistentVolumeClaim:
+          claimName: pvc-grafana-etc-grafana
+      - name: grafana-var-lib-grafana
+        persistentVolumeClaim:
+          claimName: pvc-grafana-var-lib-grafana
+      - name: grafana-var-log-grafana
+        persistentVolumeClaim:
+          claimName: pvc-grafana-var-log-grafana
+      containers:
+      - name: grafana-server
+        image: grafana/grafana:latest
+        volumeMounts:
+          - name: grafana-etc-grafana
+            mountPath: /etc/grafana
+          - name: grafana-var-lib-grafana
+            mountPath: /var/lib/grafana
+          - name: grafana-var-lib-grafana
+            mountPath: /var/log/grafana
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "400m"
+        ports:
+        - containerPort: 3000
+          name: http
+        #securityContext:
+        #  runAsUser: 0
+          # If using Red Hat OpenShift uncomment this:
+          #privileged: true
+---
