@@ -127,10 +127,10 @@ spec:
         resources:
           requests:
             memory: "128Mi"
-            cpu: "100m"
+            cpu: "1000m"
           limits:
             memory: "256Mi"
-            cpu: "200m"
+            cpu: "2000m"
         securityContext:
           runAsUser: 0
           # If using Red Hat OpenShift uncomment this:

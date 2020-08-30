@@ -79,8 +79,8 @@ spec:
         - name: ELASTICSEARCH_PASSWORD
           valueFrom:
             secretKeyRef:
-              key: elastic
               name: elasticsearch-es-elastic-user
+              key: elastic
         - name: NODE_NAME
           valueFrom:
             fieldRef:
