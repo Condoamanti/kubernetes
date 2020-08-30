@@ -26,7 +26,7 @@ metadata:
     app: prometheus-server
 data:
   prometheus.yaml: |-
-    test
+    test:
 ---
 # Service Configuration
 apiVersion: v1
