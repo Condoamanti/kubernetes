@@ -26,7 +26,19 @@ metadata:
     app: prometheus-server
 data:
   prometheus.yml: |-
-    test:
+    # prometheus.yml
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 30s
+      scrape_timeout: 10s
+
+    rule_files:
+    #- "first.rules"
+    #- "my/*.rules"
+
+    remote_write:
+    remote_read:
+    scrape_configs:
 ---
 # Service Configuration
 apiVersion: v1
