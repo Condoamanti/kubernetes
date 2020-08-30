@@ -21,7 +21,7 @@ spec:
         cloudflare:
           email: freemanz2@outlook.com
           apiTokenSecretRef:
-            name: cloudflare-api-token-secret
+            name: secret-cloudflare-api-token
             key: api-token
 ---
 # Certificate Configuration
