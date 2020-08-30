@@ -63,7 +63,7 @@ spec:
     name: http
     protocol: TCP
     targetPort: 9090
-    nodePort: 30100
+    nodePort: 30010
   selector:
     app: prometheus-server
   sessionAffinity: None
