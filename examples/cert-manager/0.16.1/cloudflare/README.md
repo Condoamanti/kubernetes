@@ -7,9 +7,8 @@
 
 ### Deploy Order:
 1. `kubectl apply -f namespace.yaml`
-2. `Replace data within secret.yaml <APIKEY>`
-3. `kubectl apply -f secret.yaml`
-4. `kubectl apply -f deployment.yaml`
+2. `kubectl apply -f secret.yaml`
+3. `kubectl apply -f deployment.yaml`
 
 ### Monitor Process:
 - `kubectl get events -n cert-manager-cloudflare --sort-by='.metadata.creationTimestamp'`
