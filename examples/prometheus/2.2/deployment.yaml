@@ -46,6 +46,9 @@ data:
       # scrape_timeout is defined by the global default (10s).
       # metrics_path defaults to '/metrics'
       # scheme defaults to 'http'.
+
+      static_configs:
+      - targets: ['prometheus-server:9090']
 ---
 # Service Configuration
 apiVersion: v1
