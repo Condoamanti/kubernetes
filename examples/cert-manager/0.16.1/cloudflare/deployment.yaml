@@ -10,19 +10,19 @@ spec:
     # You must replace this email address with your own.
     # Let's Encrypt will use this to contact you about expiring
     # certificates, and issues related to your account.
-    email: freemanz2@outlook.com
+    email: <EMAILADDRESS>
     # The Let's Encrypt server can be one of the below values
     # - https://acme-staging-v02.api.letsencrypt.org/directory (staging server and will generate a 'Fake LE Root x1' CA root certificate)
     # - https://acme-v02.api.letsencrypt.org/directory (staging server and will generate a 'Fake LE Root x1' CA root certificate)
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       # Secret resource that will be used to store the account's private key.
-      name: example-issuer-account-key
+      name: cert-manager-cloudflare-issuer-account-key
     # Add a single challenge solver, dns01 using cloudflare
     solvers:
     - dns01:
         cloudflare:
-          email: freemanz2@outlook.com
+          email: <EMAILADDRESS>
           apiTokenSecretRef:
             name: secret-cloudflare-api-token
             key: api-token

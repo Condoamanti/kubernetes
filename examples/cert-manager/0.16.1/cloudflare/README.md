@@ -4,6 +4,7 @@
 
 ### Configuration Requirement:
 - Update <APIKEY> within secret.yaml to the cloudflare API key you wish to utilize (recommend create specific API key referenced on documentation above)
+- Update 
 
 ### Deploy Order:
 1. `kubectl apply -f namespace.yaml`
