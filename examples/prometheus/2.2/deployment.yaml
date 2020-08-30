@@ -71,7 +71,7 @@ spec:
           claimName: pvc-prometheus-server-data
       - name: prometheus-server-config
         configMap:
-          defaultMode: 0600
+          defaultMode: 0644
           name: cm-prometheus-server-config
       containers:
       - name: prometheus-server
@@ -93,4 +93,8 @@ spec:
         ports:
         - containerPort: 9090
           name: http
+        securityContext:
+          runAsUser: 0
+          # If using Red Hat OpenShift uncomment this:
+          #privileged: true
 ---
