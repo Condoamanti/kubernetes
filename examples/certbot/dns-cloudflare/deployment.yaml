@@ -31,7 +31,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 128Mi
+      storage: 256Mi
 ---
 # PersistentVolumeClaim Configuration
 apiVersion: v1
@@ -48,7 +48,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 128Mi
+      storage: 256Mi
 ---
 # ConfigMap Configuration
 apiVersion: v1
@@ -59,7 +59,7 @@ metadata:
   labels:
     app: certbot
 data:
-  cloudflare.ini: |
+  cloudflare.ini: |-
     dns_cloudflare_email = ${DNS_CLOUDFLARE_EMAIL}
     dns_cloudflare_api_key = ${DNS_CLOUDFLARE_API_KEY}
 ---
