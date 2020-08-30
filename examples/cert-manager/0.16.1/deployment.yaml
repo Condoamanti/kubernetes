@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1alpha2
 kind: Issuer
 metadata:
-  name: example-issuer
+  name: cloudflare-issuer
   namespace: cert-manager
 spec:
   acme:
@@ -22,4 +22,16 @@ spec:
           apiTokenSecretRef:
             name: cloudflare-api-token-secret
             key: api-token
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: letsencrypt-cert
+  namespace: cert-manager-test
+spec:
+  dnsNames:
+    - jittersolutions.com
+  secretName: letsencrypt-cert-tls
+  issuerRef:
+    name: cloudflare-issuer
 ---
