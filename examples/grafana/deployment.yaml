@@ -3,41 +3,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-grafana-etc-grafana
-  namespace: grafana
-  labels:
-    type: nfs
-  annotations:
-    volume.beta.kubernetes.io/storage-class: standard
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Gi
----
-# PersistentVolumeClaim Configuration
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: pvc-grafana-var-lib-grafana
-  namespace: grafana
-  labels:
-    type: nfs
-  annotations:
-    volume.beta.kubernetes.io/storage-class: standard
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Gi
----
-# PersistentVolumeClaim Configuration
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-grafana-var-log-grafana
   namespace: grafana
   labels:
     type: nfs
@@ -100,25 +66,15 @@ spec:
         app: grafana-server
     spec:
       volumes:
-      - name: grafana-etc-grafana
-        persistentVolumeClaim:
-          claimName: pvc-grafana-etc-grafana
       - name: grafana-var-lib-grafana
         persistentVolumeClaim:
           claimName: pvc-grafana-var-lib-grafana
-      - name: grafana-var-log-grafana
-        persistentVolumeClaim:
-          claimName: pvc-grafana-var-log-grafana
       containers:
       - name: grafana-server
         image: grafana/grafana:latest
         volumeMounts:
-          - name: grafana-etc-grafana
-            mountPath: /etc/grafana
           - name: grafana-var-lib-grafana
             mountPath: /var/lib/grafana
-          - name: grafana-var-lib-grafana
-            mountPath: /var/log/grafana
         resources:
           requests:
             memory: "256Mi"
