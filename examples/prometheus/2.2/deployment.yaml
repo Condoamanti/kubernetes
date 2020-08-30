@@ -90,7 +90,7 @@ spec:
           claimName: pvc-prometheus-server-data
       - name: prometheus-server-config
         configMap:
-          defaultMode: 0644
+          defaultMode: 0600
           name: cm-prometheus-server-config
       containers:
       - name: prometheus-server
