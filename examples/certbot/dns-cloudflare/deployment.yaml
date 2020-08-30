@@ -80,9 +80,9 @@ spec:
         app: certbot
     spec:
       volumes:
-      #- name: certbot-etc-letsencrypt
-      #  persistentVolumeClaim:
-      #    claimName: pvc-certbot-etc-letsencrypt
+      - name: certbot-etc-letsencrypt
+        persistentVolumeClaim:
+          claimName: pvc-certbot-etc-letsencrypt
       - name: certbot-var-lib-letsencrypt
         persistentVolumeClaim:
           claimName: pvc-certbot-var-lib-letsencrypt
