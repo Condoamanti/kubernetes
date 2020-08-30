@@ -10,9 +10,9 @@ spec:
     # certificates, and issues related to your account.
     email: freemanz2@outlook.com
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-#    privateKeySecretRef:
-#      # Secret resource that will be used to store the account's private key.
-#      name: example-issuer-account-key
+    privateKeySecretRef:
+      # Secret resource that will be used to store the account's private key.
+      name: example-issuer-account-key
     # Add a single challenge solver, dns01 using cloudflare
     solvers:
     - dns01:
