@@ -45,8 +45,8 @@ metadata:
   namespace: cert-manager-cloudflare
 spec:
   dnsNames:
-    - <DOMAINEXAMPLE>
-    - *.<DOMAINEXAMPLE>
+    - "<DOMAINEXAMPLE>"
+    - "*.<DOMAINEXAMPLE>"
   secretName: letsencrypt-cert-tls
   issuerRef:
     name: cloudflare-issuer

@@ -1,0 +1,88 @@
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-prometheus-server-data
+  namespace: prometheus
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+---
+# ConfigMap Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-prometheus-server
+  namespace: prometheus
+  labels:
+    app: prometheus-server
+data:
+  prometheus.yaml: |-
+    test
+---
+# Service Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-server
+  namespace: prometheus
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 9090
+    name: http
+    protocol: TCP
+    targetPort: 9090
+    nodePort: 30100
+  selector:
+    app: prometheus-server
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+---
+# Deployment Configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-server
+  namespace: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-server
+  template:
+    metadata:
+      labels:
+        app: prometheus-server
+    spec:
+      volumes:
+      - name: prometheus-server-data
+        persistentVolumeClaim:
+          claimName: pvc-prometheus-server-data
+      containers:
+      - name: prometheus-server
+        image: prom/prometheus:lastest
+        volumeMounts:
+          - name: prometheus-server-data
+            mountPath: /etc/prometheus
+        resources:
+          requests:
+            memory: "1024Mi"
+            cpu: "1000m"
+          limits:
+            memory: "2048Mi"
+            cpu: "2000m"
+        ports:
+        - containerPort: 9090
+          name: http
+---
