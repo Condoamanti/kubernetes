@@ -25,7 +25,7 @@ metadata:
   labels:
     app: prometheus-server
 data:
-  prometheus.yaml: |-
+  prometheus.yml: |-
     test:
 ---
 # Service Configuration
@@ -80,8 +80,8 @@ spec:
           - name: prometheus-server-data
             mountPath: /etc/prometheus
           - name: prometheus-server-config
-            mountPath: /etc/prometheus/prometheus.yaml
-            subPath: prometheus.yaml
+            mountPath: /etc/prometheus/prometheus.yml
+            subPath: prometheus.yml
             readOnly: true
         resources:
           requests:
