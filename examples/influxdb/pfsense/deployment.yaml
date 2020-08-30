@@ -38,7 +38,7 @@ metadata:
   labels:
     app: influxdb-pfsense
 data:
-  influxdb.conf: |
+  influxdb.conf: |-
     [admin]
     enabled = true
     bind–address = ":8083"
