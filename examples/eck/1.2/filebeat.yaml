@@ -98,8 +98,8 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/filebeat.yml
-          readOnly: true
           subPath: filebeat.yml
+          readOnly: true
         - name: data
           mountPath: /usr/share/filebeat/data
         - name: varlibdockercontainers

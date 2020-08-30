@@ -99,12 +99,10 @@ spec:
         args: [
           "certonly",
           "--dns-cloudflare",
-          "--dns-cloudflare-credentials", "/secrets/cloudflare.ini",
+          "--dns-cloudflare-credentials", "/etc/letsencrypt/cloudflare.ini",
           "-d", "jittersolutions.com",
         ]
         volumeMounts:
-          #- name: certbot-secrets
-          #  mountPath: /home/$(whoami)/.secrets/certbot
           - name: certbot-etc-letsencrypt
             mountPath: /etc/letsencrypt
           - name: certbot-var-lib-letsencrypt
@@ -112,7 +110,7 @@ spec:
           - name: certbot-var-log-letsencrypt
             mountPath: /var/log/letsencrypt
           - name: certbot-cloudflare-config-volume
-            mountPath: ~/.secrets/certbot/cloudflare.ini
+            mountPath: /etc/letsencrypt/cloudflare.ini
             subPath: cloudflare.ini
             readOnly: true
         env:
