@@ -3,8 +3,9 @@
 1. https://cert-manager.io/docs/configuration/acme/dns01/cloudflare/
 
 ### Configuration Requirement:
-- Update <APIKEY> within secret.yaml to the cloudflare API key you wish to utilize (recommend create specific API key referenced on documentation above)
-- Update 
+1. Update <APIKEY> to the cloudflare API key you wish to utilize (recommend create specific API key referenced on documentation above)
+2. Update <EMAILADDRESS> to match the email address needed for expiration notifications
+3. Update <DOMAINEXAMPLE> to match the domain your with create certificate for
 
 ### Deploy Order:
 1. `kubectl apply -f namespace.yaml`

@@ -1,4 +1,14 @@
 ---
+# Secret Configuration
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-cloudflare-api-token
+  namespace: cert-manager-cloudflare
+type: Opaque
+stringData:
+  api-token: <APIKEY>
+---
 # Issuer Configuration
 apiVersion: cert-manager.io/v1alpha2
 kind: Issuer
@@ -35,7 +45,8 @@ metadata:
   namespace: cert-manager-cloudflare
 spec:
   dnsNames:
-    - jittersolutions.com
+    - <DOMAINEXAMPLE>
+    - *.<DOMAINEXAMPLE>
   secretName: letsencrypt-cert-tls
   issuerRef:
     name: cloudflare-issuer
