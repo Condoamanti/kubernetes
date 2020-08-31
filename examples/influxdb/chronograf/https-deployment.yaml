@@ -63,7 +63,7 @@ spec:
           path: /mnt/pool2/kubernetes-data/certificates
       containers:
       - name: influxdb-chronograf-server
-        image: chronograf:latest
+        image: chronograf:1.8.4-alpine
         args: [
           "chronograf",
           "--influxdb-url=http://influxdb-pfsense-server:8086",
