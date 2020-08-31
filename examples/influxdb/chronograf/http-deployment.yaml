@@ -26,7 +26,7 @@ spec:
   externalTrafficPolicy: Cluster
   ports:
   - port: 8888
-    name: http-ingress
+    name: http-ui
     protocol: TCP
     targetPort: 8888
     nodePort: 30031
@@ -61,18 +61,19 @@ spec:
       - name: influxdb-chronograf-server
         image: chronograf:latest
         args: [
-          "chronograf", "--influxdb-url=http://influxdb-pfsense-server:8086"
+          "chronograf",
+          "--influxdb-url=http://influxdb-pfsense-server:8086",
         ]
         volumeMounts:
           - name: influxdb-chronograf-var-lib-chronograf
             mountPath: /var/lib/chronograf
         resources:
           requests:
+            memory: "256Mi"
+            cpu: "500m"
+          limits:
             memory: "512Mi"
             cpu: "1000m"
-          limits:
-            memory: "1024Mi"
-            cpu: "2000m"
         ports:
         - containerPort: 8888
           name: http-ui
