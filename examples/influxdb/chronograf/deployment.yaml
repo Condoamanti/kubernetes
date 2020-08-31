@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-influxdb-pfsense-var-lib-influxdb
+  name: pvc-influxdb-chronograf-var-lib-chronograf
   namespace: influxdb
   labels:
     type: nfs
@@ -16,35 +16,22 @@ spec:
     requests:
       storage: 1Gi
 ---
-# ConfigMap Configuration
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: influxdb-pfsense-server
-  namespace: influxdb
-  labels:
-    app: influxdb-pfsense
-data:
-  INFLUXDB_REPORTING_DISABLED: "true"
-  INFLUXDB_DATA_QUERY_LOG_ENABLED: "false"
-  INFLUXDB_HTTP_AUTH_ENABLED: "false"
----
 # Service Configuration
 apiVersion: v1
 kind: Service
 metadata:
-  name: influxdb-pfsense-server
+  name: influxdb-chronograf-server
   namespace: influxdb
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - port: 8086
+  - port: 8888
     name: http-ingress
     protocol: TCP
-    targetPort: 8086
-    nodePort: 30030
+    targetPort: 8888
+    nodePort: 30031
   selector:
-    app: influxdb-pfsense
+    app: influxdb-chronograf
   sessionAffinity: None
   type: NodePort
 status:
@@ -54,28 +41,28 @@ status:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: influxdb-pfsense-server
+  name: influxdb-chronograf-server
   namespace: influxdb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: influxdb-pfsense
+      app: influxdb-chronograf
   template:
     metadata:
       labels:
-        app: influxdb-pfsense
+        app: influxdb-chronograf
     spec:
       volumes:
-      - name: influxdb-pfsense-var-lib-influxdb
+      - name: influxdb-chronograf-var-lib-chronograf
         persistentVolumeClaim:
-          claimName: pvc-influxdb-pfsense-var-lib-influxdb
+          claimName: pvc-influxdb-chronograf-var-lib-chronograf
       containers:
-      - name: influxdb-pfsense-server
+      - name: influxdb-chronograf-server
         image: influxdb:latest
         volumeMounts:
-          - name: influxdb-pfsense-var-lib-influxdb
-            mountPath: /var/lib/influxdb
+          - name: influxdb-chronograf-var-lib-chronograf
+            mountPath: /var/lib/chronograf
         resources:
           requests:
             memory: "256Mi"
@@ -85,8 +72,8 @@ spec:
             cpu: "400m"
         envFrom:
           - configMapRef:
-              name: influxdb-pfsense-server
+              name: influxdb-chronograf-server
         ports:
-        - containerPort: 8086
-          name: http-ingress
+        - containerPort: 8888
+          name: http-ui
 ---
