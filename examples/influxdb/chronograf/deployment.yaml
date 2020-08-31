@@ -26,7 +26,7 @@ spec:
   externalTrafficPolicy: Cluster
   ports:
   - port: 8888
-    name: http-ingress
+    name: https-ui
     protocol: TCP
     targetPort: 8888
     nodePort: 30031
@@ -77,12 +77,12 @@ spec:
             mountPath: /certs
         resources:
           requests:
+            memory: "256Mi"
+            cpu: "500m"
+          limits:
             memory: "512Mi"
             cpu: "1000m"
-          limits:
-            memory: "1024Mi"
-            cpu: "2000m"
         ports:
         - containerPort: 8888
-          name: http-ui
+          name: https-ui
 ---
