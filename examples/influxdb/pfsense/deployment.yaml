@@ -20,7 +20,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: influxdb-pfsense-server
+  name: influxdb-server
   namespace: influxdb
   labels:
     app: influxdb-pfsense
@@ -33,7 +33,7 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: influxdb-pfsense-server
+  name: influxdb-server
   namespace: influxdb
 spec:
   externalTrafficPolicy: Cluster
@@ -54,7 +54,7 @@ status:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: influxdb-pfsense-server
+  name: influxdb-server
   namespace: influxdb
 spec:
   replicas: 1
@@ -71,7 +71,7 @@ spec:
         persistentVolumeClaim:
           claimName: pvc-influxdb-pfsense-var-lib-influxdb
       containers:
-      - name: influxdb-pfsense-server
+      - name: influxdb-server
         image: influxdb:latest
         volumeMounts:
           - name: influxdb-pfsense-var-lib-influxdb
@@ -85,7 +85,7 @@ spec:
             cpu: "400m"
         envFrom:
           - configMapRef:
-              name: influxdb-pfsense-server
+              name: influxdb-server
         ports:
         - containerPort: 8086
           name: http-ingress

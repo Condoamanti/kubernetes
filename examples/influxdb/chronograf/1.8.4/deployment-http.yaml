@@ -62,7 +62,7 @@ spec:
         image: chronograf:latest
         args: [
           "chronograf",
-          "--influxdb-url=http://influxdb-pfsense-server:8086",
+          "--influxdb-url=http://influxdb-server:8086",
         ]
         volumeMounts:
           - name: influxdb-chronograf-var-lib-chronograf

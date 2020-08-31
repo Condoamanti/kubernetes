@@ -66,7 +66,7 @@ spec:
         image: chronograf:1.8.4-alpine
         args: [
           "chronograf",
-          "--influxdb-url=http://influxdb-pfsense-server:8086",
+          "--influxdb-url=http://influxdb-server:8086",
           "--cert=/certificates/wild.jittersolutions.com.crt",
           "--key=/certificates/wild.jittersolutions.com.key",
         ]
