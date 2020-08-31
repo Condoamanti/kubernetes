@@ -159,23 +159,6 @@ metadata:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-traefik-letsencrypt
-  namespace: traefik
-  labels:
-    type: nfs
-  annotations:
-    volume.beta.kubernetes.io/storage-class: standard
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Mi
----
-# PersistentVolumeClaim Configuration
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: pvc-traefik-configuration
   namespace: traefik
   labels:
@@ -208,9 +191,6 @@ spec:
     spec:
       serviceAccountName: traefik-ingress-controller
       volumes:
-      - name: traefik-letsencrypt
-        persistentVolumeClaim:
-          claimName: pvc-traefik-letsencrypt
       - name: traefik-configuration
         persistentVolumeClaim:
           claimName: pvc-traefik-configuration
@@ -226,10 +206,6 @@ spec:
             - --providers.kubernetescrd
             - --providers.file.directory=/configuration/dynamic.yaml
             - --providers.file.watch=true
-            # Lets Encrypt
-            - --certificatesresolvers.mytlschallenge.acme.tlschallenge=true
-            - --certificatesresolvers.mytlschallenge.acme.email=admin@jittersolutions.com
-            - --certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json
           ports:
             - name: web
               containerPort: 80
@@ -238,8 +214,6 @@ spec:
             - name: admin
               containerPort: 8080
           volumeMounts:
-            - name: traefik-letsencrypt
-              mountPath: /letsencrypt
             - name: traefik-configuration
               mountPath: /configuration
 
