@@ -67,8 +67,8 @@ spec:
         args: [
           "chronograf",
           "--influxdb-url=http://influxdb-pfsense-server:8086",
-          "--cert=wild.jittersolutions.com",
-          "--key=wild.jittersolutions.key",
+          "--cert=wild.jittersolutions.com.crt",
+          "--key=wild.jittersolutions.comkey",
         ]
         volumeMounts:
           - name: influxdb-chronograf-var-lib-chronograf
