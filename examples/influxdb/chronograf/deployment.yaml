@@ -60,6 +60,9 @@ spec:
       containers:
       - name: influxdb-chronograf-server
         image: influxdb:latest
+        args: [
+          "chronograf", "--influxdb-url=http://influxdb-pfsense-server:8086"
+        ]
         volumeMounts:
           - name: influxdb-chronograf-var-lib-chronograf
             mountPath: /var/lib/chronograf
