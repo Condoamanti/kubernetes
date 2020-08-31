@@ -70,9 +70,6 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "400m"
-        envFrom:
-          - configMapRef:
-              name: influxdb-chronograf-server
         ports:
         - containerPort: 8888
           name: http-ui
