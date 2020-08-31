@@ -59,7 +59,7 @@ spec:
           claimName: pvc-influxdb-chronograf-var-lib-chronograf
       containers:
       - name: influxdb-chronograf-server
-        image: influxdb:latest
+        image: chronograf:latest
         args: [
           "chronograf", "--influxdb-url=http://influxdb-pfsense-server:8086"
         ]
