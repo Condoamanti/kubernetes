@@ -57,24 +57,15 @@ spec:
       - name: influxdb-chronograf-var-lib-chronograf
         persistentVolumeClaim:
           claimName: pvc-influxdb-chronograf-var-lib-chronograf
-      - name: nfs-certificates
-        nfs:
-          server: 192.168.110.245
-          path: /mnt/pool2/kubernetes-data/certificates
       containers:
       - name: influxdb-chronograf-server
         image: chronograf:latest
         args: [
-          "chronograf",
-          "--influxdb-url=http://influxdb-pfsense-server:8086",
-          "--cert=wild.jittersolutions.com",
-          "--key=wild.jittersolutions.key",
+          "chronograf", "--influxdb-url=http://influxdb-pfsense-server:8086"
         ]
         volumeMounts:
           - name: influxdb-chronograf-var-lib-chronograf
             mountPath: /var/lib/chronograf
-          - name: nfs-certificates
-            mountPath: /certs
         resources:
           requests:
             memory: "512Mi"
