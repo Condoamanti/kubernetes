@@ -66,7 +66,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: unifi-controller
-  namespace: influxdb
+  namespace: unifi-controller
 spec:
   replicas: 1
   selector:
