@@ -37,24 +37,11 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - port: 8080
-    name: http
-    protocol: TCP
-    targetPort: 8080
-    nodePort: 30100
   - port: 8443
     name: https
     protocol: TCP
     targetPort: 8443
-    nodePort: 30101
-  - port: 3478
-    name: question1
-    protocol: TCP
-    targetPort: 3478
-  - port: 10001
-    name: question2
-    protocol: TCP
-    targetPort: 10001
+    nodePort: 30100
   selector:
     app: unifi-controller
   sessionAffinity: None
