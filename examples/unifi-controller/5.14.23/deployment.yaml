@@ -46,6 +46,7 @@ spec:
     name: https
     protocol: TCP
     targetPort: 8443
+    nodePort: 30101
   - port: 3478
     name: question1
     protocol: TCP
