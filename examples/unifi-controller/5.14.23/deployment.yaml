@@ -51,7 +51,7 @@ spec:
     protocol: TCP
     targetPort: 3478
   - port: 10001
-    name: question1
+    name: question2
     protocol: TCP
     targetPort: 10001
   selector:
