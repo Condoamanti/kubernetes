@@ -1,4 +1,6 @@
 # artifactory
+### Documentation:
+- https://www.jfrog.com/confluence/display/JFROG/Getting+Started+with+Artifactory+as+a+Docker+Registry
 
 ### Important Configuration
 1. Default username and password
