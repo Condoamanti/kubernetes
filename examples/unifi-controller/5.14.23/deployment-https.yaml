@@ -43,19 +43,22 @@ spec:
     name: port1
     protocol: TCP
     targetPort: 8080
+    nodePort: 30100
   - port: 8443 # HTTP portal / Web interface + API
     name: port2
     protocol: TCP
     targetPort: 8443
-    nodePort: 30100
+    nodePort: 30101
   - port: 3478 # STUN service
     name: port3
     protocol: UDP
     targetPort: 3478
+    nodePort: 30102
   - port: 10001 # UBNT Discovery
     name: port4
     protocol: UDP
     targetPort: 10001
+    nodePort: 30103
   selector:
     app: unifi-controller
   sessionAffinity: None
