@@ -90,7 +90,7 @@ spec:
           path: /mnt/pool2/kubernetes-data/certificates
       containers:
       - name: unifi-controller
-        image: jacobalberty/unifi:stable
+        image: jacobalberty/unifi:5.14.23
         volumeMounts:
           - name: unifi-controller-data
             mountPath: /unifi
