@@ -29,7 +29,7 @@ data:
 
     [[inputs.snmp]]
       # List of agents to poll
-      agents = [ "uap1", "uap2" ]
+      agents = [ "apt1dc1" ]
       # Polling interval
       interval = "60s"
       # Timeout for each SNMP query.
@@ -227,6 +227,10 @@ spec:
       containers:
       - name: unifi-controller-telegraf
         image: telegraf:alpine
+        args: [
+          "wget", "http://dl.ubnt-ut.com/snmp/UBNT-MIB", "-P", "/usr/share/snmp/mibs/;",
+          "wget", "http://dl.ubnt-ut.com/snmp/UBNT-UniFi-MIB", "-P", "/usr/share/snmp/mibs/;",
+        ]
         volumeMounts:
           - name: unifi-controller-telegraf-config
             mountPath: /etc/telegraf/telegraf.conf
