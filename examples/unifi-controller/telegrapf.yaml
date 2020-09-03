@@ -227,11 +227,11 @@ spec:
       containers:
       - name: unifi-controller-telegraf
         image: telegraf:alpine
-        #command: ["/bin/sh", "-c"]
-        #args: [
-        #  "wget http://dl.ubnt-ut.com/snmp/UBNT-MIB -P /usr/share/snmp/mibs/; wget http://dl.ubnt-ut.com/snmp/UBNT-UniFi-MIB -P /usr/share/snmp/mibs/;",
-        #  "telegraf"
-        #]
+        command: ["/bin/sh", "-c"]
+        args: [
+          "wget http://dl.ubnt-ut.com/snmp/UBNT-MIB -P /usr/share/snmp/mibs/; wget http://dl.ubnt-ut.com/snmp/UBNT-UniFi-MIB -P /usr/share/snmp/mibs/;",
+          "telegraf",
+        ]
         volumeMounts:
           - name: unifi-controller-telegraf-config
             mountPath: /etc/telegraf/telegraf.conf
