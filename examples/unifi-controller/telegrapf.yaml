@@ -228,7 +228,7 @@ spec:
       - name: unifi-controller-telegraf
         image: telegraf:alpine
         args: [
-          "wget", "http://dl.ubnt-ut.com/snmp/UBNT-MIB", "-P", "/usr/share/snmp/mibs/",
+          "wget", "http://dl.ubnt-ut.com/snmp/UBNT-MIB", "-P", "/usr/share/snmp/mibs/", "&&",
           "wget", "http://dl.ubnt-ut.com/snmp/UBNT-UniFi-MIB", "-P", "/usr/share/snmp/mibs/",
         ]
         volumeMounts:
