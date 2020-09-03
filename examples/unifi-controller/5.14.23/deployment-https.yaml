@@ -20,7 +20,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: unifi-controller
+  name: unifi-controller-tcp
   namespace: unifi-controller
   labels:
     app: unifi-controller
@@ -55,6 +55,24 @@ spec:
       protocol: TCP 
       name: port2
       targetPort: 8443
+---
+# Service Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: unifi-controller-udp
+  namespace: unifi-controller
+spec:
+  type: LoadBalancer
+  selector:
+    app: unifi-controller
+  externalIPs:
+  - 192.168.110.181
+  - 192.168.110.182
+  - 192.168.110.183
+  - 192.168.110.184
+  externalTrafficPolicy: Cluster
+  ports:
     - port: 3478 # STUN service
       protocol: UDP 
       name: port3
