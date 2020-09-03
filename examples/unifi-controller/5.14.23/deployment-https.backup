@@ -31,38 +31,38 @@ data:
   CERT_IS_CHAIN: "true"
 ---
 # Service Configuration
-piVersion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: unifi-controller
   namespace: unifi-controller
 spec:
-  type: LoadBalancer
-  selector:
-    app: unifi-controller
-  externalIPs:
-  - 192.168.110.181
-  - 192.168.110.182
-  - 192.168.110.183
-  - 192.168.110.184
   externalTrafficPolicy: Cluster
   ports:
-    - port: 8080 # HTTPS portal / Device command/control
-      protocol: TCP
-      name: port1
-      targetPort: 8080
-    - port: 8443 # HTTP portal / Web interface + API
-      protocol: TCP 
-      name: port2
-      targetPort: 8443
-    - port: 3478 # STUN service
-      protocol: UDP 
-      name: port3
-      targetPort: 3478
-    - port: 10001 # UBNT Discovery
-      protocol: UDP
-      name: port4
-      targetPort: 10001
+  - port: 8080 # HTTPS portal / Device command/control
+    name: port1
+    protocol: TCP
+    targetPort: 8080
+    nodePort: 30080
+  - port: 8443 # HTTP portal / Web interface + API
+    name: port2
+    protocol: TCP
+    targetPort: 8443
+    nodePort: 30100
+  - port: 3478 # STUN service
+    name: port3
+    protocol: UDP
+    targetPort: 3478
+  - port: 10001 # UBNT Discovery
+    name: port4
+    protocol: UDP
+    targetPort: 10001
+  selector:
+    app: unifi-controller
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
 ---
 # Deployment Configuration
 apiVersion: apps/v1
