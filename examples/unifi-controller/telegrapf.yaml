@@ -10,12 +10,25 @@ metadata:
 data:
   telegraf-unifi-controller.conf: |-
     # Telegraf Configuration
-    ## OUTPUT CONFIGURATION
+
+    [agent]
+            interval = "10s"
+            round_interval = true
+    [[inputs.cpu]]
+    [[inputs.disk]]
+    [[inputs.diskio]]
+    [[inputs.kernel]]
+    [[inputs.mem]]
+    [[inputs.net]]
+    [[inputs.processes]]
+    [[inputs.swap]]
+    [[inputs.system]]
+    [[inputs.pf]]
     [[outputs.influxdb]]
-      url = "http://k8snode1dc1.jittersolutions.com:30030"
-      database = "telegraf"
-      skip_database_creation = false
-      precision = "s"
+        urls = ["http://k8snode1dc1.jittersolutions.com:30030"]
+        database = "telegraf"
+        insecure_skip_verify = true
+        #ssl_ca = "/usr/local/etc/telegraf.ca"
     
     ## INPUT CONFIGURATION
     ### Retrieves details via SNMP from UniFI APs (Gen 2 and later)
