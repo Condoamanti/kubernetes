@@ -12,18 +12,9 @@ data:
     # Telegraf Configuration
 
     [agent]
-            interval = "10s"
-            round_interval = true
-    [[inputs.cpu]]
-    [[inputs.disk]]
-    [[inputs.diskio]]
-    [[inputs.kernel]]
-    [[inputs.mem]]
-    [[inputs.net]]
-    [[inputs.processes]]
-    [[inputs.swap]]
-    [[inputs.system]]
-    [[inputs.pf]]
+      interval = "10s"
+      round_interval = true
+
     [[outputs.influxdb]]
         urls = ["http://k8snode1dc1.jittersolutions.com:30030"]
         database = "telegraf"
@@ -238,7 +229,7 @@ spec:
         image: telegraf:alpine
         volumeMounts:
           - name: unifi-controller-telegraf-config
-            mountPath: /etc/telegraf/telegraf.d/telegraf-unifi-controller.conf
+            mountPath: /etc/telegraf/telegraf.conf
             subPath: telegraf-unifi-controller.conf
             readOnly: true
         resources:
