@@ -198,27 +198,6 @@ data:
         oid = "UCD-SNMP-MIB::memCached.0"
       #
 ---
-# Service Configuration
-apiVersion: v1
-kind: Service
-metadata:
-  name: unifi-controller-telegraf
-  namespace: unifi-controller
-spec:
-  externalTrafficPolicy: Cluster
-  ports:
-  - port: 8086
-    name: http-ingress
-    protocol: TCP
-    targetPort: 8086
-    nodePort: 30500
-  selector:
-    app: unifi-controller-telegraf
-  sessionAffinity: None
-  type: NodePort
-status:
-  loadBalancer: {}
----
 # Deployment Configuration
 apiVersion: apps/v1
 kind: Deployment
@@ -255,7 +234,5 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "400m"
-        ports:
-        - containerPort: 8086
-          name: http-ingress
+        ports: {}
 ---
