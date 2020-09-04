@@ -104,6 +104,10 @@ spec:
       - name: grafana-var-lib-grafana
         persistentVolumeClaim:
           claimName: pvc-grafana-var-lib-grafana
+      - name: grafana-server-config
+        configMap:
+          defaultMode: 0600
+          name: cm-grafana-server-config
       - name: nfs-certificates
         nfs:
           server: 192.168.110.245
@@ -114,8 +118,12 @@ spec:
         volumeMounts:
           - name: grafana-var-lib-grafana
             mountPath: /var/lib/grafana
+          - name: grafana-server-config
+            mountPath: /etc/grafana/grafana.ini
+            subPath: grafana.ini
+            readOnly: true
           - name: nfs-certificates
-            mountPath: /etc/grafana/
+            mountPath: /etc/grafana/ssl/
         resources:
           requests:
             memory: "256Mi"
