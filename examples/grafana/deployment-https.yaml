@@ -16,6 +16,53 @@ spec:
     requests:
       storage: 1Gi
 ---
+# ConfigMap Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-grafana-server-config
+  namespace: grafana
+  labels:
+    app: grafana-server
+data:
+  grafana.ini: |-
+    [server]
+    # Protocol (http, https, socket)
+    protocol = https
+
+    # The ip address to bind to, empty will bind to all interfaces
+    ;http_addr =
+
+    # The http port to use
+    http_port = 3000
+
+    # The public facing domain name used to access grafana from a browser
+    ;domain = localhost
+
+    # Redirect to correct domain if host header does not match domain
+    # Prevents DNS rebinding attacks
+    ;enforce_domain = false
+
+    # The full public facing url you use in browser, used for redirects and emails
+    # If you use reverse proxy and sub path specify full url (with sub path)
+    ;root_url = https://localhost:3000
+
+    # Log web requests
+    ;router_logging = false
+
+    # the path relative working path
+    ;static_root_path = public
+
+    # enable gzip
+    ;enable_gzip = false
+
+    # https certs & key file
+    cert_file = /etc/grafana/ssl/wild.jittersolutions.com.crt
+    cert_key = /etc/grafana/ssl/wild.jittersolutions.com.key
+
+    # Unix socket path
+    ;socket =
+---
 # Service Configuration
 apiVersion: v1
 kind: Service
@@ -57,12 +104,18 @@ spec:
       - name: grafana-var-lib-grafana
         persistentVolumeClaim:
           claimName: pvc-grafana-var-lib-grafana
+      - name: nfs-certificates
+        nfs:
+          server: 192.168.110.245
+          path: /mnt/pool2/kubernetes-data/certificates
       containers:
       - name: grafana-server
         image: grafana/grafana:latest
         volumeMounts:
           - name: grafana-var-lib-grafana
             mountPath: /var/lib/grafana
+          - name: nfs-certificates
+            mountPath: /etc/grafana/
         resources:
           requests:
             memory: "256Mi"
@@ -75,4 +128,6 @@ spec:
           name: http
         securityContext:
           runAsUser: 0
+          # If using Red Hat OpenShift uncomment this:
+          #privileged: true
 ---
