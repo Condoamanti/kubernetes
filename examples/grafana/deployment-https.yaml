@@ -108,10 +108,14 @@ spec:
         configMap:
           defaultMode: 0600
           name: cm-grafana-server-config
-      - name: nfs-certificates
-        nfs:
-          server: 192.168.110.245
-          path: /mnt/pool2/kubernetes-data/certificates
+      - name: ssh-certificate-crt
+        secret:
+          secretName: letsencrypt-cert-tls
+          secretKey: tls.key
+      - name: ssh-certificate-key
+        secret:
+          secretName: letsencrypt-cert-tls
+          secretKey: tls.crt
       containers:
       - name: grafana-server
         image: grafana/grafana:latest
