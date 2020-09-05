@@ -5,7 +5,8 @@
 - https://grafana.com/docs/grafana/latest/administration/configuration/
 
 ### Configuration Requirements:
-1. Update configuration within certificate.yaml to include <APIKEY> and <EMAILADDRESS>
+1. Configure cert-manager accordingly
+2. Update configuration within certificate.yaml to include <APIKEY> and <EMAILADDRESS>
 
 ### Deployment Order:
 1. `kubectl apply -f namespace.yaml`
