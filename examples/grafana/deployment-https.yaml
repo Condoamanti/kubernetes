@@ -121,8 +121,8 @@ spec:
             mountPath: /etc/grafana/grafana.ini
             subPath: grafana.ini
             readOnly: true
-            name: ssh-certificate
-          - mountPath: /etc/grafana/ssl/
+          - name: ssh-certificate
+            mountPath: /etc/grafana/ssl/
             readOnly: true
         resources:
           requests:
