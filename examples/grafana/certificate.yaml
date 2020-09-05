@@ -1,0 +1,53 @@
+---
+# Secret Configuration
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-cloudflare-api-token
+  namespace: cgrafana
+type: Opaque
+stringData:
+  api-token: <APIKEY>
+---
+# Issuer Configuration
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: cloudflare-issuer
+  namespace: cgrafana
+spec:
+  acme:
+    # You must replace this email address with your own.
+    # Let's Encrypt will use this to contact you about expiring
+    # certificates, and issues related to your account.
+    email: <EMAILADDRESS>
+    # The Let's Encrypt server can be one of the below values
+    # - https://acme-staging-v02.api.letsencrypt.org/directory (staging server and will generate a 'Fake LE Root x1' CA root certificate)
+    # - https://acme-v02.api.letsencrypt.org/directory (staging server and will generate a 'Fake LE Root x1' CA root certificate)
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      # Secret resource that will be used to store the account's private key.
+      name: cert-manager-cloudflare-issuer-account-key
+    # Add a single challenge solver, dns01 using cloudflare
+    solvers:
+    - dns01:
+        cloudflare:
+          email: <EMAILADDRESS>
+          apiTokenSecretRef:
+            name: secret-cloudflare-api-token
+            key: api-token
+---
+# Certificate Configuration
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: letsencrypt-cert
+  namespace: cgrafana
+spec:
+  dnsNames:
+    - "<DOMAINEXAMPLE>"
+    - "*.<DOMAINEXAMPLE>"
+  secretName: letsencrypt-cert-tls
+  issuerRef:
+    name: cloudflare-issuer
+---
