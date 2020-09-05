@@ -57,8 +57,8 @@ data:
     ;enable_gzip = false
 
     # https certs & key file
-    cert_file = /etc/grafana/ssl/wild.jittersolutions.com.crt
-    cert_key = /etc/grafana/ssl/wild.jittersolutions.com.key
+    cert_file = /etc/grafana/ssl/tls.crt
+    cert_key = /etc/grafana/ssl/tls.key
 
     # Unix socket path
     ;socket =
@@ -108,14 +108,9 @@ spec:
         configMap:
           defaultMode: 0600
           name: cm-grafana-server-config
-      - name: ssh-certificate-crt
+      - name: ssh-certificate
         secret:
           secretName: letsencrypt-cert-tls
-          secretKey: tls.key
-      - name: ssh-certificate-key
-        secret:
-          secretName: letsencrypt-cert-tls
-          secretKey: tls.crt
       containers:
       - name: grafana-server
         image: grafana/grafana:latest
@@ -126,8 +121,9 @@ spec:
             mountPath: /etc/grafana/grafana.ini
             subPath: grafana.ini
             readOnly: true
-          - name: nfs-certificates
-            mountPath: /etc/grafana/ssl/
+            name: ssh-certificate
+          - mountPath: /etc/grafana/ssl/
+            readOnly: true
         resources:
           requests:
             memory: "256Mi"
