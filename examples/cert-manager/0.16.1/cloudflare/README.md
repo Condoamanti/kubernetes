@@ -9,7 +9,7 @@
 
 ### Deploy Order:
 1. `kubectl apply -f namespace.yaml`
-3. `kubectl apply -f deployment.yaml`
+2. `kubectl apply -f deployment.yaml`
 
 ### Monitor Process:
 - `kubectl get events -n cert-manager-cloudflare --sort-by='.metadata.creationTimestamp'`
