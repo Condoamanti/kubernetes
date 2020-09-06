@@ -77,7 +77,7 @@ spec:
       - name: nfs-cifs-tv_shows
         nfs:
           server: 192.168.110.245
-          path: /mnt/cifs/tv_shows
+          path: /mnt/cifs/tv
       containers:
       - name: plex-server
         image: linuxserver/plex
@@ -86,8 +86,8 @@ spec:
             mountPath: /config
           - name: nfs-cifs-movies
             mountPath: /movies
-          - name: nfs-cifs-tv_shows
-            mountPath: /tv_shows
+          - name: nfs-cifs-tv
+            mountPath: /tv
         resources:
           requests:
             memory: "1024Mi"
