@@ -109,7 +109,7 @@ spec:
         volumeMounts:
           - name: influxdb-pfsense-var-lib-influxdb
             mountPath: /var/lib/influxdb
-          - name: influxdb-pfsense-server-config
+          - name: influxdb-server-config
             mountPath: /etc/influxdb/influxdb.conf
             subPath: influxdb.conf
             readOnly: true
