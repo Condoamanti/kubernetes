@@ -77,7 +77,7 @@ spec:
       - name: nfs-cifs-tv
         nfs:
           server: 192.168.110.245
-          path: /mnt/cifs/tv
+          path: /mnt/cifs/tv_shows
       containers:
       - name: plex-server
         image: linuxserver/plex
