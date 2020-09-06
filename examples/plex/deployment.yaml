@@ -101,4 +101,22 @@ spec:
         ports:
         - containerPort: 32400 #Plex Media Server
           name: http-ui
+        - containerPort: 1900 #Plex Media Server
+          name: port1
+        - containerPort: 3005 #Plex Media Server
+          name: port2
+        - containerPort: 5353 #Plex Media Server
+          name: port3
+        - containerPort: 8324 #Plex Media Server
+          name: port4
+        - containerPort: 32410 #Plex Media Server
+          name: port5
+        - containerPort: 32412 #Plex Media Server
+          name: port6
+        - containerPort: 32413 #Plex Media Server
+          name: port7
+        - containerPort: 32414 #Plex Media Server
+          name: port8
+        - containerPort: 32469 #Plex Media Server
+          name: port9
 ---
