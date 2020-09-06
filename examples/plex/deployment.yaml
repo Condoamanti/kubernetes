@@ -27,7 +27,7 @@ metadata:
 data:
   PUID: 1000
   PGID: 1000
-  VERSION: "docker"
+  VERSION: docker
 ---
 # Service Configuration
 apiVersion: v1
