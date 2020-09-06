@@ -74,7 +74,7 @@ spec:
         nfs:
           server: 192.168.110.245
           path: /mnt/cifs/movies
-      - name: nfs-cifs-tv_shows
+      - name: nfs-cifs-tv
         nfs:
           server: 192.168.110.245
           path: /mnt/cifs/tv
