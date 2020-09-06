@@ -29,7 +29,7 @@ spec:
     name: https-ui
     protocol: TCP
     targetPort: 8888
-    nodePort: 30031
+    nodePort: 30040
   selector:
     app: influxdb-chronograf
   sessionAffinity: None
