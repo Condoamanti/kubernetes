@@ -39,7 +39,7 @@ spec:
   externalTrafficPolicy: Cluster
   ports:
   - port: 32400
-    name: port0
+    name: http-ui
     protocol: TCP
     targetPort: 32400
     nodePort: 32400
@@ -70,12 +70,24 @@ spec:
       - name: plex-server-config
         persistentVolumeClaim:
           claimName: pvc-plex-server-config
+      - name: nfs-cifs-movies
+        nfs:
+          server: 192.168.110.245
+          path: /mnt/cifs/movies
+      - name: nfs-cifs-tv_shows
+        nfs:
+          server: 192.168.110.245
+          path: /mnt/cifs/tv_shows
       containers:
       - name: plex-server
         image: linuxserver/plex
         volumeMounts:
           - name: plex-server-config
             mountPath: /config
+          - name: nfs-cifs-movies
+            mountPath: /movies
+          - name: nfs-cifs-tv_shows
+            mountPath: /tv_shows
         resources:
           requests:
             memory: "1024Mi"
@@ -88,5 +100,5 @@ spec:
               name: plex-server-env
         ports:
         - containerPort: 32400 #Plex Media Server
-          name: port0
+          name: http-ui
 ---
