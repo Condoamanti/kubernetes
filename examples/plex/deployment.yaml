@@ -43,6 +43,33 @@ spec:
     protocol: TCP
     targetPort: 32400
     nodePort: 32400
+  - port: 1900 #
+    name: port1
+    targetPort: 1900
+  - port: 3005 #
+    name: port2
+    targetPort: 3005
+  - port: 5353 #
+    name: port3
+    targetPort: 5353
+  - port: 8324 #
+    name: port4
+    targetPort: 8324
+  - port: 32410 #
+    name: port5
+    targetPort: 32410
+  - port: 32412 #
+    name: port6
+    targetPort: 32412
+  - port: 32413 #
+    name: port7
+    targetPort: 32413
+  - port: 32414 #
+    name: port8
+    targetPort: 32414
+  - port: 32469 #
+    name: port9
+    targetPort: 32469
   selector:
     app: plex-server
   sessionAffinity: None
@@ -101,22 +128,22 @@ spec:
         ports:
         - containerPort: 32400 #Plex Media Server
           name: http-ui
-        - containerPort: 1900 #Plex Media Server
+        - containerPort: 1900 #
           name: port1
-        - containerPort: 3005 #Plex Media Server
+        - containerPort: 3005 #
           name: port2
-        - containerPort: 5353 #Plex Media Server
+        - containerPort: 5353 #
           name: port3
-        - containerPort: 8324 #Plex Media Server
+        - containerPort: 8324 #
           name: port4
-        - containerPort: 32410 #Plex Media Server
+        - containerPort: 32410 #
           name: port5
-        - containerPort: 32412 #Plex Media Server
+        - containerPort: 32412 #
           name: port6
-        - containerPort: 32413 #Plex Media Server
+        - containerPort: 32413 #
           name: port7
-        - containerPort: 32414 #Plex Media Server
+        - containerPort: 32414 #
           name: port8
-        - containerPort: 32469 #Plex Media Server
+        - containerPort: 32469 #
           name: port9
 ---
