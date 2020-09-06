@@ -73,11 +73,11 @@ spec:
       - name: nfs-cifs-movies
         nfs:
           server: 192.168.110.245
-          path: /mnt/cifs/movies
+          path: /mnt/pool1/movies
       - name: nfs-cifs-tv
         nfs:
           server: 192.168.110.245
-          path: /mnt/cifs/tv_shows
+          path: /mnt/pool1/tv_shows
       containers:
       - name: plex-server
         image: linuxserver/plex
