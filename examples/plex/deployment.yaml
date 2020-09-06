@@ -87,7 +87,7 @@ spec:
           - name: nfs-cifs-movies
             mountPath: /movies
           - name: nfs-cifs-tv
-            mountPath: /tv
+            mountPath: /tv_shows
         resources:
           requests:
             memory: "1024Mi"
