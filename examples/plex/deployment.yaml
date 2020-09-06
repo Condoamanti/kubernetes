@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-jenkins-server-jenkins-home
+  name: pvc-plex-server-config
   namespace: plex
   labels:
     type: nfs
@@ -14,41 +14,37 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
 ---
 # ConfigMap Configuration
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: jenkins-server
+  name: plex-server-env
   namespace: plex
   labels:
-    app: jenkins-server
+    app: plex-server
 data:
-  JAVA_OPTS: "-Djava.util.logging.config.file=/var/jenkins_home/log.properties"
-  JENKINS_HOME: "/var/jenkins_home/"
+  PUID: 1000
+  PGID: 1000
+  VERSION: "docker"
 ---
 # Service Configuration
 apiVersion: v1
 kind: Service
 metadata:
-  name: jenkins-server
+  name: plex-server
   namespace: plex
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - port: 8080
-    name: webui
+  - port: 32400
+    name: port0
     protocol: TCP
-    targetPort: 8080
-    nodePort: 32180
-  - port: 50000
-    name: tunnel
-    protocol: TCP
-    targetPort: 50000
-    nodePort: 32181
+    targetPort: 32400
+    nodePort: 32400
   selector:
-    app: jenkins-server
+    app: plex-server
   sessionAffinity: None
   type: NodePort
 status:
@@ -58,42 +54,40 @@ status:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jenkins-server
+  name: plex-server
   namespace: plex
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: jenkins-server
+      app: plex-server
   template:
     metadata:
       labels:
-        app: jenkins-server
+        app: plex-server
     spec:
-      serviceAccountName: jenkins
+      serviceAccountName: plex
       volumes:
-      - name: jenkins-server-jenkins-home
+      - name: plex-server-config
         persistentVolumeClaim:
-          claimName: pvc-jenkins-server-jenkins-home
+          claimName: pvc-plex-server-config
       containers:
-      - name: jenkins-server
-        image: jenkins/jenkins:lts
+      - name: plex-server
+        image: linuxserver/plex
         volumeMounts:
-          - name: jenkins-server-jenkins-home
-            mountPath: /var/jenkins_home
+          - name: plex-server-config
+            mountPath: /config
         resources:
           requests:
             memory: "1024Mi"
             cpu: "1000m"
           limits:
-            memory: "4096Mi"
+            memory: "2048Mi"
             cpu: "2000m"
         envFrom:
           - configMapRef:
-              name: jenkins-server
+              name: plex-server-env
         ports:
-        - containerPort: 8080
-          name: webui
-        - containerPort: 50000
-          name: tunnel
+        - containerPort: 32400 #Plex Media Server
+          name: port0
 ---

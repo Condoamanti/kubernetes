@@ -60,7 +60,6 @@ data:
       # Default template
       #"server.*",
     ]
-
 ---
 # Service Configuration
 apiVersion: v1
