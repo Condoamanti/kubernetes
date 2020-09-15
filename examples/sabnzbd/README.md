@@ -1,2 +1,0 @@
-# sabnzbd
-### non-functional
