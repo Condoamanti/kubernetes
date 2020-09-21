@@ -1,0 +1,114 @@
+---
+# PersistentVolumeClaim Configuration (Postgres)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-gitlab-server
+  namespace: gitlab-ce
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi
+---
+# ConfigMap Configuration (Postgres)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitlab-server
+  namespace: gitlab-ce
+  labels:
+    app: gitlab-server
+data:
+  TEST: ""
+---
+# Deployment Configuration (Postgres)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-server
+  namespace: gitlab-ce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab-server
+  template:
+    metadata:
+      labels:
+        app: gitlab-server
+    spec:
+      volumes:
+      - name: gitlab-server-config
+        persistentVolumeClaim:
+          claimName: pvc-gitlab-server
+      - name: gitlab-server-data
+        persistentVolumeClaim:
+          claimName: pvc-gitlab-server
+      - name: gitlab-server-logs
+        persistentVolumeClaim:
+          claimName: pvc-gitlab-server
+      containers:
+      - name: gitlab-server
+        image: gitlab/gitlab-ce:11.10.4-ce.0
+        volumeMounts:
+          - name: gitlab-server-config
+            mountPath: /etc/gitlab
+          - name: gitlab-server-data
+            mountPath: /var/opt/gitlab
+          - name: gitlab-server-logs
+            mountPath: /var/log/gitlab
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "1000m"
+          limits:
+            memory: "4096Mi"
+            cpu: "2000m"
+        envFrom:
+          - configMapRef:
+              name: gitlab-server
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        - name: ssh
+          containerPort: 22
+---
+# Service Configuration (Postgres)
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitlab-server
+  namespace: gitlab-ce
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 80
+    name: http
+    protocol: TCP
+    targetPort: 80
+    nodePort: 31050
+  - port: 443
+    name: https
+    protocol: TCP
+    targetPort: 443
+    nodePort: 31051
+  - port: 22
+    name: ssh
+    protocol: TCP
+    targetPort: 22
+    nodePort: 31052
+  selector:
+    app: gitlab-server
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+---
