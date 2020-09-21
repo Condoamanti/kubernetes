@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-gitlab-server
+  name: pvc-gitlab-server-data
   namespace: gitlab-ce
   labels:
     type: nfs
@@ -44,24 +44,18 @@ spec:
         app: gitlab-server
     spec:
       volumes:
-      - name: gitlab-server-config
-        persistentVolumeClaim:
-          claimName: pvc-gitlab-server
       - name: gitlab-server-data
         persistentVolumeClaim:
-          claimName: pvc-gitlab-server
-      - name: gitlab-server-logs
-        persistentVolumeClaim:
-          claimName: pvc-gitlab-server
+          claimName: pvc-gitlab-server-data
       containers:
       - name: gitlab-server
         image: gitlab/gitlab-ce:11.10.4-ce.0
         volumeMounts:
-          - name: gitlab-server-config
+          - name: gitlab-server-data
             mountPath: /etc/gitlab
           - name: gitlab-server-data
             mountPath: /var/opt/gitlab
-          - name: gitlab-server-logs
+          - name: gitlab-server-data
             mountPath: /var/log/gitlab
         resources:
           requests:
