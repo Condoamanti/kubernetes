@@ -49,7 +49,7 @@ spec:
           claimName: pvc-gitlab-server-data
       containers:
       - name: gitlab-server
-        image: gitlab/gitlab-ce:11.10.4-ce.0
+        image: gitlab/gitlab-ce:latest
         volumeMounts:
           - name: gitlab-server-data
             mountPath: /etc/gitlab
