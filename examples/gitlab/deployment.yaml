@@ -137,7 +137,7 @@ spec:
             cpu: "1000m"
         envFrom:
           - configMapRef:
-              name: plex-server-env
+              name: gitlab-server
         ports:
         - containerPort: 80
           name: http
