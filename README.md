@@ -22,4 +22,3 @@
     - https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 4. Deployment:
     - https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
-
