@@ -50,6 +50,17 @@ spec:
     requests:
       storage: 10Gi
 ---
+# ConfigMap Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitlab-server
+  namespace: gitlab-ce
+  labels:
+    app: gitlab-server
+data:
+  GITLAB_OMNIBUS_CONFIG: "external_url 'https://gitlab.jittersolutions.com'"
+---
 # Service Configuration
 apiVersion: v1
 kind: Service
