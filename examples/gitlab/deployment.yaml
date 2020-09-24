@@ -135,6 +135,9 @@ spec:
           limits:
             memory: "2048Mi"
             cpu: "1000m"
+        envFrom:
+          - configMapRef:
+              name: plex-server-env
         ports:
         - containerPort: 80
           name: http
