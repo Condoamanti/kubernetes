@@ -1,0 +1,96 @@
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-gitlab-server-data
+  namespace: gitlab-ce
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+---
+# Service Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitlab
+  namespace: gitlab-ce
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 80
+    name: http
+    protocol: TCP
+    targetPort: 80
+    nodePort: 30200
+  - port: 443
+    name: https
+    protocol: TCP
+    targetPort: 443
+    nodePort: 30201
+  - port: 22
+    name: ssh
+    protocol: TCP
+    targetPort: 22
+    nodePort: 30202
+  selector:
+    app: gitlab-server
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+---
+# Deployment Configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-server
+  namespace: gitlab-ce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab-server
+  template:
+    metadata:
+      labels:
+        app: gitlab-server
+    spec:
+      volumes:
+      - name: gitlab-server-data
+        persistentVolumeClaim:
+          claimName: pvc-gitlab-server-data
+      containers:
+      - name: grafana-server
+        image: gitlab/gitlab-ce:latest
+        volumeMounts:
+          - name: gitlab-server-data
+            mountPath: /etc/gitlab
+          - name: gitlab-server-data
+            mountPath: /var/log/gitlab
+          - name: gitlab-server-data
+            mountPath: /var/opt/gitlab
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "200m"
+          limits:
+            memory: "2048Mi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 80
+          name: http
+        - containerPort: 443
+          name: https
+        - containerPort: 22
+          name: ssh
+        securityContext:
+          runAsUser: 0
+---
