@@ -46,7 +46,7 @@ spec:
       containers:
         - args:
           - run
-          image: gitlab/gitlab-runner:alpine
+          image: gitlab/gitlab-runner:latest
           imagePullPolicy: Always
           name: gitlab-runner
           resources:
