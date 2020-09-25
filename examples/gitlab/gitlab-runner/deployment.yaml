@@ -6,14 +6,14 @@ metadata:
   namespace: gitlab-ce
 data:
   config.toml: |-
-    concurrent = 4
+    concurrent = 1
     [[runners]]
       name = "Kubernetes Runner"
       url = "http://gitlab/"
       token = "DGSvyQYh3CGEa29pToNW"
       executor = "kubernetes"
       [runners.kubernetes]
-        namespace = "gitlab-runner"
+        namespace = "gitlab-ce"
         privileged = true
         poll_timeout = 600
         cpu_request = "1"
