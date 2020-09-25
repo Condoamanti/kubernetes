@@ -57,7 +57,7 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /etc/gitlab-runner/config.toml
-              readOnly: true
+              readOnly: false # this should be true
               subPath: config.toml
       restartPolicy: Always
 ---
