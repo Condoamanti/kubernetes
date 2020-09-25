@@ -108,6 +108,7 @@ spec:
       labels:
         app: gitlab-server
     spec:
+      serviceAccountName: gitlab
       volumes:
       - name: gitlab-server-etc-gitlab
         persistentVolumeClaim:
@@ -176,7 +177,6 @@ rules:
   resources:
   - namespaces
   - pods
-  - nodes
   verbs:
   - get
   - watch
