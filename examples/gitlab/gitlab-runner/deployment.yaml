@@ -23,7 +23,7 @@ data:
             mount_path = "/var/run/docker.sock"
             host_path = "/var/run/docker.sock"
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gitlab-runner
