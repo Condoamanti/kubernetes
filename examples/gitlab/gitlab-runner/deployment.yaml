@@ -10,7 +10,7 @@ data:
     [[runners]]
       name = "Kubernetes Runner"
       url = "http://gitlab/"
-      token = "DGSvyQYh3CGEa29pToNW"
+      token = "3iN1Z6rBnWe6uWbJgPf "
       executor = "kubernetes"
       [runners.kubernetes]
         namespace = "gitlab-ce"
