@@ -20,6 +20,23 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  name: pvc-gitlab-server-opt-gitlab
+  namespace: gitlab-ce
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
   name: pvc-gitlab-server-var-opt-gitlab
   namespace: gitlab-ce
   labels:
@@ -112,6 +129,9 @@ spec:
       - name: gitlab-server-etc-gitlab
         persistentVolumeClaim:
           claimName: pvc-gitlab-server-etc-gitlab
+      - name: gitlab-server-opt-gitlab
+        persistentVolumeClaim:
+          claimName: pvc-gitlab-server-opt-gitlab
       - name: gitlab-server-var-opt-gitlab
         persistentVolumeClaim:
           claimName: pvc-gitlab-server-var-opt-gitlab
@@ -124,6 +144,8 @@ spec:
         volumeMounts:
           - name: gitlab-server-etc-gitlab
             mountPath: /etc/gitlab
+          - name: gitlab-server-opt-gitlab
+            mountPath: /opt/gitlab
           - name: gitlab-server-var-opt-gitlab
             mountPath: /var/opt/gitlab
           - name: gitlab-server-var-logs-gitlab
