@@ -9,8 +9,8 @@ data:
     concurrent = 1
     [[runners]]
       name = "Kubernetes Runner"
-      url = "http://gitlab/"
-      token = "3iN1Z6rBnWe6uWbJgPf "
+      url = "https://gitlab.jittersolutions.com/"
+      token = "wpPyy7ChfraUHaY1nsXS "
       executor = "kubernetes"
       [runners.kubernetes]
         namespace = "gitlab-ce"
