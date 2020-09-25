@@ -1,0 +1,63 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitlab-runner-config
+  namespace: gitlab-ce
+data:
+  config.toml: |-
+    concurrent = 4
+    [[runners]]
+      name = "Kubernetes Runner"
+      url = "https://gitlab.com/ci"
+      token = "[TOKEN]"
+      executor = "kubernetes"
+      [runners.kubernetes]
+        namespace = "gitlab-runner"
+        privileged = true
+        poll_timeout = 600
+        cpu_request = "1"
+        service_cpu_request = "200m"
+        [[runners.kubernetes.volumes.host_path]]
+            name = "docker"
+            mount_path = "/var/run/docker.sock"
+            host_path = "/var/run/docker.sock"
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gitlab-runner
+  namespace: gitlab-ce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: gitlab-runner
+  template:
+    metadata:
+      labels:
+        name: gitlab-runner
+    spec:
+      serviceAccountName: gitlab
+      volumes:
+        - name: config
+          configMap:
+            name: gitlab-runner-config
+      containers:
+        - args:
+          - run
+          image: gitlab/gitlab-runner:alpine
+          imagePullPolicy: Always
+          name: gitlab-runner
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "100m"
+          volumeMounts:
+            - name: config
+              mountPath: /etc/gitlab-runner/config.toml
+              readOnly: true
+              subPath: config.toml
+      restartPolicy: Always
+---

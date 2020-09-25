@@ -173,12 +173,7 @@ kind: ClusterRole
 metadata:
   name: gitlab
 rules:
-- apiGroups: [""] # "" indicates the core API group
-  resources:
-  - namespaces
-  - pods
-  verbs:
-  - get
-  - watch
-  - list
+  - apiGroups: [""]
+    resources: ["*"]
+    verbs: ["*"]
 ---
