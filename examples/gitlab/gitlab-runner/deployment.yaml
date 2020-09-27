@@ -40,9 +40,9 @@ spec:
     spec:
       serviceAccountName: gitlab
       volumes:
-        - name: config
-          configMap:
-            name: gitlab-runner-config
+#        - name: config
+#          configMap:
+#            name: gitlab-runner-config
       containers:
         - args:
           - run
@@ -55,9 +55,9 @@ spec:
             limits:
               cpu: "100m"
           volumeMounts:
-            - name: config
-              mountPath: /etc/gitlab-runner/config.toml
-              readOnly: false # this should be true
-              subPath: config.toml
+#            - name: config
+#              mountPath: /etc/gitlab-runner/config.toml
+#              readOnly: false # this should be true
+#              subPath: config.toml
       restartPolicy: Always
 ---
