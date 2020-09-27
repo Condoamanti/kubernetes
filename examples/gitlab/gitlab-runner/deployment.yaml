@@ -19,14 +19,19 @@ data:
         [runners.cache.gcs]
         [runners.cache.azure]
       [runners.kubernetes]
+        host = ""
+        bearer_token_overwrite_allowed = false
+        image = ""
         namespace = "gitlab-ce"
+        namespace_overwrite_allowed = ""
         privileged = true
         cpu_request = "1"
         service_cpu_request = "200m"
-        [[runners.kubernetes.volumes.host_path]]
-            name = "docker"
-            mount_path = "/var/run/docker.sock"
-            host_path = "/var/run/docker.sock"
+        service_account_overwrite_allowed = ""
+        pod_annotations_overwrite_allowed = ""
+        [runners.kubernetes.affinity]
+        [runners.kubernetes.pod_security_context]
+        [runners.kubernetes.volumes]
 ---
 apiVersion: apps/v1
 kind: Deployment
