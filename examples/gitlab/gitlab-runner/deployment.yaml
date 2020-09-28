@@ -6,12 +6,12 @@ metadata:
   namespace: gitlab-ce
 data:
   config.toml: |-
-    concurrent = 1
+    concurrent = 4
     check_interval = 0
     [session_server]
       session_timeout = 1800
     [[runners]]
-      name = "2ba4e1f8f5fc"
+      name = "gitlab-runner"
       url = "http://gitlab/"
       token = "5zjmEnMyd33HoRsqKAJ6"
       executor = "kubernetes"
