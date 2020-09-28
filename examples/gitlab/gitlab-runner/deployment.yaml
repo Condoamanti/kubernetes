@@ -6,17 +6,63 @@ metadata:
   namespace: gitlab-ce
 data:
   config.toml: |-
-    concurrent = 4
+    concurrent = 1
+    check_interval = 0
+    [session_server]
+      session_timeout = 1800
     [[runners]]
-      name = "Kubernetes Demo Runner"
+      name = "gitlab-runner"
       url = "http://gitlab/"
       token = "pyrqEZvf_s5yxsmR8Eia"
       executor = "kubernetes"
+      [runners.custom_build_dir]
+      [runners.cache]
+        [runners.cache.s3]
+        [runners.cache.gcs]
+        [runners.cache.azure]
       [runners.kubernetes]
-        namespace = "gitlab-ce"
-        poll_timeout = 600
+        host = ""
+        bearer_token_overwrite_allowed = false
+        image = ""
+        namespace = ""
+        namespace_overwrite_allowed = ""
+        privileged = true
         cpu_request = "1"
         service_cpu_request = "200m"
+        service_account_overwrite_allowed = ""
+        pod_annotations_overwrite_allowed = ""
+        [runners.kubernetes.affinity]
+        [runners.kubernetes.pod_security_context]
+        [runners.kubernetes.volumes]
+
+concurrent = 1
+check_interval = 0
+[session_server]
+  session_timeout = 1800
+[[runners]]
+  name = "gitlab-runner"
+  url = "http://gitlab/"
+  token = "pyrqEZvf_s5yxsmR8Eia"
+  executor = "kubernetes"
+  [runners.custom_build_dir]
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]
+    [runners.cache.azure]
+  [runners.kubernetes]
+    host = ""
+    bearer_token_overwrite_allowed = false
+    image = ""
+    namespace = "gitlab-ce"
+    namespace_overwrite_allowed = ""
+    privileged = true
+    cpu_request = "1"
+    service_cpu_request = "200m"
+    service_account_overwrite_allowed = ""
+    pod_annotations_overwrite_allowed = ""
+    [runners.kubernetes.affinity]
+    [runners.kubernetes.pod_security_context]
+    [runners.kubernetes.volumes]
 ---
 apiVersion: apps/v1
 kind: Deployment
