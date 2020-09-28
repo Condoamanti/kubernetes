@@ -26,7 +26,8 @@ spec:
             "--url https://gitlab.com",
             "--registration-token tR7ou1ymGKVVJodS4xEG",
             "--name $hostname",
-            "--executor kubernetes"
+            "--executor kubernetes",
+            "run",
           ]
           imagePullPolicy: Always
           resources:
