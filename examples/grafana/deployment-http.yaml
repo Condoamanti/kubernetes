@@ -25,7 +25,7 @@ metadata:
   labels:
     app: grafana-server
 data:
-  GF_INSTALL_PLUGINS: "grafana-kubernetes-app,grafana-worldmap-panel,grafana-piechart-panel"
+  GF_INSTALL_PLUGINS: "grafana-worldmap-panel,grafana-piechart-panel"
 ---
 # Service Configuration
 apiVersion: v1
