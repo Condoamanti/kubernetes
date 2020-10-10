@@ -16,6 +16,17 @@ spec:
     requests:
       storage: 1Gi
 ---
+# ConfigMap Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-server
+  namespace: grafana
+  labels:
+    app: grafana-server
+data:
+  GF_INSTALL_PLUGINS: "grafana-kubernetes-app,grafana-worldmap-panel,grafana-piechart-panel"
+---
 # Service Configuration
 apiVersion: v1
 kind: Service
@@ -70,6 +81,9 @@ spec:
           limits:
             memory: "2048Mi"
             cpu: "1000m"
+        envFrom:
+          - configMapRef:
+              name: grafana-server
         ports:
         - containerPort: 3000
           name: http
