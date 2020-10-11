@@ -34,7 +34,7 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: unifi-controller
+  name: unifi-controller-tcp
   namespace: unifi-controller
 spec:
   type: LoadBalancer
