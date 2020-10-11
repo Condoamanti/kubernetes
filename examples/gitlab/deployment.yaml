@@ -131,10 +131,10 @@ spec:
             mountPath: /var/log/gitlab
         resources:
           requests:
-            memory: "1024Mi"
+            memory: "2024Mi"
             cpu: "1000m"
           limits:
-            memory: "4096Mi"
+            memory: "6144Mi"
             cpu: "2000m"
         envFrom:
           - configMapRef:
