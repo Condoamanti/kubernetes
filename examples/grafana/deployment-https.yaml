@@ -113,7 +113,7 @@ spec:
           secretName: letsencrypt-cert-tls
       containers:
       - name: grafana-server
-        image: grafana/grafana:latest
+        image: grafana/grafana:master
         volumeMounts:
           - name: grafana-var-lib-grafana
             mountPath: /var/lib/grafana
