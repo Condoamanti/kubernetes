@@ -48,6 +48,17 @@ data:
       static_configs:
       - targets: ['kube-state-metrics:8080']
 ---
+kind: Service
+apiVersion: v1
+metadata:
+  name: kube-state-metrics
+  namespace: prometheus
+spec:
+  type: ExternalName
+  externalName: kube-state-metrics.kube-state-metrics.
+  ports:
+  - port: 8080
+---
 # Service Configuration
 apiVersion: v1
 kind: Service
