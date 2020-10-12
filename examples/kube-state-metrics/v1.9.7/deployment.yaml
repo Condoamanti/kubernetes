@@ -9,6 +9,7 @@ metadata:
   name: kube-state-metrics
   namespace: kube-state-metrics
 spec:
+  externalTrafficPolicy: Cluster
   ports:
   - port: 8080
     name: http-metrics
