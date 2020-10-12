@@ -45,8 +45,8 @@ data:
       - targets: ['prometheus-server:9090']
 
     - job_name: 'kube-state-metrics'
-        static_configs:
-          - targets: ['kube-state-metrics:8080']
+      static_configs:
+      - targets: ['kube-state-metrics:8080']
 ---
 # Service Configuration
 apiVersion: v1
