@@ -64,11 +64,11 @@ spec:
           runAsUser: 65534
         resources:
           requests:
-            memory: "1024Mi"
-            cpu: "1000m"
+            memory: "256Mi"
+            cpu: "200m"
           limits:
-            memory: "2048Mi"
-            cpu: "2000m"
+            memory: "512Mi"
+            cpu: "400m"
       nodeSelector:
         kubernetes.io/os: linux
       serviceAccountName: kube-state-metrics
