@@ -9,20 +9,21 @@ metadata:
   name: kube-state-metrics
   namespace: kube-state-metrics
 spec:
-  #clusterIP: None
   ports:
-  - name: http-metrics
-    port: 8080
+  - port: 8080
+    name: http-metrics
     nodePort: 30180
     targetPort: http-metrics
-  - name: telemetry
-    port: 8081
+  - port: 8081
+    name: telemetry
     nodePort: 30181
     targetPort: telemetry
   selector:
     app.kubernetes.io/name: kube-state-metrics
   sessionAffinity: None
   type: NodePort
+status:
+  loadBalancer: {}
 ---
 # Deployment Configuration
 apiVersion: apps/v1
