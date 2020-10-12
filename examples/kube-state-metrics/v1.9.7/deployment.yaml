@@ -13,12 +13,16 @@ spec:
   ports:
   - name: http-metrics
     port: 8080
+    nodePort: 30180
     targetPort: http-metrics
   - name: telemetry
     port: 8081
+    nodePort: 30181
     targetPort: telemetry
   selector:
     app.kubernetes.io/name: kube-state-metrics
+  sessionAffinity: None
+  type: NodePort
 ---
 # Deployment Configuration
 apiVersion: apps/v1
