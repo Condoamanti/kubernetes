@@ -40,15 +40,14 @@ data:
     remote_read:
     scrape_configs:
     - job_name: prometheus
-
       honor_labels: true
-      # scrape_interval is defined by the configured global (15s).
-      # scrape_timeout is defined by the global default (10s).
-      # metrics_path defaults to '/metrics'
-      # scheme defaults to 'http'.
-
       static_configs:
       - targets: ['prometheus-server:9090']
+      
+    - job_name: kube-state-metrics
+        honor_labels: true
+        static_configs:
+          - targets: ['kube-state-metrics:8080']
 ---
 # Service Configuration
 apiVersion: v1
@@ -120,22 +119,3 @@ spec:
           # If using Red Hat OpenShift uncomment this:
           #privileged: true
 ---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: prometheus
-  namespace: prometheus
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: prometheus
-  namespace: prometheus
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: view
-subjects:
-  - kind: ServiceAccount
-    name: kube-state-metrics
-    namespace: kube-state-metrics
