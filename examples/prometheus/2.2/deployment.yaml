@@ -55,7 +55,7 @@ metadata:
   namespace: prometheus
 spec:
   type: ExternalName
-  externalName: kube-state-metrics.kube-state-metrics.
+  externalName: kube-state-metrics.kube-state-metrics.svc.cluster.local
   ports:
   - port: 8080
 ---
