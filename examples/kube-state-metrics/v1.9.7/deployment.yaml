@@ -5,7 +5,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: kube-state-metrics
-    app.kubernetes.io/version: v1.9.7
+    app.kubernetes.io/version: 1.9.7
   name: kube-state-metrics
   namespace: kube-state-metrics
 spec:
@@ -26,7 +26,7 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/name: kube-state-metrics
-    app.kubernetes.io/version: v1.9.7
+    app.kubernetes.io/version: 1.9.7
   name: kube-state-metrics
   namespace: kube-state-metrics
 spec:
@@ -38,10 +38,10 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: kube-state-metrics
-        app.kubernetes.io/version: v1.9.7
+        app.kubernetes.io/version: 1.9.7
     spec:
       containers:
-      - image: quay.io/coreos/kube-state-metrics:vv1.9.7
+      - image: quay.io/coreos/kube-state-metrics:v1.9.7
         livenessProbe:
           httpGet:
             path: /healthz
@@ -79,7 +79,7 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/name: kube-state-metrics
-    app.kubernetes.io/version: v1.9.7
+    app.kubernetes.io/version: 1.9.7
   name: kube-state-metrics
   namespace: kube-state-metrics
 ---
@@ -89,7 +89,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/name: kube-state-metrics
-    app.kubernetes.io/version: v1.9.7
+    app.kubernetes.io/version: 1.9.7
   name: kube-state-metrics
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -106,7 +106,7 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/name: kube-state-metrics
-    app.kubernetes.io/version: v1.9.7
+    app.kubernetes.io/version: 1.9.7
   name: kube-state-metrics
 rules:
 - apiGroups:
