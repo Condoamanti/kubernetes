@@ -104,10 +104,6 @@ data:
         - source_labels: [__meta_kubernetes_pod_container_name]
           target_label: job
 ---
-kind: ConfigMap
-metadata:
-  name: prometheus-config
----
 # Service Configuration
 # This service is dependent on the 'kube-state-metrics' deployment being available
 kind: Service
