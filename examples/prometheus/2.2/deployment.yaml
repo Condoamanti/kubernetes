@@ -204,6 +204,7 @@ spec:
       labels:
         app: prometheus-server
     spec:
+      serviceAccountName: prometheus
       volumes:
       - name: prometheus-server-data
         persistentVolumeClaim:
@@ -247,27 +248,27 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
   name: prometheus
-  namespace: prometheus
 rules:
-  - apiGroups: [""]
-    resources:
-    - nodes
-    - services
-    - endpoints
-    - pods
-    verbs: ["get", "list", "watch"]
-  - apiGroups: [""]
-    resources:
-    - configmaps
-    verbs: ["get"]
-  - nonResourceURLs: ["/metrics"]
-    verbs: ["get"]
+- apiGroups: [""]
+  resources:
+  - nodes
+  - nodes/proxy
+  - services
+  - endpoints
+  - pods
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - extensions
+  resources:
+  - ingresses
+  verbs: ["get", "list", "watch"]
+- nonResourceURLs: ["/metrics"]
+  verbs: ["get"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
   name: prometheus
-  namespace: prometheus
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
