@@ -54,9 +54,11 @@ spec:
           name: gitlab-runner
           resources:
             requests:
+              memory: "64Mi"
               cpu: "100m"
             limits:
-              cpu: "100m"
+              memory: "128Mi"
+              cpu: "200m"
           volumeMounts:
             - name: config
               mountPath: /etc/gitlab-runner/config.toml

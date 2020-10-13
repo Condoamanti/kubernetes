@@ -157,11 +157,11 @@ spec:
             readOnly: true
         resources:
           requests:
-            memory: "1024Mi"
-            cpu: "1000m"
+            memory: "256Mi"
+            cpu: "200m"
           limits:
-            memory: "2048Mi"
-            cpu: "2000m"
+            memory: "512Mi"
+            cpu: "400m"
         ports:
         - containerPort: 9090
           name: http
