@@ -243,76 +243,23 @@ metadata:
   name: prometheus
   namespace: prometheus
 ---
-apiVersion: rbac.authorization.k8s.io/v1
+apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
-  labels:
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/name: prometheus
-    app.kubernetes.io/version: v0.42.1
   name: prometheus
 rules:
-- apiGroups:
-  - monitoring.coreos.com
-  resources:
-  - alertmanagers
-  - alertmanagers/finalizers
-  - prometheuses
-  - prometheuses/finalizers
-  - thanosrulers
-  - thanosrulers/finalizers
-  - servicemonitors
-  - podmonitors
-  - probes
-  - prometheusrules
-  verbs:
-  - '*'
-- apiGroups:
-  - apps
-  resources:
-  - statefulsets
-  verbs:
-  - '*'
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  - secrets
-  verbs:
-  - '*'
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  verbs:
-  - list
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - services
-  - services/finalizers
-  - endpoints
-  verbs:
-  - get
-  - create
-  - update
-  - delete
-- apiGroups:
-  - ""
+- apiGroups: [""]
   resources:
   - nodes
-  verbs:
-  - list
-  - watch
+  - services
+  - endpoints
+  - pods
+  verbs: ["get", "list", "watch"]
 - apiGroups:
-  - ""
+  - extensions
   resources:
-  - namespaces
-  verbs:
-  - get
-  - list
-  - watch
+  - ingresses
+  verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
