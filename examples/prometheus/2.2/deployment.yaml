@@ -222,7 +222,7 @@ metadata:
   name: prometheus
   namespace: prometheus
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: prometheus
@@ -235,11 +235,12 @@ rules:
   - endpoints
   - pods
   verbs: ["get", "list", "watch"]
-- apiGroups: [""]
+- apiGroups:
+  - extensions
   resources:
-  - configmaps
-  verbs: ["get"]
-- nonResourceURLs: ["/metrics"]
+  - ingresses
+  verbs: ["get", "list", "watch"]
+- nonResourceURLs: ["/metrics", "/metrics/cadvisor"]
   verbs: ["get"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
