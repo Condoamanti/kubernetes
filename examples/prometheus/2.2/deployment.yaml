@@ -48,6 +48,8 @@ data:
       static_configs:
       - targets: ['kube-state-metrics:8080']
 ---
+# Service Configuration
+# This service is dependent on the 'kube-state-metrics' deployment being available
 kind: Service
 apiVersion: v1
 metadata:
