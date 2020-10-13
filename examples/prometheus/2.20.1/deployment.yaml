@@ -147,7 +147,7 @@ spec:
           name: cm-prometheus-server-config
       containers:
       - name: prometheus-server
-        image: prom/prometheus:latest
+        image: prom/prometheus:2.20.1
         volumeMounts:
           - name: prometheus-server-data
             mountPath: /etc/prometheus
