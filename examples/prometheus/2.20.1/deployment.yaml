@@ -44,6 +44,10 @@ data:
       static_configs:
       - targets: ['prometheus-server:9090']
 
+      - job_name: 'node_exporter'
+      static_configs:
+        - targets: ['k8snode1dc1.jittersolutions.com', 'k8snode2dc1.jittersolutions.com', 'k8snode3dc1.jittersolutions.com', 'k8snode4dc1.jittersolutions.com']
+
     - job_name: 'kube-state-metrics'
       static_configs:
       - targets: ['kube-state-metrics:8080']
