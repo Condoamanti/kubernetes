@@ -76,11 +76,11 @@ spec:
             mountPath: /var/lib/grafana
         resources:
           requests:
-            memory: "512Mi"
+            memory: "128Mi"
             cpu: "200m"
           limits:
-            memory: "2048Mi"
-            cpu: "1000m"
+            memory: "256Mi"
+            cpu: "400m"
         envFrom:
           - configMapRef:
               name: grafana-server
