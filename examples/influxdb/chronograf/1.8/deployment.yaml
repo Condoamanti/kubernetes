@@ -59,7 +59,7 @@ spec:
           claimName: pvc-influxdb-chronograf-var-lib-chronograf
       containers:
       - name: influxdb-chronograf-server
-        image: chronograf:1.8.7
+        image: chronograf:1.8
         args: [
           "chronograf",
           "--influxdb-url=http://influxdb-server:8086",
