@@ -1,0 +1,216 @@
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-prometheus-server-data
+  namespace: prometheus
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+# ConfigMap Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-prometheus-server-config
+  namespace: prometheus
+  labels:
+    app: prometheus-server
+data:
+  prometheus.yml: |-
+    # prometheus.yml
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 30s
+      scrape_timeout: 10s
+
+    rule_files:
+    #- "first.rules"
+    #- "my/*.rules"
+
+    remote_write:
+    remote_read:
+    scrape_configs:
+    - job_name: 'prometheus'
+      honor_labels: true
+      static_configs:
+      - targets: ['prometheus-server:9090']
+
+    - job_name: 'node_exporter'
+      static_configs:
+      - targets: ['k8snode1dc1.jittersolutions.com:9100', 'k8snode2dc1.jittersolutions.com:9100', 'k8snode3dc1.jittersolutions.com:9100', 'k8snode4dc1.jittersolutions.com:9100']
+
+    - job_name: 'kube-state-metrics'
+      static_configs:
+      - targets: ['kube-state-metrics:8080']
+
+    - job_name: 'kubernetes-apiservers'
+      kubernetes_sd_configs:
+      - role: endpoints
+      scheme: https
+      tls_config:
+        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        insecure_skip_verify: true
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+        action: keep
+        regex: default;kubernetes;https
+
+    - job_name: 'kubernetes-nodes'
+      scheme: https
+      tls_config:
+        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        insecure_skip_verify: true
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+      kubernetes_sd_configs:
+      - role: node
+      relabel_configs:
+      - action: labelmap
+        regex: __meta_kubernetes_node_label_(.+)
+
+    - job_name: 'kubernetes-cadvisor'
+      scheme: https
+      metrics_path: /metrics/cadvisor
+      tls_config:
+        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        insecure_skip_verify: true
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+      kubernetes_sd_configs:
+      - role: node
+      relabel_configs:
+      - action: labelmap
+        regex: __meta_kubernetes_node_label_(.+)
+---
+# Service Configuration
+# This service is dependent on the 'kube-state-metrics' deployment being available
+kind: Service
+apiVersion: v1
+metadata:
+  name: kube-state-metrics
+  namespace: prometheus
+spec:
+  type: ExternalName
+  externalName: kube-state-metrics.kube-state-metrics.svc.cluster.local
+  ports:
+  - port: 8080
+---
+# Service Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-server
+  namespace: prometheus
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 9090
+    name: http
+    protocol: TCP
+    targetPort: 9090
+    nodePort: 30010
+  selector:
+    app: prometheus-server
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+---
+# Deployment Configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-server
+  namespace: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-server
+  template:
+    metadata:
+      labels:
+        app: prometheus-server
+    spec:
+      serviceAccountName: prometheus
+      volumes:
+      - name: prometheus-server-data
+        persistentVolumeClaim:
+          claimName: pvc-prometheus-server-data
+      - name: prometheus-server-config
+        configMap:
+          defaultMode: 0600
+          name: cm-prometheus-server-config
+      containers:
+      - name: prometheus-server
+        image: prom/prometheus:v2.20.1
+        volumeMounts:
+          - name: prometheus-server-data
+            mountPath: /etc/prometheus
+          - name: prometheus-server-config
+            mountPath: /etc/prometheus/prometheus.yml
+            subPath: prometheus.yml
+            readOnly: true
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "50m"
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 9090
+          name: http
+        securityContext:
+          runAsUser: 0
+          # If using Red Hat OpenShift uncomment this:
+          #privileged: true
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prometheus
+  namespace: prometheus
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: prometheus
+rules:
+- apiGroups: [""]
+  resources:
+  - nodes
+  - nodes/metrics
+  - services
+  - endpoints
+  - pods
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - extensions
+  resources:
+  - ingresses
+  verbs: ["get", "list", "watch"]
+- nonResourceURLs: ["/metrics", "/metrics/cadvisor"]
+  verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: prometheus
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: prometheus
+subjects:
+- kind: ServiceAccount
+  name: prometheus
+  namespace: prometheus
+---

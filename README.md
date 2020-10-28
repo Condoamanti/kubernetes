@@ -1,8 +1,4 @@
-﻿### Documentation:
-1. Upgrading Kubernetes
-    - https://dzone.com/articles/kubernetes-upgrade-the-definitive-guide-to-do-it-yourself
-    
-### Kubernetes Cluster Configuration
+﻿### Kubernetes Cluster Configuration
 | NodeName | NodeIPv4 | NodeRole |
 |----------|----------|----------|
 | K8SNODE1DC1.domain.local | 192.168.110.221 | master |
