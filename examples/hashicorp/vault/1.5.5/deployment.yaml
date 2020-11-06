@@ -1,4 +1,21 @@
 ---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-vault-data
+  namespace: vault
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
 # ConfigMap Configuration
 apiVersion: v1
 kind: ConfigMap
@@ -48,9 +65,16 @@ spec:
       labels:
         app: vault-server
     spec:
+      volumes:
+      - name: vault-data
+        persistentVolumeClaim:
+          claimName: pvc-vault-data
       containers:
       - name: vault-server
         image: vault:1.5.5
+        volumeMounts:
+          - name: vault-data
+            mountPath: /vault/file
         resources:
           requests:
             memory: "128Mi"
