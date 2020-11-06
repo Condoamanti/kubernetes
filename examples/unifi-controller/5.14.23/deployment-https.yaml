@@ -17,18 +17,18 @@ spec:
       storage: 1Gi
 ---
 # ConfigMap Configuration
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: unifi-controller-tcp
-#  namespace: unifi-controller
-#  labels:
-#    app: unifi-controller
-#data:
-#  TZ: "America/Chicago"
-#  CERTNAME: "wild.jittersolutions.com.crt"
-#  CERT_PRIVATE_NAME: "wild.jittersolutions.com.key"
-#  CERT_IS_CHAIN: "true"
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: unifi-controller-tcp
+  namespace: unifi-controller
+  labels:
+    app: unifi-controller
+data:
+  TZ: "America/Chicago"
+  CERTNAME: "wild.jittersolutions.com.crt"
+  CERT_PRIVATE_NAME: "wild.jittersolutions.com.key"
+  CERT_IS_CHAIN: "true"
 ---
 # Service Configuration
 apiVersion: v1
@@ -102,6 +102,10 @@ spec:
       - name: unifi-controller-data
         persistentVolumeClaim:
           claimName: pvc-unifi-controller-data
+      - name: nfs-certificates
+        nfs:
+          server: 192.168.110.245
+          path: /mnt/pool2/kubernetes-data/certificates
       containers:
       - name: unifi-controller
         image: jacobalberty/unifi:5.14.23
@@ -129,39 +133,4 @@ spec:
           name: port3
         - containerPort: 10001 # UBNT Discovery
           name: port4
----
-  kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
-metadata:
-  name: unifi-controller
-  namespace: unifi-controller
-rules:
-  - apiGroups:
-      - extensions
-    resources:
-      - certificates
-    verbs:
-      - get
-      - list
-      - watch
----
-kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
-metadata:
-  name: unifi-controller
-  namespace: unifi-controller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: unifi-controller
-subjects:
-  - kind: ServiceAccount
-    name: unifi-controllerr
-    namespace: unifi-controller
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: unifi-controller
-  namespace: unifi-controller
 ---
