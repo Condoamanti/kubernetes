@@ -16,6 +16,40 @@ spec:
     requests:
       storage: 5Gi
 ---
+  # PersistentVolumeClaim Configuration
+  apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: pvc-vault-logs
+    namespace: vault
+    labels:
+      type: nfs
+    annotations:
+      volume.beta.kubernetes.io/storage-class: standard
+  spec:
+    accessModes:
+      - ReadWriteMany
+    resources:
+      requests:
+        storage: 1Gi
+---
+# PersistentVolumeClaim Configuration
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-vault-config
+  namespace: vault
+  labels:
+    type: nfs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 128Mi
+---
 # ConfigMap Configuration
 apiVersion: v1
 kind: ConfigMap
@@ -69,12 +103,22 @@ spec:
       - name: vault-data
         persistentVolumeClaim:
           claimName: pvc-vault-data
+      - name: vault-logs
+        persistentVolumeClaim:
+          claimName: pvc-vault-logs
+      - name: vault-logs
+        persistentVolumeClaim:
+          claimName: pvc-vault-config
       containers:
       - name: vault-server
         image: vault:1.5.5
         volumeMounts:
           - name: vault-data
             mountPath: /vault/file
+          - name: vault-logs
+            mountPath: /vault/logs
+          - name: vault-config
+            mountPath: /vault/config
         resources:
           requests:
             memory: "128Mi"
