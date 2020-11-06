@@ -106,7 +106,7 @@ spec:
       - name: vault-logs
         persistentVolumeClaim:
           claimName: pvc-vault-logs
-      - name: vault-logs
+      - name: vault-config
         persistentVolumeClaim:
           claimName: pvc-vault-config
       containers:
