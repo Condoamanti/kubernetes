@@ -48,7 +48,7 @@ data:
       [[inputs.snmp.field]]
         is_tag = true
         name = "upsBasicIdentName"
-        oid = "C2SATv2-MIB::upsBasicIdentName.0"
+        oid = "APC-SMARTUPS-MIB::upsBasicIdentName.0"
       #
 ---
 # Deployment Configuration
