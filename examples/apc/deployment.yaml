@@ -77,7 +77,7 @@ spec:
         image: telegraf:alpine
         command: ["/bin/sh", "-c"]
         args: [
-          "wget 'https://download.schneider-electric.com/files?p_enDocType=Firmware+-+Released&p_Doc_Ref=APC_POWERNETMIB_432&p_File_Name=powernet432.mib' -O /usr/share/snmp/mibs/APC-SMARTUPS-MIB"; telegraf,
+          "wget 'https://download.schneider-electric.com/files?p_enDocType=Firmware+-+Released&p_Doc_Ref=APC_POWERNETMIB_432&p_File_Name=powernet432.mib' -O /usr/share/snmp/mibs/APC-SMARTUPS-MIB; telegraf",
         ]
         volumeMounts:
           - name: apc-ups-telegraf-config
