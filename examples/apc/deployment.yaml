@@ -61,28 +61,28 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: unifi-controller-telegraf
+      app: apc-telegraf
   template:
     metadata:
       labels:
-        app: unifi-controller-telegraf
+        app: apc-telegraf
     spec:
       volumes:
-      - name: unifi-controller-telegraf-config
+      - name: apc-ups-telegraf-config
         configMap:
           defaultMode: 0600
-          name: cm-unifi-controller-telegraf-config
+          name: cm-apc-ups-telegraf-config
       containers:
-      - name: unifi-controller-telegraf
+      - name: apc-telegraf
         image: telegraf:alpine
         command: ["/bin/sh", "-c"]
         args: [
           "wget https://download.schneider-electric.com/files?p_enDocType=Firmware+-+Released&p_Doc_Ref=APC_POWERNETMIB_432&p_File_Name=powernet432.mib -P /usr/share/snmp/mibs/; telegraf",
         ]
         volumeMounts:
-          - name: unifi-controller-telegraf-config
+          - name: apc-ups-telegraf-config
             mountPath: /etc/telegraf/telegraf.conf
-            subPath: telegraf-unifi-controller.conf
+            subPath: telegraf-apc-ups.conf
             readOnly: true
         resources:
           requests:
