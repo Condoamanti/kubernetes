@@ -48,7 +48,7 @@ data:
       [[inputs.snmp.field]]
         is_tag = true
         name = "upsBasicIdentName"
-        oid = "APC-SMARTUPS-MIB::upsBasicIdentName.0"
+        oid = "PowerNet-MIB::upsBasicIdentName.0"
       #
 ---
 # Deployment Configuration
@@ -77,7 +77,7 @@ spec:
         image: telegraf:alpine
         command: ["/bin/sh", "-c"]
         args: [
-          "wget 'https://download.schneider-electric.com/files?p_enDocType=Firmware+-+Released&p_Doc_Ref=APC_POWERNETMIB_432&p_File_Name=powernet432.mib' -O /usr/share/snmp/mibs/APC-SMARTUPS-MIB; telegraf",
+          "wget 'https://download.schneider-electric.com/files?p_enDocType=Firmware+-+Released&p_Doc_Ref=APC_POWERNETMIB_432&p_File_Name=powernet432.mib' -O /usr/share/snmp/mibs/PowerNet-MIB; telegraf",
         ]
         volumeMounts:
           - name: apc-ups-telegraf-config
