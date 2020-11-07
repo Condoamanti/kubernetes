@@ -16,7 +16,7 @@ data:
       round_interval = true
 
     [[outputs.influxdb]]
-        urls = ["http://k8snode1dc1.jittersolutions.com:30030"]
+        urls = ["https://influxdb.jittersolutions.com:443"]
         database = "apc"
         insecure_skip_verify = true
         #ssl_ca = "/usr/local/etc/telegraf.ca"
@@ -40,14 +40,14 @@ data:
       # SNMP community string.
       community = "public"
       # Measurement name
-      name = "snmp.UAP"
+      name = "snmp.UPS"
       ##
       ## System Details
       ##
       #  System name (hostname)
       [[inputs.snmp.field]]
         is_tag = true
-        name = "hostname"
+        name = "upsBasicIdentName"
         oid = "PowerNet-MIB::upsBasicIdentName.0"
       #
 ---
