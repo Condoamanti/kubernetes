@@ -16,7 +16,7 @@ data:
       round_interval = true
 
     [[outputs.influxdb]]
-        urls = ["http://influxdb.jittersolutions.com"]
+        urls = ["http://k8snode1dc1.jittersolutions.com:30030"]
         database = "apc"
         insecure_skip_verify = true
         #ssl_ca = "/usr/local/etc/telegraf.ca"
