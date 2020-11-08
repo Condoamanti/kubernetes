@@ -210,7 +210,7 @@ data:
       name = "upsConfigOutputVA"
       oid = "PowerNet-MIB::upsConfigOutputVA.0"
     [[inputs.snmp.field]]
-      name = "upsBasicConfigNumDevices"
+      name = "upsConfigOutputPower"
       oid = "PowerNet-MIB::upsConfigOutputPower.0"
     ######################################################################################
 ---
