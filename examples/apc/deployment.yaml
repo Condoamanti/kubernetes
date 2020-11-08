@@ -87,7 +87,7 @@ data:
       [[inputs.snmp.field]]
         name = "upsAdvIdentSkuNumber"
         oid = "PowerNet-MIB::upsAdvIdentSkuNumber.0"
-    ###########################################  
+    ######################################################################################
       [[inputs.snmp.field]]
         name = "upsBasicBatteryStatus"
         oid = "PowerNet-MIB::upsBasicBatteryStatus.0"
@@ -128,7 +128,7 @@ data:
         name = "upsHighPrecBatteryActualVoltage"
         oid = "PowerNet-MIB::upsHighPrecBatteryActualVoltage.0"
       [[inputs.snmp.field]]
-        name = "upsHighPrecBattery.13"
+        name = "upsHighPrecBattery"
         oid = "PowerNet-MIB::upsHighPrecBattery.13.0"
       [[inputs.snmp.field]]
         name = "upsBasicInputPhase"
@@ -205,6 +205,13 @@ data:
       [[inputs.snmp.field]]
         name = "upsBasicConfigNumDevices"
         oid = "PowerNet-MIB::upsBasicConfigNumDevices.0"
+    ######################################################################################
+    [[inputs.snmp.table]]
+      oid = "PowerNet-MIB::deviceIndexTable"
+      [[inputs.snmp.table.field]]
+        oid = "PowerNet-MIB::deviceIndex"
+        is_tag = true
+
 ---
 # Deployment Configuration
 apiVersion: apps/v1
