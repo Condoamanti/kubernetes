@@ -46,7 +46,7 @@ data:
       ##
       #  System name (hostname)
       [[inputs.snmp.field]]
-        is_tag = true
+        #is_tag = true
         name = "upsBasicIdentName"
         oid = "PowerNet-MIB::upsBasicIdentName.0"
       #
