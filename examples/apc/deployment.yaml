@@ -206,11 +206,6 @@ data:
         name = "upsBasicConfigNumDevices"
         oid = "PowerNet-MIB::upsBasicConfigNumDevices.0"
     ######################################################################################
-    [[inputs.snmp.table]]
-      oid = "PowerNet-MIB::deviceIndexTable"
-      [[inputs.snmp.table.field]]
-        oid = "PowerNet-MIB::deviceIndex"
-        is_tag = true
 
 ---
 # Deployment Configuration
