@@ -71,19 +71,15 @@ data:
         oid = "RFC1213-MIB::sysUpTime.0"
 
       [[inputs.snmp.field]]
-        is_tag = true
         name = "upsIdentManufacturer"
         oid = "PowerNet-MIB::upsIdentManufacturer.0"
       [[inputs.snmp.field]]
-        is_tag = true
         name = "upsIdentModel"
         oid = "PowerNet-MIB::upsIdentModel.0"
       [[inputs.snmp.field]]
-        is_tag = true
         name = "upsIdentUPSSoftwareVersion"
         oid = "PowerNet-MIB::upsIdentUPSSoftwareVersion.0"
       [[inputs.snmp.field]]
-        is_tag = true
         name = "upsBasicIdentName"
         oid = "PowerNet-MIB::upsBasicIdentName.0"
       #
