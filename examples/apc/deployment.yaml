@@ -205,6 +205,29 @@ data:
       [[inputs.snmp.field]]
         name = "upsBasicConfigNumDevices"
         oid = "PowerNet-MIB::upsBasicConfigNumDevices.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvConfigLowBatteryRunTime"
+        oid = "PowerNet-MIB::upsAdvConfigLowBatteryRunTime.0"
+    # Test Metrics
+      [[inputs.snmp.field]]
+        name = "upsAdvTestDiagnosticSchedule"
+        oid = "PowerNet-MIB::upsAdvTestDiagnosticSchedule.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvTestDiagnostics"
+        oid = "PowerNet-MIB::upsAdvTestDiagnostics.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvTestDiagnosticsResults"
+        oid = "PowerNet-MIB::upsAdvTestDiagnosticsResults.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvTestLastDiagnosticsDate"
+        oid = "PowerNet-MIB::upsAdvTestLastDiagnosticsDate.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvTestCalibrationResults"
+        oid = "PowerNet-MIB::upsAdvTestCalibrationResults.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvTestCalibrationDate"
+        oid = "PowerNet-MIB::upsAdvTestCalibrationDate.0"
+    #
 ---
 # Deployment Configuration
 apiVersion: apps/v1
