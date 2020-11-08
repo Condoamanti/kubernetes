@@ -205,14 +205,6 @@ data:
       [[inputs.snmp.field]]
         name = "upsBasicConfigNumDevices"
         oid = "PowerNet-MIB::upsBasicConfigNumDevices.0"
-    # UPS-MIB ############################################################################
-    [[inputs.snmp.field]]
-      name = "upsConfigOutputVA"
-      oid = "UPS-MIB::upsConfigOutputVA.0"
-    [[inputs.snmp.field]]
-      name = "upsConfigOutputPower"
-      oid = "UPS-MIB::upsConfigOutputPower.0"
-    ######################################################################################
 ---
 # Deployment Configuration
 apiVersion: apps/v1
@@ -240,7 +232,7 @@ spec:
         image: telegraf:alpine
         command: ["/bin/sh", "-c"]
         args: [
-          "wget 'https://download.schneider-electric.com/files?p_enDocType=Firmware+-+Released&p_Doc_Ref=APC_POWERNETMIB_432&p_File_Name=powernet432.mib' -O /usr/share/snmp/mibs/PowerNet-MIB.txt; wget 'https://www.activexperts.com/admin/mib/RFC/ups-mib/download/?file=ups-mib' -O /usr/share/snmp/mibs/UPS-MIB.txt; telegraf",
+          "wget 'https://download.schneider-electric.com/files?p_enDocType=Firmware+-+Released&p_Doc_Ref=APC_POWERNETMIB_432&p_File_Name=powernet432.mib' -O /usr/share/snmp/mibs/PowerNet-MIB.txt; telegraf",
         ]
         volumeMounts:
           - name: apc-ups-telegraf-config
