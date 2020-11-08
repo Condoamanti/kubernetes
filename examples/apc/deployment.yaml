@@ -208,10 +208,10 @@ data:
     # UPS-MIB ############################################################################
     [[inputs.snmp.field]]
       name = "upsConfigOutputVA"
-      oid = "PowerNet-MIB::upsConfigOutputVA.0"
+      oid = "UPS-MIB::upsConfigOutputVA.0"
     [[inputs.snmp.field]]
       name = "upsConfigOutputPower"
-      oid = "PowerNet-MIB::upsConfigOutputPower.0"
+      oid = "UPS-MIB::upsConfigOutputPower.0"
     ######################################################################################
 ---
 # Deployment Configuration
