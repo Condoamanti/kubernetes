@@ -36,7 +36,7 @@ data:
       # Number of retries to attempt within timeout.
       retries = 3
       # SNMP version
-      version = 2c
+      version = 2
       # SNMP community string.
       community = "public"
       # Measurement name
