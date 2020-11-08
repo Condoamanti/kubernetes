@@ -10,9 +10,11 @@ metadata:
 data:
   telegraf-apc-ups.conf: |-
     # Telegraf Configuration
+
     [agent]
       interval = "10s"
       round_interval = true
+
     [[outputs.influxdb]]
         urls = ["http://k8snode1dc1.jittersolutions.com:30030"]
         database = "apc-smartups"
@@ -239,7 +241,7 @@ spec:
         command: ["/bin/sh", "-c"]
         args: [
           "wget 'https://download.schneider-electric.com/files?p_enDocType=Firmware+-+Released&p_Doc_Ref=APC_POWERNETMIB_432&p_File_Name=powernet432.mib' -O /usr/share/snmp/mibs/PowerNet-MIB.txt",
-          "wget 'https://www.activexperts.com/admin/mib/RFC/ups-mib/download/?file=ups-mib' -O /usr/share/snmp/mibs/UPS-MIB.txt,
+          "wget 'https://www.activexperts.com/admin/mib/RFC/ups-mib/download/?file=ups-mib' -O /usr/share/snmp/mibs/UPS-MIB.txt",
           "telegraf",
         ]
         volumeMounts:
