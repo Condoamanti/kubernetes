@@ -10,11 +10,9 @@ metadata:
 data:
   telegraf-apc-ups.conf: |-
     # Telegraf Configuration
-
     [agent]
       interval = "10s"
       round_interval = true
-
     [[outputs.influxdb]]
         urls = ["http://k8snode1dc1.jittersolutions.com:30030"]
         database = "apc-smartups"
