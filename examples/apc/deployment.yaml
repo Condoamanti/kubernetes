@@ -45,7 +45,45 @@ data:
       ## System Details
       ##
       #  System name (hostname)
+        [[inputs.snmp.field]]
+        is_tag = true
+        name = "sysName"
+        oid = "RFC1213-MIB::sysName.0"
+      #  System vendor OID
       [[inputs.snmp.field]]
+        name = "sysObjectID"
+        oid = "RFC1213-MIB::sysObjectID.0"
+      #  System description
+      [[inputs.snmp.field]]
+        name = "sysDescr"
+        oid = "RFC1213-MIB::sysDescr.0"
+      #  System contact
+      [[inputs.snmp.field]]
+        name = "sysContact"
+        oid = "RFC1213-MIB::sysContact.0"
+      #  System location
+      [[inputs.snmp.field]]
+        name = "sysLocation"
+        oid = "RFC1213-MIB::sysLocation.0"
+      #  System uptime
+      [[inputs.snmp.field]]
+        name = "sysUpTime"
+        oid = "RFC1213-MIB::sysUpTime.0"
+
+      [[inputs.snmp.field]]
+        is_tag = true
+        name = "upsIdentManufacturer"
+        oid = "PowerNet-MIB::upsIdentManufacturer.0"
+      [[inputs.snmp.field]]
+        is_tag = true
+        name = "upsIdentModel"
+        oid = "PowerNet-MIB::upsIdentModel.0"
+      [[inputs.snmp.field]]
+        is_tag = true
+        name = "upsIdentUPSSoftwareVersion"
+        oid = "PowerNet-MIB::upsIdentUPSSoftwareVersion.0"
+      [[inputs.snmp.field]]
+        is_tag = true
         name = "upsBasicIdentName"
         oid = "PowerNet-MIB::upsBasicIdentName.0"
       #
