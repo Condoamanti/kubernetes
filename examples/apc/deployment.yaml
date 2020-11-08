@@ -69,20 +69,142 @@ data:
       [[inputs.snmp.field]]
         name = "sysUpTime"
         oid = "RFC1213-MIB::sysUpTime.0"
-
       [[inputs.snmp.field]]
-        name = "upsIdentManufacturer"
-        oid = "PowerNet-MIB::upsIdentManufacturer.0"
-      [[inputs.snmp.field]]
-        name = "upsIdentModel"
-        oid = "PowerNet-MIB::upsIdentModel.0"
-      [[inputs.snmp.field]]
-        name = "upsIdentUPSSoftwareVersion"
-        oid = "PowerNet-MIB::upsIdentUPSSoftwareVersion.0"
+        name = "upsBasicIdentModel"
+        oid = "PowerNet-MIB::upsBasicIdentModel.0"
       [[inputs.snmp.field]]
         name = "upsBasicIdentName"
         oid = "PowerNet-MIB::upsBasicIdentName.0"
-      #
+      [[inputs.snmp.field]]
+        name = "upsAdvIdentFirmwareRevision"
+        oid = "PowerNet-MIB::upsAdvIdentFirmwareRevision.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvIdentDateOfManufacture"
+        oid = "PowerNet-MIB::upsAdvIdentDateOfManufacture.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvIdentSerialNumber"
+        oid = "PowerNet-MIB::upsAdvIdentSerialNumber.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvIdentSkuNumber"
+        oid = "PowerNet-MIB::upsAdvIdentSkuNumber.0"
+    ###########################################  
+      [[inputs.snmp.field]]
+        name = "upsBasicBatteryStatus"
+        oid = "PowerNet-MIB::upsBasicBatteryStatus.0"
+      [[inputs.snmp.field]]
+        name = "upsBasicBatteryTimeOnBattery"
+        oid = "PowerNet-MIB::upsBasicBatteryTimeOnBattery.0"
+      [[inputs.snmp.field]]
+        name = "upsBasicBatteryLastReplaceDate"
+        oid = "PowerNet-MIB::upsBasicBatteryLastReplaceDate.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvBatteryCapacity"
+        oid = "PowerNet-MIB::upsAdvBatteryCapacity.0"
+        [[inputs.snmp.field]]
+        name = "upsAdvBatteryTemperature"
+        oid = "PowerNet-MIB::upsAdvBatteryTemperature.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvBatteryRunTimeRemaining"
+        oid = "PowerNet-MIB::upsAdvBatteryRunTimeRemaining.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvBatteryReplaceIndicator"
+        oid = "PowerNet-MIB::upsAdvBatteryReplaceIndicator.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvBatteryActualVoltage"
+        oid = "PowerNet-MIB::upsAdvBatteryActualVoltage.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvBatteryInternalSKU"
+        oid = "PowerNet-MIB::upsAdvBatteryInternalSKU.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvBatteryRecommendedReplaceDate"
+        oid = "PowerNet-MIB::upsAdvBatteryRecommendedReplaceDate.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecBatteryCapacity"
+        oid = "PowerNet-MIB::upsHighPrecBatteryCapacity.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecBatteryTemperature"
+        oid = "PowerNet-MIB::upsHighPrecBatteryTemperature.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecBatteryActualVoltage"
+        oid = "PowerNet-MIB::upsHighPrecBatteryActualVoltage.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecBattery.13"
+        oid = "PowerNet-MIB::upsHighPrecBattery.13.0"
+      [[inputs.snmp.field]]
+        name = "upsBasicInputPhase"
+        oid = "PowerNet-MIB::upsBasicInputPhase.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvInputLineVoltage"
+        oid = "PowerNet-MIB::upsAdvInputLineVoltage.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvInputMaxLineVoltage"
+        oid = "PowerNet-MIB::upsAdvInputMaxLineVoltage.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvInputMinLineVoltage"
+        oid = "PowerNet-MIB::upsAdvInputMinLineVoltage.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvInputFrequency"
+        oid = "PowerNet-MIB::upsAdvInputFrequency.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvInputLineFailCause"
+        oid = "PowerNet-MIB::upsAdvInputLineFailCause.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecInputLineVoltage"
+        oid = "PowerNet-MIB::upsHighPrecInputLineVoltage.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecInputMaxLineVoltage"
+        oid = "PowerNet-MIB::upsHighPrecInputMaxLineVoltage.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecInputMinLineVoltage"
+        oid = "PowerNet-MIB::upsHighPrecInputMinLineVoltage.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecInputFrequency"
+        oid = "PowerNet-MIB::upsHighPrecInputFrequency.0"
+      [[inputs.snmp.field]]
+        name = "upsBasicOutputStatus"
+        oid = "PowerNet-MIB::upsBasicOutputStatus.0"
+      [[inputs.snmp.field]]
+        name = "upsBasicOutputPhase"
+        oid = "PowerNet-MIB::upsBasicOutputPhase.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvOutputVoltage"
+        oid = "PowerNet-MIB::upsAdvOutputVoltage.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvOutputFrequency"
+        oid = "PowerNet-MIB::upsAdvOutputFrequency.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvOutputLoad"
+        oid = "PowerNet-MIB::upsAdvOutputLoad.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvOutputCurrent"
+        oid = "PowerNet-MIB::upsAdvOutputCurrent.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvOutputActivePower"
+        oid = "PowerNet-MIB::upsAdvOutputActivePower.0"
+      [[inputs.snmp.field]]
+        name = "upsAdvOutputApparentPower"
+        oid = "PowerNet-MIB::upsAdvOutputApparentPower.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecOutputVoltage"
+        oid = "PowerNet-MIB::upsHighPrecOutputVoltage.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecOutputFrequency"
+        oid = "PowerNet-MIB::upsHighPrecOutputFrequency.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecOutputLoad"
+        oid = "PowerNet-MIB::upsHighPrecOutputLoad.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecOutputCurrent"
+        oid = "PowerNet-MIB::upsHighPrecOutputCurrent.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecOutputEfficiency"
+        oid = "PowerNet-MIB::upsHighPrecOutputEfficiency.0"
+      [[inputs.snmp.field]]
+        name = "upsHighPrecOutputEnergyUsage"
+        oid = "PowerNet-MIB::upsHighPrecOutputEnergyUsage.0"
+      [[inputs.snmp.field]]
+        name = "upsBasicConfigNumDevices"
+        oid = "PowerNet-MIB::upsBasicConfigNumDevices.0"
 ---
 # Deployment Configuration
 apiVersion: apps/v1
