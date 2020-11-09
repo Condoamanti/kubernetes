@@ -28,7 +28,7 @@ data:
     ######################################################
     [[inputs.snmp]]
       # List of agents to poll
-      agents = [ "ups1dc1.domain.local" ]
+      agents = ["ups1dc1.domain.local"]
       # Polling interval
       interval = "60s"
       # Timeout for each SNMP query.
