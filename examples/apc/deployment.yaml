@@ -16,7 +16,7 @@ data:
       round_interval = true
     ######################################################
     [[outputs.influxdb]]
-        urls = ["https://influxdb.jittersolutions.com:443"]
+        urls = ["https://influxdb.jittersolutions.com"]
         database = "apc-smartups"
         insecure_skip_verify = true
         #ssl_ca = "/usr/local/etc/telegraf.ca"
