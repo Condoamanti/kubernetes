@@ -16,7 +16,7 @@ data:
       round_interval = true
 
     [[outputs.influxdb]]
-        urls = ["http://k8snode1dc1.jittersolutions.com:30030"]
+        urls = ["https://influxdb.jittersolutions.com:443"]
         database = "unifi-controller"
         insecure_skip_verify = true
         #ssl_ca = "/usr/local/etc/telegraf.ca"
