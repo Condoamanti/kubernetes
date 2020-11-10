@@ -20,67 +20,45 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: unifi-controller-tcp
+  name: unifi-controller
   namespace: unifi-controller
   labels:
     app: unifi-controller
 data:
   TZ: "America/Chicago"
-  CERTNAME: "wild.jittersolutions.com.crt"
-  CERT_PRIVATE_NAME: "wild.jittersolutions.com.key"
-  CERT_IS_CHAIN: "true"
 ---
 # Service Configuration
 apiVersion: v1
 kind: Service
 metadata:
-  name: unifi-controller-tcp
+  name: unifi-controller
   namespace: unifi-controller
 spec:
-  type: LoadBalancer
-  selector:
-    app: unifi-controller
-  externalIPs:
-  - 192.168.110.181
-  - 192.168.110.182
-  - 192.168.110.183
-  - 192.168.110.184
   externalTrafficPolicy: Cluster
   ports:
-    - port: 8080 # HTTPS portal / Device command/control
-      protocol: TCP
-      name: port1
-      targetPort: 8080
-    - port: 8443 # HTTP portal / Web interface + API
-      protocol: TCP 
-      name: port2
-      targetPort: 8443
----
-# Service Configuration
-apiVersion: v1
-kind: Service
-metadata:
-  name: unifi-controller-udp
-  namespace: unifi-controller
-spec:
-  type: LoadBalancer
+  - port: 8080 # HTTPS portal / Device command/control
+    name: port1
+    protocol: TCP
+    targetPort: 8080
+  - port: 8443 # HTTP portal / Web interface + API
+    name: port2
+    protocol: TCP
+    targetPort: 8443
+    nodePort: 30100
+  - port: 3478 # STUN service
+    name: port3
+    protocol: UDP
+    targetPort: 3478
+  - port: 10001 # UBNT Discovery
+    name: port4
+    protocol: UDP
+    targetPort: 10001
   selector:
     app: unifi-controller
-  externalIPs:
-  - 192.168.110.181
-  - 192.168.110.182
-  - 192.168.110.183
-  - 192.168.110.184
-  externalTrafficPolicy: Cluster
-  ports:
-    - port: 3478 # STUN service
-      protocol: UDP 
-      name: port3
-      targetPort: 3478
-    - port: 10001 # UBNT Discovery
-      protocol: UDP
-      name: port4
-      targetPort: 10001
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
 ---
 # Deployment Configuration
 apiVersion: apps/v1
@@ -102,18 +80,12 @@ spec:
       - name: unifi-controller-data
         persistentVolumeClaim:
           claimName: pvc-unifi-controller-data
-      - name: nfs-certificates
-        nfs:
-          server: 192.168.110.245
-          path: /mnt/pool2/kubernetes-data/certificates
       containers:
       - name: unifi-controller
-        image: jacobalberty/unifi:5.14.23
+        image: jacobalberty/unifi:6.0
         volumeMounts:
           - name: unifi-controller-data
             mountPath: /unifi
-          - name: nfs-certificates
-            mountPath: /unifi/cert
         resources:
           requests:
             memory: "512Mi"
