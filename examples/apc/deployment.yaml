@@ -16,7 +16,7 @@ data:
       round_interval = true
     ######################################################
     [[outputs.influxdb]]
-        urls = ["https://influxdb.jittersolutions.com"]
+        urls = ["influxdb.jittersolutions.com:443"]
         database = "apc-smartups"
         insecure_skip_verify = true
         #ssl_ca = "/usr/local/etc/telegraf.ca"
@@ -28,7 +28,7 @@ data:
     ######################################################
     [[inputs.snmp]]
       # List of agents to poll
-      agents = ["ups1dc1"]
+      agents = ["ups1dc1.domain.local"]
       # Polling interval
       interval = "60s"
       # Timeout for each SNMP query.
