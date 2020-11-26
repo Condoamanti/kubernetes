@@ -41,25 +41,16 @@ data:
   influxdb.conf: |
     [meta]
       dir = "/var/lib/influxdb/meta"
-
     [data]
       dir = "/var/lib/influxdb/data"
       engine = "tsm1"
       wal-dir = "/var/lib/influxdb/wal"
-
     [[graphite]]
       enabled = true
       database = "graphite"
       bind-address = ":2003"
       protocol = "tcp"
       consistency-level = "one"
-
-    templates = [
-      #"*.app env.service.resource.measurement",
-      #"servers.* .host.resource.measurement*",
-      # Default template
-      #"server.*",
-    ]
 ---
 # Service Configuration
 apiVersion: v1
