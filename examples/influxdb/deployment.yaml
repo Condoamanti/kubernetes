@@ -55,8 +55,8 @@ data:
       consistency-level = "one"
 
     templates = [
-      "*.app env.service.resource.measurement",
-      "servers.* .host.resource.measurement*",
+      #"*.app env.service.resource.measurement",
+      #"servers.* .host.resource.measurement*",
       # Default template
       #"server.*",
     ]
