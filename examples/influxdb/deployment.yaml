@@ -55,9 +55,50 @@ data:
       consistency-level = "one"
 
     templates = [
-      "servers.*",
-      # Default template
-      #"server.*",
+      # CPU usages
+      "*.*.*.cpu-idle host.host.type.measurement",
+      "*.*.*.cpu-interrupt host.host.type.measurement",
+      "*.*.*.cpu-nice host.host.type.measurement",
+      "*.*.*.cpu-system host.host.type.measurement",
+      "*.*.*.cpu-user host.host.type.measurement",
+      # system load
+      "*.*.load.load.* host.host..measurement.type",
+      # dev temperature (CPU + HDD)
+      "*.*.*.temperature host.host.dev.measurement",
+      # memory usages
+      "*.*.memory.* host.host.measurement.type",
+      # SWAP
+      "*.*.swap.* host.host.measurement.type",
+      # uptime
+      "*.*.uptime.* host.host.measurement.uptime",
+      # Interface info
+      "*.*.*.*.rx host.host.interface.type.measurement",
+      "*.*.*.*.tx host.host.interface.type.measurement",
+      # Processes
+      "*.*.processes.* host.host.measurement.type",
+      # ZFS ARC Info
+      "*.*.zfs_arc.* host.host.measurement.type",
+      # ZFS ARC v2 Info
+      "*.*.zfs_arc_v2.* host.host.measurement.type",
+      # Disk Info 1
+      "*.*.*.disk_io_time.* host.host.dev.measurement.type",
+      "*.*.*.disk_octets.* host.host.dev.measurement.type",
+      "*.*.*.disk_ops.* host.host.dev.measurement.type",
+      "*.*.*.disk_time.* host.host.dev.measurement.type",
+      "*.*.*.disk_octets-0-0.* host.host.dev.measurement.type",
+      "*.*.*.disk_ops-0-0.* host.host.dev.measurement.type",
+      "*.*.*.disk_time-0-0.* host.host.dev.measurement.type",
+      # Disk geom Info
+      "*.*.geom_stat.* host.host.measurement.type",
+      "*.*.geom_stat.*.* host.host.measurement.type.rwd",
+      # Disk partition
+      "*.*.*.df_complex-free host.host.partition.measurement",
+      "*.*.*.df_complex-reserved host.host.partition.measurement",
+      "*.*.*.df_complex-used host.host.partition.measurement",
+      # RRDcached Info
+      "*.*.rrdcached.* host.host.measurement.type",
+      # Default
+      "host.host.measurement*"
     ]
 ---
 # Service Configuration
