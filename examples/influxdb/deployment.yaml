@@ -55,7 +55,15 @@ data:
       consistency-level = "one"
 
     templates = [
-      "*.*.*.percent-idle .host.cpu.measurement*",
+      # CPU Metrics
+      "*.*.*.percent-idle .host.cpu.measurement*"
+      "*.*.*.percent-interrupt .host.cpu.measurement*"
+      "*.*.*.percent-nice .host.cpu.measurement*"
+      "*.*.*.percent-system .host.cpu.measurement*"
+      "*.*.*.percent-user .host.cpu.measurement*"
+      "*.*.*.temperature .host.cputemp.measurement*"
+      # Memory Metrics
+      "*.*.memory.* .host.type.measurement*"
     ]
 ---
 # Service Configuration
