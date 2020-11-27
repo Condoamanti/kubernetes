@@ -55,7 +55,7 @@ data:
       consistency-level = "one"
 
     templates = [
-      "*.*.*.cpu-idle .host.cpu.measurement*",
+      "*.*.*.percent-idle .host.cpu.measurement*",
     ]
 ---
 # Service Configuration
