@@ -55,7 +55,7 @@ data:
       consistency-level = "one"
 
     templates = [
-      servers.*,
+      "servers.*",
       # Default template
       #"server.*",
     ]
