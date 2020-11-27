@@ -55,14 +55,7 @@ data:
       consistency-level = "one"
 
     templates = [
-      "*.*.*.cpu-idle .host.type.measurement*",
-      "*.*.*.cpu-interrupt .host.type.measurement*",
-      "*.*.*.cpu-nice .host.type.measurement*",
-      "*.*.*.cpu-system .host.type.measurement*",
-      "*.*.*.cpu-user .host.type.measurement*",
-
-      # Default
-      "host.host.measurement*"
+      "*.*.*.cpu-idle .host.cpu.measurement*",
     ]
 ---
 # Service Configuration
