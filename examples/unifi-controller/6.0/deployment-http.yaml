@@ -82,7 +82,7 @@ spec:
           claimName: pvc-unifi-controller-data
       containers:
       - name: unifi-controller
-        image: jacobalberty/unifi:6.0
+        image: jacobalberty/unifi:stable-6
         volumeMounts:
           - name: unifi-controller-data
             mountPath: /unifi
