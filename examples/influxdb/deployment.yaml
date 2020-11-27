@@ -55,11 +55,6 @@ data:
       consistency-level = "one"
 
     templates = [
-      # Memory
-      "*",
-      "*.*.memory.* host.host.measurement.type",
-      # Default
-      ".host.resource.measurement*"
     ]
 ---
 # Service Configuration
