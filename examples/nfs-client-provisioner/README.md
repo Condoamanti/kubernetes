@@ -1,10 +1,10 @@
 # nfs-client-provisioner
 ### Documentation:
-1. https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/tree/master/deploy
+1. https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
 
 ### Requirements:
 1. nfs-client (This must be configured on all worker nodes)
-    - CentOS8 / dnf install nfs-utils nfs4-acl-tools
+    - CentOS7 / yum install nfs-utils
 2. Configure fstab by adding the following line (This must be configured on all worker nodes)
     - `192.168.110.245:/mnt/pool2/kubernetes-data/    /mnt/pool2/kubernetes-data/   nfs defaults 0 0`
 3. Create the `dynamic` folder at `/mnt/pool2/kubernetes-data/`
