@@ -23,3 +23,8 @@
 ### Configuration Validation
 1. Create a test Persistent Volume Claim (PVC) and pod using the test-pod.yaml
     - `kubectl apply -f test-pod.yaml`
+
+### Known Issues
+1. Kubernetes v1.20
+    1. Using Kubernetes v1.20.0, getting "unexpected error getting claim reference: selfLink was empty, can't make reference"
+        - https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/issues/25#issuecomment-742616668
