@@ -120,7 +120,7 @@ spec:
         persistentVolumeClaim:
           claimName: pvc-gitlab-server-var-logs-gitlab
       containers:
-      - name: grafana-server
+      - name: gitlab-server
         image: gitlab/gitlab-ce:latest
         volumeMounts:
           - name: gitlab-server-etc-gitlab
