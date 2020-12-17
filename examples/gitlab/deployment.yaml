@@ -130,12 +130,12 @@ spec:
           - name: gitlab-server-var-logs-gitlab
             mountPath: /var/log/gitlab
         resources:
-          requests:
-            memory: "1024Mi"
-            cpu: "1000m"
           limits:
-            memory: "4096Mi"
+            memory: "5Gi"
             cpu: "2000m"
+          requests:
+            memory: "1Gi"
+            cpu: "1000m"
         envFrom:
           - configMapRef:
               name: gitlab-server
