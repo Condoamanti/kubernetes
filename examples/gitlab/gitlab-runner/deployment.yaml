@@ -19,8 +19,10 @@ data:
         namespace = "gitlab-ce"
         privileged = true
         poll_timeout = 600
-        cpu_request = "1"
-        service_cpu_request = "200m"
+        cpu_request = "100m"
+        cpu_limit = "200m"
+        service_cpu_request = "100m"
+        service_cpu_limit = "200m"
         [[runners.kubernetes.volumes.host_path]]
             name = "docker"
             mount_path = "/var/run/docker.sock"
