@@ -24,7 +24,6 @@ data:
         cpu_limit = "200m"
         service_cpu_request = "100m"
         service_cpu_limit = "200m"
-        helper_image = "my.registry.local/gitlab/gitlab-runner-helper:tag"
         [[runners.kubernetes.volumes.host_path]]
             name = "docker"
             mount_path = "/var/run/docker.sock"
