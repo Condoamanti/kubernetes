@@ -15,7 +15,10 @@ data:
       url = "http://gitlab/"
       token = "AXUcv82yWYzVzBWy965V"
       executor = "kubernetes"
-      environment = ["FF_GITLAB_REGISTRY_HELPER_IMAGE=true"]
+      # https://docs.gitlab.com/runner/configuration/feature-flags.html
+      environment = [
+        "FF_GITLAB_REGISTRY_HELPER_IMAGE=true"
+      ]
       [runners.kubernetes]
         namespace = "gitlab-ce"
         privileged = true
