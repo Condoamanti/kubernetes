@@ -121,10 +121,10 @@ spec:
         resources:
           limits:
             memory: "4Gi"
-            cpu: 2
+            cpu: 1000m
           requests:
             memory: "1Gi"
-            cpu: 1
+            cpu: 500m
         env:
         - name: GITLAB_OMNIBUS_CONFIG
           value: "external_url 'https://gitlab.jittersolutions.com'; gitlab_rails['packages_enabled'] = true"
