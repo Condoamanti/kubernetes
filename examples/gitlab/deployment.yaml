@@ -127,7 +127,7 @@ spec:
             cpu: 1
         env:
         - name: GITLAB_OMNIBUS_CONFIG
-          value: "external_url 'http://gitlab.jittersolutions.com'; gitlab_rails['packages_enabled'] = true"
+          value: "external_url 'https://gitlab.jittersolutions.com'; gitlab_rails['packages_enabled'] = true"
         ports:
         - containerPort: 80
           name: http
