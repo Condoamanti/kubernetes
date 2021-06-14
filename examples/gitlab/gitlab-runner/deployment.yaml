@@ -12,12 +12,13 @@ data:
       session_timeout = 1800
     [[runners]]
       name = "gitlab-runner"
-      url = "https://gitlab.jittersolutions.com"
+      url = "https://gitlab"
       token = "AXUcv82yWYzVzBWy965V"
       executor = "kubernetes"
       # https://docs.gitlab.com/runner/configuration/feature-flags.html
       environment = [
         "FF_GITLAB_REGISTRY_HELPER_IMAGE=true"
+        "GIT_SSL_NO_VERIFY=true"
       ]
       [runners.kubernetes]
         namespace = "gitlab-ce"
