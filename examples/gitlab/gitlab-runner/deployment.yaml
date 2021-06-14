@@ -17,8 +17,7 @@ data:
       executor = "kubernetes"
       # https://docs.gitlab.com/runner/configuration/feature-flags.html
       environment = [
-        "FF_GITLAB_REGISTRY_HELPER_IMAGE=true",
-        "GIT_SSL_NO_VERIFY=true"
+        "FF_GITLAB_REGISTRY_HELPER_IMAGE=true"
       ]
       [runners.kubernetes]
         namespace = "gitlab-ce"
