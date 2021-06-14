@@ -12,7 +12,7 @@ data:
       session_timeout = 1800
     [[runners]]
       name = "gitlab-runner"
-      url = "https://gitlab/"
+      url = "https://gitlab.jittersolutions.com/"
       token = "AXUcv82yWYzVzBWy965V"
       executor = "kubernetes"
       # https://docs.gitlab.com/runner/configuration/feature-flags.html
@@ -58,9 +58,6 @@ spec:
           image: gitlab/gitlab-runner:latest
           imagePullPolicy: Always
           name: gitlab-runner
-          env:
-          - name: GIT_SSL_NO_VERIFY
-            value: true
           resources:
             requests:
               memory: "64Mi"
