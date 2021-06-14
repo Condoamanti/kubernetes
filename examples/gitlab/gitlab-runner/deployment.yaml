@@ -58,6 +58,9 @@ spec:
           image: gitlab/gitlab-runner:latest
           imagePullPolicy: Always
           name: gitlab-runner
+          env:
+          - name: GIT_SSL_NO_VERIFY
+            value: true
           resources:
             requests:
               memory: "64Mi"
