@@ -19,6 +19,7 @@ data:
       environment = [
         "FF_GITLAB_REGISTRY_HELPER_IMAGE=true"
       ]
+      # https://docs.gitlab.com/runner/executors/kubernetes.html
       [runners.kubernetes]
         namespace = "gitlab-ce"
         privileged = true
