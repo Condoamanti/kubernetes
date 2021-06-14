@@ -6,7 +6,7 @@ metadata:
   namespace: gitlab-ce
 data:
   config.toml: |-
-    concurrent = 4
+    concurrent = 2
     check_interval = 0
     [session_server]
       session_timeout = 1800
@@ -19,6 +19,7 @@ data:
       environment = [
         "FF_GITLAB_REGISTRY_HELPER_IMAGE=true"
       ]
+      helper_image_flavor = "ubuntu"
       # https://docs.gitlab.com/runner/executors/kubernetes.html
       [runners.kubernetes]
         namespace = "gitlab-ce"
