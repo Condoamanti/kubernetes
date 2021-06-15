@@ -30,9 +30,11 @@ data:
         service_cpu_limit = "200m"
         # https://docs.gitlab.com/runner/executors/kubernetes.html#pods-dns-config
         [runners.kubernetes.dns_config]
+          searches = [
+          ]
           [[runners.kubernetes.dns_config.options]]
             name = "ndots"
-            value = "0"
+            value = "1"
           [[runners.kubernetes.dns_config.options]]
             name = "edns0"
 ---
