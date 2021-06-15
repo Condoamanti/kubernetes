@@ -28,12 +28,13 @@ data:
         cpu_limit = "200m"
         service_cpu_request = "100m"
         service_cpu_limit = "200m"
+        # https://docs.gitlab.com/runner/executors/kubernetes.html#pods-dns-config
         [runners.kubernetes.dns_config]
-        [[runners.kubernetes.dns_config.options]]
-          name = "ndots"
-          value = "2"
-        [[runners.kubernetes.dns_config.options]]
-          name = "edns0"
+          [[runners.kubernetes.dns_config.options]]
+            name = "ndots"
+            value = "1"
+          [[runners.kubernetes.dns_config.options]]
+            name = "edns0"
         #[[runners.kubernetes.volumes.host_path]]
         #    name = "docker"
         #    mount_path = "/var/run/docker.sock"
