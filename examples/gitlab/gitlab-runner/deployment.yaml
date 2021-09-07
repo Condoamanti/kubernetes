@@ -4,6 +4,8 @@ kind: ConfigMap
 metadata:
   name: gitlab-runner-config
   namespace: gitlab-ce
+  labels:
+    app.kubernetes.io/instance: gitlab-runner
 data:
   config.toml: |-
     concurrent = 2
@@ -48,6 +50,8 @@ kind: Deployment
 metadata:
   name: gitlab-runner
   namespace: gitlab-ce
+  labels:
+    app.kubernetes.io/instance: gitlab-runner
 spec:
   replicas: 1
   selector:
