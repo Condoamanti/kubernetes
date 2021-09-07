@@ -7,7 +7,7 @@ metadata:
 data:
   config.toml: |-
     concurrent = 2
-    check_interval = 0
+    check_interval = 30
     [session_server]
       session_timeout = 1800
     [[runners]]
@@ -37,6 +37,11 @@ data:
             value = "1"
           [[runners.kubernetes.dns_config.options]]
             name = "edns0"
+        [[runners.kubernetes.volumes.host_path]]
+          name = "docker"
+          path = "/var/run/docker.sock"
+          mount_path = "/var/run/docker.sock"
+          read_only = false
 ---
 apiVersion: apps/v1
 kind: Deployment
