@@ -37,16 +37,6 @@ data:
             value = "1"
           [[runners.kubernetes.dns_config.options]]
             name = "edns0"
-        [runners.kubernetes.volumes]                                                     
-          [[runners.kubernetes.volumes.host_path]]                                       
-            name = "docker"                                                              
-            mount_path = "/var/run/docker.sock"                                          
-            host_path = "/var/run/docker.sock"                                           
-          [[runners.kubernetes.volumes.host_path]]                                       
-            name = "dockerlib"                                                           
-            mount_path = "/var/lib/docker"                                               
-            host_path = "/var/lib/docker"
-
 ---
 apiVersion: apps/v1
 kind: Deployment
