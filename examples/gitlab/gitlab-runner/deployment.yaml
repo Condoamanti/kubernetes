@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: gitlab-runner
 data:
   config.toml: |-
-    concurrent = 2
+    concurrent = 1
     check_interval = 30
     [session_server]
       session_timeout = 1800
@@ -17,6 +17,7 @@ data:
       url = "https://gitlab.jittersolutions.com"
       token = "AXUcv82yWYzVzBWy965V"
       executor = "kubernetes"
+      builds_dir = "/builds"
       # https://docs.gitlab.com/runner/configuration/feature-flags.html
       environment = [
         "FF_GITLAB_REGISTRY_HELPER_IMAGE=true"
@@ -30,6 +31,7 @@ data:
         cpu_limit = "200m"
         service_cpu_request = "100m"
         service_cpu_limit = "200m"
+        pull_policy = ["always", "if-not-present"]
         # https://docs.gitlab.com/runner/executors/kubernetes.html#pods-dns-config
         [runners.kubernetes.dns_config]
           searches = [
