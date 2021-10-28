@@ -22,3 +22,8 @@
     - https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 4. Deployment:
     - https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+
+### Saltstack
+- Reference the below links for automated configuration of kubernetes nodes
+    1. https://github.com/Condoamanti/salt-states
+    2. https://github.com/Condoamanti/salt-pillar
