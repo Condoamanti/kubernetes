@@ -4,6 +4,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: leader-locking-nfs-client-provisioner
   namespace: nfs-client-provisioner
+  labels:
+    app.kubernetes.io/instance: nfs-client-provisioner
 rules:
   - apiGroups: [""]
     resources: ["endpoints"]
@@ -13,6 +15,8 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: standard              # Name of storage class to use or choose another name, must match deployment's env PROVISIONER_NAME'
+  labels:
+    app.kubernetes.io/instance: nfs-client-provisioner
 provisioner: nfs-client/nfs
 parameters:
   archiveOnDelete: "false"    # When set to "false" your PVs will not be archived by the provisioner upon deletion of the PVC
@@ -23,6 +27,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: nfs-client-provisioner-runner
   namespace: nfs-client-provisioner
+  labels:
+    app.kubernetes.io/instance: nfs-client-provisioner
 rules:
   - apiGroups: [""]
     resources: ["persistentvolumes"]
@@ -42,6 +48,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: run-nfs-client-provisioner
   namespace: nfs-client-provisioner
+  labels:
+    app.kubernetes.io/instance: nfs-client-provisioner
 subjects:
   - kind: ServiceAccount
     name: nfs-client-provisioner
@@ -56,6 +64,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: leader-locking-nfs-client-provisioner
   namespace: nfs-client-provisioner
+  labels:
+    app.kubernetes.io/instance: nfs-client-provisioner
 subjects:
   - kind: ServiceAccount
     name: nfs-client-provisioner
@@ -71,12 +81,16 @@ kind: ServiceAccount
 metadata:
   name: nfs-client-provisioner
   namespace: nfs-client-provisioner
+  labels:
+    app.kubernetes.io/instance: nfs-client-provisioner
 ---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: nfs-client-provisioner
   namespace: nfs-client-provisioner
+  labels:
+    app.kubernetes.io/instance: nfs-client-provisioner
 spec:
   replicas: 1
   selector:
