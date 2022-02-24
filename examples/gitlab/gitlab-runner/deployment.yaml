@@ -72,7 +72,7 @@ spec:
       containers:
         - args:
           - run
-          image: gitlab/gitlab-runner:latest
+          image: docker.io/gitlab/gitlab-runner:latest
           imagePullPolicy: Always
           name: gitlab-runner
           resources:
