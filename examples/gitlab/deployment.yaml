@@ -110,7 +110,7 @@ spec:
           claimName: pvc-gitlab-server-var-logs-gitlab
       containers:
       - name: gitlab-server
-        image: gitlab/gitlab-ce:latest
+        image: docker.io/gitlab/gitlab-ce:latest
         volumeMounts:
           - name: gitlab-server-etc-gitlab
             mountPath: /etc/gitlab
