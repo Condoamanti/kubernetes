@@ -42,9 +42,9 @@ data:
           [[runners.kubernetes.dns_config.options]]
             name = "edns0"
         [[runners.kubernetes.volumes.host_path]]
-          name = "docker"
-          path = "/var/run/docker.sock"
-          mount_path = "/var/run/docker.sock"
+          name = "crio"
+          path = "/var/run/crio/crio.sock"
+          mount_path = "/var/run/crio/crio.sock"
           read_only = false
 ---
 apiVersion: apps/v1
