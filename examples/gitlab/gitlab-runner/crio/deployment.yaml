@@ -15,7 +15,7 @@ data:
     [[runners]]
       name = "gitlab-runner"
       url = "https://gitlab.jittersolutions.com"
-      token = "AXUcv82yWYzVzBWy965V"
+      token = "zAxkpgCEPRhJe9iCnEsF"
       executor = "kubernetes"
       builds_dir = "/builds"
       # https://docs.gitlab.com/runner/configuration/feature-flags.html
@@ -47,6 +47,36 @@ data:
           mount_path = "/var/run/crio/crio.sock"
           read_only = false
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gitlab-admin
+  namespace: gitlab-ce
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: gitlab-ce
+  name: gitlab-admin
+rules:
+  - apiGroups: [""]
+    resources: ["*"]
+    verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: gitlab-admin
+  namespace: gitlab-ce
+subjects:
+  - kind: ServiceAccount
+    name: gitlab-admin
+    namespace: gitlab-ce
+roleRef:
+  kind: Role
+  name: gitlab-admin
+  apiGroup: rbac.authorization.k8s.io
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -64,7 +94,7 @@ spec:
       labels:
         name: gitlab-runner
     spec:
-      serviceAccountName: gitlab
+      serviceAccountName: gitlab-admin
       volumes:
         - name: config
           configMap:
@@ -85,7 +115,7 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /etc/gitlab-runner/config.toml
-              readOnly: true
+              readOnly: false
               subPath: config.toml
       restartPolicy: Always
 ---
