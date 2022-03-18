@@ -157,12 +157,15 @@ roleRef:
   kind: ClusterRole
   name: gitlab
 ---
+# This cluster role will provide full access to the cluster
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: gitlab
 rules:
-  - apiGroups: [""]
+  - apiGroups: ["*"]
     resources: ["*"]
+    verbs: ["*"]
+  - nonResourceURLs: ["*"]
     verbs: ["*"]
 ---
